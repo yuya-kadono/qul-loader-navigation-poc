@@ -1,7 +1,9 @@
 // TransitionManager.qml
 // View 主導ライフサイクルのオーケストレータ (§9)。
 //
-// viewId は NavigationTable の整数 enum (§5-2)。0 = 未指定。
+// viewId は ViewId enum (§5-2)。0 = 未指定。
+// direction は Direction.Direction.Next/Back。
+// lifecycle は Lifecycle.Lifecycle.Idle/Entering/Leaving。
 //
 // QUL 移植性: signal + Connections は使わない。
 //   - transitionFinished signal の代替: finishedGen / lastFinishedViewId プロパティ
@@ -21,22 +23,13 @@
 
 pragma Singleton
 import QtQuick
-import QulLoaderNavigation
+import Constants
 
 QtObject {
     id: tm
 
-    // ---- Direction enum ----
-    readonly property int directionNext: 0
-    readonly property int directionBack: 1
-
-    // ---- Lifecycle enum ----
-    readonly property int lifecycleIdle:     0
-    readonly property int lifecycleEntering: 1
-    readonly property int lifecycleLeaving:  2
-
     // ---- 進行状態 (Idle / InProgress) ----
-    property int state: lifecycleIdle
+    property int state: Lifecycle.Lifecycle.Idle
 
     // ---- Scene スロット (Main.qml がバインド) ----
     property string sceneSourceA: ""
@@ -53,10 +46,10 @@ QtObject {
     property string viewSlotBSource: ""
     property int    viewSlotAViewId: 0      // 0 = unset
     property int    viewSlotBViewId: 0
-    property int    viewSlotALifecycle: lifecycleIdle
-    property int    viewSlotBLifecycle: lifecycleIdle
-    property int    viewSlotADirection:  directionNext
-    property int    viewSlotBDirection:  directionNext
+    property int    viewSlotALifecycle: Lifecycle.Lifecycle.Idle
+    property int    viewSlotBLifecycle: Lifecycle.Lifecycle.Idle
+    property int    viewSlotADirection:  Direction.Direction.Next
+    property int    viewSlotBDirection:  Direction.Direction.Next
     property int    viewSlotAPartnerId:  0  // 0 = unset
     property int    viewSlotBPartnerId:  0
     property bool   viewAIsCurrent: true
@@ -78,12 +71,12 @@ QtObject {
     function lifecycleOf(viewId) {
         if (viewSlotAViewId === viewId) return viewSlotALifecycle
         if (viewSlotBViewId === viewId) return viewSlotBLifecycle
-        return lifecycleIdle
+        return Lifecycle.Lifecycle.Idle
     }
     function directionOf(viewId) {
         if (viewSlotAViewId === viewId) return viewSlotADirection
         if (viewSlotBViewId === viewId) return viewSlotBDirection
-        return directionNext
+        return Direction.Direction.Next
     }
     function partnerOf(viewId) {
         if (viewSlotAViewId === viewId) return viewSlotAPartnerId
@@ -96,34 +89,34 @@ QtObject {
     // ============================================================
     function reportEnterComplete(viewId) {
         Logger.log("TransitionManager", "reportEnterComplete",
-                   "viewId=" + NavigationTable.nameOf(viewId),
-                   "slotA(" + NavigationTable.nameOf(viewSlotAViewId) + ")=" + Logger.lcName(viewSlotALifecycle)
-                   + ", slotB(" + NavigationTable.nameOf(viewSlotBViewId) + ")=" + Logger.lcName(viewSlotBLifecycle))
-        if (viewSlotAViewId === viewId && viewSlotALifecycle === lifecycleEntering) {
+                   "viewId=" + ViewId.nameOf(viewId),
+                   "slotA(" + ViewId.nameOf(viewSlotAViewId) + ")=" + Lifecycle.nameOf(viewSlotALifecycle)
+                   + ", slotB(" + ViewId.nameOf(viewSlotBViewId) + ")=" + Lifecycle.nameOf(viewSlotBLifecycle))
+        if (viewSlotAViewId === viewId && viewSlotALifecycle === Lifecycle.Lifecycle.Entering) {
             enterReported = true
-        } else if (viewSlotBViewId === viewId && viewSlotBLifecycle === lifecycleEntering) {
+        } else if (viewSlotBViewId === viewId && viewSlotBLifecycle === Lifecycle.Lifecycle.Entering) {
             enterReported = true
         }
         checkAndFinish()
     }
     function reportLeaveComplete(viewId) {
         Logger.log("TransitionManager", "reportLeaveComplete",
-                   "viewId=" + NavigationTable.nameOf(viewId),
-                   "slotA(" + NavigationTable.nameOf(viewSlotAViewId) + ")=" + Logger.lcName(viewSlotALifecycle)
-                   + ", slotB(" + NavigationTable.nameOf(viewSlotBViewId) + ")=" + Logger.lcName(viewSlotBLifecycle))
-        if (viewSlotAViewId === viewId && viewSlotALifecycle === lifecycleLeaving) {
+                   "viewId=" + ViewId.nameOf(viewId),
+                   "slotA(" + ViewId.nameOf(viewSlotAViewId) + ")=" + Lifecycle.nameOf(viewSlotALifecycle)
+                   + ", slotB(" + ViewId.nameOf(viewSlotBViewId) + ")=" + Lifecycle.nameOf(viewSlotBLifecycle))
+        if (viewSlotAViewId === viewId && viewSlotALifecycle === Lifecycle.Lifecycle.Leaving) {
             leaveReported = true
-        } else if (viewSlotBViewId === viewId && viewSlotBLifecycle === lifecycleLeaving) {
+        } else if (viewSlotBViewId === viewId && viewSlotBLifecycle === Lifecycle.Lifecycle.Leaving) {
             leaveReported = true
         }
         checkAndFinish()
     }
 
     function checkAndFinish() {
-        var enterNeeded = (viewSlotALifecycle === lifecycleEntering
-                        || viewSlotBLifecycle === lifecycleEntering)
-        var leaveNeeded = (viewSlotALifecycle === lifecycleLeaving
-                        || viewSlotBLifecycle === lifecycleLeaving)
+        var enterNeeded = (viewSlotALifecycle === Lifecycle.Lifecycle.Entering
+                        || viewSlotBLifecycle === Lifecycle.Lifecycle.Entering)
+        var leaveNeeded = (viewSlotALifecycle === Lifecycle.Lifecycle.Leaving
+                        || viewSlotBLifecycle === Lifecycle.Lifecycle.Leaving)
         Logger.log("TransitionManager", "checkAndFinish", "",
                    "enterNeeded=" + enterNeeded + "/reported=" + enterReported
                    + ", leaveNeeded=" + leaveNeeded + "/reported=" + leaveReported)
@@ -137,28 +130,28 @@ QtObject {
                    "isCrossScene=" + isCrossScene
                    + ", sceneAIsCurrent=" + sceneAIsCurrent
                    + ", viewAIsCurrent=" + viewAIsCurrent
-                   + ", pendingFinalId=" + NavigationTable.nameOf(pendingFinalId))
+                   + ", pendingFinalId=" + ViewId.nameOf(pendingFinalId))
         // Leaving 側のスロットを解放
-        if (viewSlotALifecycle === lifecycleLeaving) {
+        if (viewSlotALifecycle === Lifecycle.Lifecycle.Leaving) {
             viewSlotASource = ""
             viewSlotAViewId = 0
             viewSlotAPartnerId = 0
-            viewSlotALifecycle = lifecycleIdle
+            viewSlotALifecycle = Lifecycle.Lifecycle.Idle
         }
-        if (viewSlotBLifecycle === lifecycleLeaving) {
+        if (viewSlotBLifecycle === Lifecycle.Lifecycle.Leaving) {
             viewSlotBSource = ""
             viewSlotBViewId = 0
             viewSlotBPartnerId = 0
-            viewSlotBLifecycle = lifecycleIdle
+            viewSlotBLifecycle = Lifecycle.Lifecycle.Idle
         }
         // Entering 側のスロットを current に昇格
-        if (viewSlotALifecycle === lifecycleEntering) {
-            viewSlotALifecycle = lifecycleIdle
+        if (viewSlotALifecycle === Lifecycle.Lifecycle.Entering) {
+            viewSlotALifecycle = Lifecycle.Lifecycle.Idle
             viewSlotAPartnerId = 0
             viewAIsCurrent = true
         }
-        if (viewSlotBLifecycle === lifecycleEntering) {
-            viewSlotBLifecycle = lifecycleIdle
+        if (viewSlotBLifecycle === Lifecycle.Lifecycle.Entering) {
+            viewSlotBLifecycle = Lifecycle.Lifecycle.Idle
             viewSlotBPartnerId = 0
             viewAIsCurrent = false
         }
@@ -174,7 +167,7 @@ QtObject {
             }
         }
 
-        state = lifecycleIdle
+        state = Lifecycle.Lifecycle.Idle
         KeyDispatcher.enabled = true
         enterReported = false
         leaveReported = false
@@ -187,11 +180,11 @@ QtObject {
         lastFinishedViewId = finalId
         finishedGen = finishedGen + 1
         Logger.log("TransitionManager", "transition finished",
-                   "finalViewId=" + NavigationTable.nameOf(finalId) + ", gen=" + finishedGen,
+                   "finalViewId=" + ViewId.nameOf(finalId) + ", gen=" + finishedGen,
                    "sceneSourceA=" + sceneSourceA + ", sceneSourceB=" + sceneSourceB
                    + ", sceneAIsCurrent=" + sceneAIsCurrent
-                   + ", viewSlotA(" + NavigationTable.nameOf(viewSlotAViewId) + ")"
-                   + ", viewSlotB(" + NavigationTable.nameOf(viewSlotBViewId) + ")"
+                   + ", viewSlotA(" + ViewId.nameOf(viewSlotAViewId) + ")"
+                   + ", viewSlotB(" + ViewId.nameOf(viewSlotBViewId) + ")"
                    + ", viewAIsCurrent=" + viewAIsCurrent)
     }
 
@@ -199,30 +192,31 @@ QtObject {
     // 遷移開始
     // ============================================================
     function startTransition(toViewId, direction) {
-        if (direction === undefined) direction = directionNext
+        if (direction === undefined) direction = Direction.Direction.Next
 
         var fromViewId = (viewAIsCurrent ? viewSlotAViewId : viewSlotBViewId)
-        var targetScene = NavigationTable.sceneFileOf(toViewId)
-        var targetView  = NavigationTable.viewFileOf(toViewId)
+        var targetSceneId = ViewId.sceneOf(toViewId)
+        var targetScene = SceneId.fileOf(targetSceneId)
+        var targetView  = ViewId.fileOf(toViewId)
         if (targetScene === "" || targetView === "") {
             Logger.log("TransitionManager", "startTransition ABORT",
-                       "toViewId=" + NavigationTable.nameOf(toViewId),
+                       "toViewId=" + ViewId.nameOf(toViewId),
                        "unknown view ID")
             return
         }
-        var fromSceneId = (fromViewId !== 0) ? NavigationTable.sceneOf(fromViewId) : 0
-        var sceneChanged = (fromSceneId !== NavigationTable.sceneOf(toViewId))
+        var fromSceneId = (fromViewId !== 0) ? ViewId.sceneOf(fromViewId) : 0
+        var sceneChanged = (fromSceneId !== targetSceneId)
         Logger.log("TransitionManager", "startTransition",
-                   "toViewId=" + NavigationTable.nameOf(toViewId)
-                   + ", direction=" + Logger.dirName(direction),
-                   "fromViewId=" + NavigationTable.nameOf(fromViewId)
+                   "toViewId=" + ViewId.nameOf(toViewId)
+                   + ", direction=" + Direction.nameOf(direction),
+                   "fromViewId=" + ViewId.nameOf(fromViewId)
                    + ", sceneChanged=" + sceneChanged
                    + ", hasLeavingView=" + (fromViewId !== 0)
                    + ", targetScene=" + targetScene
                    + ", targetView=" + targetView)
 
         KeyDispatcher.enabled = false
-        state = lifecycleEntering
+        state = Lifecycle.Lifecycle.Entering
         enterReported = false
         leaveReported = false
         pendingFinalId = toViewId
@@ -250,13 +244,13 @@ QtObject {
             viewSlotAViewId     = toViewId
             viewSlotADirection  = direction
             viewSlotAPartnerId  = fromViewId
-            viewSlotALifecycle  = lifecycleEntering
+            viewSlotALifecycle  = Lifecycle.Lifecycle.Entering
 
             // (2) Leaving = B の metadata
             if (hasLeavingView) {
                 viewSlotBDirection  = direction
                 viewSlotBPartnerId  = toViewId
-                viewSlotBLifecycle  = lifecycleLeaving
+                viewSlotBLifecycle  = Lifecycle.Lifecycle.Leaving
             }
 
             // (3) Incoming = A の source は最後
@@ -266,13 +260,13 @@ QtObject {
             viewSlotBViewId     = toViewId
             viewSlotBDirection  = direction
             viewSlotBPartnerId  = fromViewId
-            viewSlotBLifecycle  = lifecycleEntering
+            viewSlotBLifecycle  = Lifecycle.Lifecycle.Entering
 
             // (2) Leaving = A の metadata
             if (hasLeavingView) {
                 viewSlotADirection  = direction
                 viewSlotAPartnerId  = toViewId
-                viewSlotALifecycle  = lifecycleLeaving
+                viewSlotALifecycle  = Lifecycle.Lifecycle.Leaving
             }
 
             // (3) Incoming = B の source は最後
@@ -280,8 +274,8 @@ QtObject {
         }
         Logger.log("TransitionManager", "startTransition done", "",
                    "incomingIsA=" + incomingIsA
-                   + ", slotA(" + NavigationTable.nameOf(viewSlotAViewId) + ")=" + Logger.lcName(viewSlotALifecycle)
-                   + ", slotB(" + NavigationTable.nameOf(viewSlotBViewId) + ")=" + Logger.lcName(viewSlotBLifecycle))
+                   + ", slotA(" + ViewId.nameOf(viewSlotAViewId) + ")=" + Lifecycle.nameOf(viewSlotALifecycle)
+                   + ", slotB(" + ViewId.nameOf(viewSlotBViewId) + ")=" + Lifecycle.nameOf(viewSlotBLifecycle))
     }
 
     // ============================================================
@@ -290,20 +284,20 @@ QtObject {
     function forceUnloadCurrentView() {
         Logger.log("TransitionManager", "forceUnloadCurrentView", "",
                    "viewAIsCurrent=" + viewAIsCurrent
-                   + ", slotA=" + NavigationTable.nameOf(viewSlotAViewId)
-                   + ", slotB=" + NavigationTable.nameOf(viewSlotBViewId))
+                   + ", slotA=" + ViewId.nameOf(viewSlotAViewId)
+                   + ", slotB=" + ViewId.nameOf(viewSlotBViewId))
         if (viewAIsCurrent) {
             viewSlotASource = ""
             viewSlotAViewId = 0
             viewSlotAPartnerId = 0
-            viewSlotALifecycle = lifecycleIdle
+            viewSlotALifecycle = Lifecycle.Lifecycle.Idle
         } else {
             viewSlotBSource = ""
             viewSlotBViewId = 0
             viewSlotBPartnerId = 0
-            viewSlotBLifecycle = lifecycleIdle
+            viewSlotBLifecycle = Lifecycle.Lifecycle.Idle
         }
-        state = lifecycleIdle
+        state = Lifecycle.Lifecycle.Idle
         enterReported = false
         leaveReported = false
         pendingFinalId = 0
@@ -318,7 +312,7 @@ QtObject {
     function abortCurrentTransition() {
         Logger.log("TransitionManager", "abortCurrentTransition", "",
                    "state=" + state)
-        if (state === lifecycleIdle) return
+        if (state === Lifecycle.Lifecycle.Idle) return
         enterReported = true
         leaveReported = true
         finalizeTransition()

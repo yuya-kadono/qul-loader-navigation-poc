@@ -2,9 +2,10 @@
 // Opening シーン。吸収ルールなし (§8-6)。
 
 import QtQuick
-import QulLoaderNavigation
+import Constants
+import Mediator
 
 SceneBase {
-    thisSceneId: NavigationTable.sceneOpening
+    thisSceneId: SceneId.SceneId.Opening
     // handleAbsorb は base のデフォルト (常に false) を使う
 }

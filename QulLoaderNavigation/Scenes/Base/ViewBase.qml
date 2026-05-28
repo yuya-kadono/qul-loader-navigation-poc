@@ -1,10 +1,10 @@
 // ViewBase.qml
 // View の共通骨格 (§9-4 View ライフサイクル契約)。
 //
-// viewId は NavigationTable の整数 enum (§5-2)。0 = 未指定。
+// viewId は ViewId enum (§5-2)。0 = 未指定。
 //
 // thisViewId の決め方:
-//   - 派生 view が明示的に `thisViewId: NavigationTable.idNormalHome` のように
+//   - 派生 view が明示的に `thisViewId: ViewId.ViewId.NormalHome` のように
 //     指定すればそれを使う (単一 ID の view: Home/Menu/Sample1 等)
 //   - 派生 view が指定しなければ (0 のまま)、Component.onCompleted で
 //     Mediator.nextLoadingViewId から自動取得 (同一 QML 多重 ID の view: Sample2View 等)
@@ -17,7 +17,8 @@
 //   - function onViewKey(vk, ve): KeyDispatcher の viewEvent を受信したときの処理。
 
 import QtQuick
-import QulLoaderNavigation
+import Constants
+import Mediator
 
 Item {
     id: root
@@ -57,23 +58,23 @@ Item {
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Text {
-            text: NavigationTable.nameOf(root.thisViewId)
+            text: ViewId.nameOf(root.thisViewId)
             color: "#dddddd"
             font.pixelSize: 16
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Text {
             text: "direction: "
-                  + (root.myDirection === TransitionManager.directionNext ? "Next" : "Back")
+                  + (root.myDirection === Direction.Direction.Next ? "Next" : "Back")
                   + "    from: "
-                  + (root.myPartnerId !== 0 ? NavigationTable.nameOf(root.myPartnerId) : "(none)")
+                  + (root.myPartnerId !== 0 ? ViewId.nameOf(root.myPartnerId) : "(none)")
             color: "#dddddd"
             font.pixelSize: 13
             anchors.horizontalCenter: parent.horizontalCenter
         }
         Text {
             text: "prev: "
-                  + (Mediator.previousViewId !== 0 ? NavigationTable.nameOf(Mediator.previousViewId) : "(none)")
+                  + (Mediator.previousViewId !== 0 ? ViewId.nameOf(Mediator.previousViewId) : "(none)")
                   + "    history.length: " + Mediator.history.length
             color: "#aaaaaa"
             font.pixelSize: 12
@@ -86,7 +87,7 @@ Item {
         target: root; property: "opacity"
         from: 0; to: 1
         onStopped: {
-            Logger.log(NavigationTable.nameOf(root.thisViewId), "enterAnim.onStopped", "",
+            Logger.log(ViewId.nameOf(root.thisViewId), "enterAnim.onStopped", "",
                        "duration=" + enterAnim.duration + "ms")
             TransitionManager.reportEnterComplete(root.thisViewId)
         }
@@ -96,7 +97,7 @@ Item {
         target: root; property: "opacity"
         from: 1; to: 0
         onStopped: {
-            Logger.log(NavigationTable.nameOf(root.thisViewId), "leaveAnim.onStopped", "",
+            Logger.log(ViewId.nameOf(root.thisViewId), "leaveAnim.onStopped", "",
                        "duration=" + leaveAnim.duration + "ms")
             TransitionManager.reportLeaveComplete(root.thisViewId)
         }
@@ -115,12 +116,12 @@ Item {
         var dur = pickDuration()
         if (dur === 0) {
             opacity = 1
-            Logger.log(NavigationTable.nameOf(root.thisViewId), "performEnter (instant)", "",
+            Logger.log(ViewId.nameOf(root.thisViewId), "performEnter (instant)", "",
                        "duration=0, deferred report via Qt.callLater")
             Qt.callLater(reportEnterCompleteDeferred)
         } else {
             enterAnim.duration = dur
-            Logger.log(NavigationTable.nameOf(root.thisViewId), "enterAnim.start", "",
+            Logger.log(ViewId.nameOf(root.thisViewId), "enterAnim.start", "",
                        "duration=" + dur + "ms")
             enterAnim.start()
         }
@@ -129,24 +130,24 @@ Item {
         var dur = pickDuration()
         if (dur === 0) {
             opacity = 0
-            Logger.log(NavigationTable.nameOf(root.thisViewId), "performLeave (instant)", "",
+            Logger.log(ViewId.nameOf(root.thisViewId), "performLeave (instant)", "",
                        "duration=0, deferred report via Qt.callLater")
             Qt.callLater(reportLeaveCompleteDeferred)
         } else {
             leaveAnim.duration = dur
-            Logger.log(NavigationTable.nameOf(root.thisViewId), "leaveAnim.start", "",
+            Logger.log(ViewId.nameOf(root.thisViewId), "leaveAnim.start", "",
                        "duration=" + dur + "ms")
             leaveAnim.start()
         }
     }
 
     function reportEnterCompleteDeferred() {
-        Logger.log(NavigationTable.nameOf(root.thisViewId), "deferred reportEnterComplete",
+        Logger.log(ViewId.nameOf(root.thisViewId), "deferred reportEnterComplete",
                    "", "(instant enter)")
         TransitionManager.reportEnterComplete(root.thisViewId)
     }
     function reportLeaveCompleteDeferred() {
-        Logger.log(NavigationTable.nameOf(root.thisViewId), "deferred reportLeaveComplete",
+        Logger.log(ViewId.nameOf(root.thisViewId), "deferred reportLeaveComplete",
                    "", "(instant leave)")
         TransitionManager.reportLeaveComplete(root.thisViewId)
     }
@@ -156,14 +157,14 @@ Item {
 
     function reactToLifecycle() {
         reactedInitial = true
-        Logger.log(NavigationTable.nameOf(root.thisViewId), "reactToLifecycle", "",
-                   "myLifecycle=" + Logger.lcName(myLifecycle)
-                   + ", direction=" + Logger.dirName(myDirection)
-                   + ", partner=" + (myPartnerId !== 0 ? NavigationTable.nameOf(myPartnerId) : "(none)"))
-        if (myLifecycle === TransitionManager.lifecycleEntering) {
+        Logger.log(ViewId.nameOf(root.thisViewId), "reactToLifecycle", "",
+                   "myLifecycle=" + Lifecycle.nameOf(myLifecycle)
+                   + ", direction=" + Direction.nameOf(myDirection)
+                   + ", partner=" + (myPartnerId !== 0 ? ViewId.nameOf(myPartnerId) : "(none)"))
+        if (myLifecycle === Lifecycle.Lifecycle.Entering) {
             onEntering()
             performEnter()
-        } else if (myLifecycle === TransitionManager.lifecycleLeaving) {
+        } else if (myLifecycle === Lifecycle.Lifecycle.Leaving) {
             onLeaving()
             performLeave()
         }
@@ -181,8 +182,8 @@ Item {
         if (!readyForKeys) return
         var vk = KeyDispatcher.viewEventVk
         var ve = KeyDispatcher.viewEventVe
-        Logger.log(NavigationTable.nameOf(root.thisViewId), "onViewKey",
-                   "vk=" + Logger.vkName(vk) + ", ev=" + Logger.veName(ve), "")
+        Logger.log(ViewId.nameOf(root.thisViewId), "onViewKey",
+                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve), "")
         onViewKey(vk, ve)
     }
 
@@ -191,15 +192,15 @@ Item {
         // (同一 QML 多重 ID 用、例: Sample2View が sample2a/sample2b 両対応)
         if (root.thisViewId === 0) {
             root.thisViewId = Mediator.nextLoadingViewId
-            Logger.log(NavigationTable.nameOf(root.thisViewId),
+            Logger.log(ViewId.nameOf(root.thisViewId),
                        "thisViewId auto-resolved", "",
-                       "from Mediator.nextLoadingViewId=" + NavigationTable.nameOf(Mediator.nextLoadingViewId))
+                       "from Mediator.nextLoadingViewId=" + ViewId.nameOf(Mediator.nextLoadingViewId))
         }
-        Logger.log(NavigationTable.nameOf(root.thisViewId), "Component.onCompleted", "",
-                   "myLifecycle=" + Logger.lcName(myLifecycle))
+        Logger.log(ViewId.nameOf(root.thisViewId), "Component.onCompleted", "",
+                   "myLifecycle=" + Lifecycle.nameOf(myLifecycle))
         if (!reactedInitial) reactToLifecycle()
         readyForKeys = true
     }
     Component.onDestruction: Logger.log(
-        NavigationTable.nameOf(root.thisViewId), "Component.onDestruction", "", "")
+        ViewId.nameOf(root.thisViewId), "Component.onDestruction", "", "")
 }

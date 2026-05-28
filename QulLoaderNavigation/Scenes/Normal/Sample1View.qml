@@ -4,10 +4,11 @@
 //   BACK(C) click → menu (Back)
 
 import QtQuick
-import QulLoaderNavigation
+import Constants
+import Mediator
 
 ViewBase {
-    thisViewId: NavigationTable.idNormalSample1
+    thisViewId: ViewId.ViewId.NormalSample1
     displayName: "SAMPLE 1"
     backgroundColor: "#c62828"  // red
 
@@ -21,12 +22,12 @@ ViewBase {
     }
 
     function onViewKey(vk, ve) {
-        if (ve !== KeyDispatcher.evClick) return
-        if (vk === KeyDispatcher.keyBack) {
+        if (ve !== Event.Event.Click) return
+        if (vk === Key.Key.Back) {
             Logger.log("normal/sample1", "action", "BACK/CLICK",
                        "requestNavigate(normal/menu, Back)")
-            Mediator.requestNavigate(NavigationTable.idNormalMenu,
-                                     TransitionManager.directionBack)
+            Mediator.requestNavigate(ViewId.ViewId.NormalMenu,
+                                     Direction.Direction.Back)
         }
     }
 }

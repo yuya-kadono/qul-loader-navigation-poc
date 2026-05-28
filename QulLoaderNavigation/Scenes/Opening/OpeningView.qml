@@ -4,11 +4,12 @@
 // アニメ完了で reportEnterComplete + 自分から requestNavigate(home, Next)。
 
 import QtQuick
-import QulLoaderNavigation
+import Constants
+import Mediator
 
 ViewBase {
     id: root
-    thisViewId: NavigationTable.idOpeningOpening
+    thisViewId: ViewId.ViewId.OpeningOpening
     backgroundColor: "#0d47a1"   // dark blue
     showInfo: false
 
@@ -35,19 +36,19 @@ ViewBase {
         NumberAnimation { target: root;        property: "opacity"; from: 0;   to: 1; duration: 1500 }
         NumberAnimation { target: openingText; property: "scale";   from: 0.5; to: 1; duration: 1500; easing.type: Easing.OutBack }
         onStopped: {
-            Logger.log(NavigationTable.nameOf(root.thisViewId), "openingEnterAnim.onStopped",
+            Logger.log(ViewId.nameOf(root.thisViewId), "openingEnterAnim.onStopped",
                        "", "duration=1500ms (long-enter pattern)")
             TransitionManager.reportEnterComplete(root.thisViewId)
-            Logger.log(NavigationTable.nameOf(root.thisViewId), "self-trigger",
+            Logger.log(ViewId.nameOf(root.thisViewId), "self-trigger",
                        "after enter complete",
                        "requestNavigate(normal/home, Next)")
-            Mediator.requestNavigate(NavigationTable.idNormalHome,
-                                     TransitionManager.directionNext)
+            Mediator.requestNavigate(ViewId.ViewId.NormalHome,
+                                     Direction.Direction.Next)
         }
     }
 
     function performEnter() {
-        Logger.log(NavigationTable.nameOf(root.thisViewId), "performEnter (custom)", "",
+        Logger.log(ViewId.nameOf(root.thisViewId), "performEnter (custom)", "",
                    "openingEnterAnim.start (1500ms)")
         openingEnterAnim.start()
     }

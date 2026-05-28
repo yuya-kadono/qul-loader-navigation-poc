@@ -4,6 +4,9 @@
 画面切り替えと仮想キー通知の流れを mermaid 図で可視化する。  
 同じ内容を [`flows.pptx`](flows.pptx) にもまとめてある。
 
+> 表記注: 図中では可読性のため enum 値を `ViewId.NormalHome` のように短縮表記する。  
+> 実 QML での正式な書き方は `ViewId.ViewId.NormalHome` (`<TypeName>.<EnumName>.<Value>` の 3 段、QUL 2.9 の QML enum 構文)。詳細は §10。
+
 ---
 
 ## 1. アーキテクチャ俯瞰
@@ -12,8 +15,15 @@
 
 ```mermaid
 flowchart TB
-    subgraph singletons[Singletons]
-        NT[NavigationTable<br>ID 解決]
+    subgraph enums[Enum + helper singletons]
+        SId[SceneId<br>enum + fileOf/nameOf]
+        VId[ViewId<br>enum + fileOf/nameOf/sceneOf]
+        Dir[Direction<br>enum + nameOf]
+        Lc[Lifecycle<br>enum + nameOf]
+        K[Key<br>enum + nameOf]
+        Ev[Event<br>enum + nameOf]
+    end
+    subgraph singletons[Behavior singletons]
         Med[Mediator<br>ナビゲーション意図 / 履歴]
         TM[TransitionManager<br>スロット管理 / lifecycle 通知]
         KD[KeyDispatcher<br>仮想キー配送]
@@ -33,17 +43,19 @@ flowchart TB
 
     SB -->|sceneEventGen bind| KD
     SB -->|scene フィルタ binding| TM
-    SB -->|sceneOf| NT
+    SB -->|sceneOf| VId
 
     VB -->|viewEventGen bind| KD
     VB -->|lifecycle bind| TM
     VB -->|nextLoadingViewId 取得| Med
-    VB -->|nameOf| NT
+    VB -->|nameOf| VId
 
     SceneI -.派生.-> SB
     ViewI -.派生.-> VB
 
     Med -->|startTransition| TM
+    TM -->|fileOf| SId
+    TM -->|fileOf / sceneOf| VId
     TM -->|enabled toggle| KD
 ```
 
@@ -98,7 +110,7 @@ sequenceDiagram
     Main->>KD: dispatchToScene(HOME, CLICK)
     KD-->>NS: onSceneEventGenChanged
     NS->>NS: handleAbsorb(HOME, CLICK) → true (吸収)
-    NS->>Med: requestNavigate(idNormalHome, Next)
+    NS->>Med: requestNavigate(ViewId.NormalHome, Next)
     Note right of Med: View には届かない (吸収済み)
 ```
 
@@ -141,9 +153,9 @@ sequenceDiagram
     participant Menu as MenuView (incoming)
     participant Loader as NormalScene 内 ViewSlot B
 
-    NS->>Med: requestNavigate(idNormalMenu, Next)
-    Med->>Med: nextLoadingViewId = idNormalMenu<br>history.push, currentViewId 更新
-    Med->>TM: startTransition(idNormalMenu, Next)
+    NS->>Med: requestNavigate(ViewId.NormalMenu, Next)
+    Med->>Med: nextLoadingViewId = ViewId.NormalMenu<br>history.push, currentViewId 更新
+    Med->>TM: startTransition(ViewId.NormalMenu, Next)
     TM->>TM: enabled=false / state=InProgress
     Note over TM: scene 同じ → SceneSlot 触らず
 
@@ -179,9 +191,9 @@ sequenceDiagram
     participant CS as ClosingScene (new)
     participant CV as ClosingView (new)
 
-    Home->>Med: requestNavigate(idClosingClosing, Next)
+    Home->>Med: requestNavigate(ViewId.ClosingClosing, Next)
     Med->>Med: history クリア<br>closingAborted = false<br>nextLoadingViewId 公開
-    Med->>TM: startTransition(idClosingClosing, Next)
+    Med->>TM: startTransition(ViewId.ClosingClosing, Next)
     TM->>TM: enabled=false / state=InProgress
 
     TM->>SS: sceneSourceB = "ClosingScene.qml"
@@ -234,10 +246,10 @@ sequenceDiagram
     CS->>Med: closingAborted = true ① 自然完了側を抑止
     CS->>TM: forceUnloadCurrentView() ② current 強制アンロード
     TM->>CV: slot 解放 → 破棄
-    CS->>Med: requestNavigate(idNormalHome, Back) ③ 新規遷移
+    CS->>Med: requestNavigate(ViewId.NormalHome, Back) ③ 新規遷移
     end
 
-    Med->>TM: startTransition(idNormalHome, Back)
+    Med->>TM: startTransition(ViewId.NormalHome, Back)
     Note over TM: hasLeavingView=false<br>(forceUnload 直後で空)
     TM->>TM: Home slot = Entering 設定
     TM->>Home: Loader が HomeView 構築
@@ -260,10 +272,10 @@ flowchart TB
         Op[MenuView で cursor=2 → ENTER CLICK]
     end
 
-    Op -->|requestNavigate idNormalSample2b, Next| Med[Mediator]
+    Op -->|requestNavigate ViewId.NormalSample2b, Next| Med[Mediator]
 
     subgraph Med-処理[Mediator]
-        Med1[nextLoadingViewId = idNormalSample2b]
+        Med1[nextLoadingViewId = ViewId.NormalSample2b]
         Med2[currentViewId, previousViewId, history 更新]
         Med1 --> Med2
     end
@@ -271,8 +283,8 @@ flowchart TB
     Med2 -->|startTransition| TM[TransitionManager]
 
     subgraph TM-処理[TransitionManager]
-        TM1[NavigationTable.viewFileOf idNormalSample2b<br>→ Sample2View.qml]
-        TM2[viewSlot* metadata 設定<br>viewSlotXViewId = idNormalSample2b]
+        TM1[ViewId.fileOf ViewId.NormalSample2b<br>→ Sample2View.qml]
+        TM2[viewSlot* metadata 設定<br>viewSlotXViewId = ViewId.NormalSample2b]
         TM3[viewSlot*Source = Sample2View.qml]
         TM1 --> TM2 --> TM3
     end
@@ -282,7 +294,7 @@ flowchart TB
 
     subgraph ViewBase-onCompleted[Sample2View Component.onCompleted - in ViewBase]
         V1{thisViewId === 0?}
-        V1 -->|yes| V2[thisViewId = Mediator.nextLoadingViewId<br>= idNormalSample2b]
+        V1 -->|yes| V2[thisViewId = Mediator.nextLoadingViewId<br>= ViewId.NormalSample2b]
         V2 --> V3[isVariantB = true]
         V3 --> V4[displayName = SAMPLE 2B<br>backgroundColor = 藍色]
     end
@@ -294,11 +306,11 @@ flowchart TB
 
 ```mermaid
 flowchart LR
-    A[Mediator.requestNavigate idNormalSample2a] -->|nextLoadingViewId = idNormalSample2a| B[Sample2View 構築]
+    A[Mediator.requestNavigate ViewId.NormalSample2a] -->|nextLoadingViewId = ViewId.NormalSample2a| B[Sample2View 構築]
     B -->|thisViewId 自己取得| C[isVariantA = true]
     C --> D[displayName = SAMPLE 2A / 紫色]
 
-    E[Mediator.requestNavigate idNormalSample2b] -->|nextLoadingViewId = idNormalSample2b| F[Sample2View 構築]
+    E[Mediator.requestNavigate ViewId.NormalSample2b] -->|nextLoadingViewId = ViewId.NormalSample2b| F[Sample2View 構築]
     F -->|thisViewId 自己取得| G[isVariantB = true]
     G --> H[displayName = SAMPLE 2B / 藍色]
 ```
@@ -341,24 +353,24 @@ sequenceDiagram
 ```mermaid
 flowchart LR
     Hex["viewId int 16bit<br>例: 0x0203"]
-    Hex -->|"上位 8bit = sceneId"| SceneId["sceneNormal = 2"]
+    Hex -->|"上位 8bit = sceneId"| Sid["SceneId.Normal = 2"]
     Hex -->|"下位 8bit = local"| LocalId["3 (sample2a)"]
-    SceneId -->|"NavigationTable.sceneFileOf"| SceneFile["NormalScene.qml"]
-    Hex -->|"NavigationTable.viewFileOf"| ViewFile["Sample2View.qml"]
-    Hex -->|"NavigationTable.nameOf"| Name["normal/sample2a"]
+    Sid -->|"SceneId.fileOf"| SceneFile["NormalScene.qml"]
+    Hex -->|"ViewId.fileOf"| ViewFile["Sample2View.qml"]
+    Hex -->|"ViewId.nameOf"| Name["normal/sample2a"]
 ```
 
-ID 一覧:
+ID 一覧 (`ViewId.qml` 内の `enum ViewId`、QUL 2.9 の QML enum 構文)。アクセスは `<TypeName>.<EnumName>.<Value>` の 3 段:
 
-| ID 定数 | hex 値 | 担当 QML |
+| ID 定数 (使う側の表記) | hex 値 | 担当 QML |
 | --- | --- | --- |
-| `idOpeningOpening` | `0x0100` | OpeningView.qml |
-| `idNormalHome`     | `0x0200` | HomeView.qml |
-| `idNormalMenu`     | `0x0201` | MenuView.qml |
-| `idNormalSample1`  | `0x0202` | Sample1View.qml |
-| `idNormalSample2a` | `0x0203` | **Sample2View.qml** |
-| `idNormalSample2b` | `0x0204` | **Sample2View.qml** (同 QML) |
-| `idClosingClosing` | `0x0300` | ClosingView.qml |
+| `ViewId.ViewId.OpeningOpening` | `0x0100` | OpeningView.qml |
+| `ViewId.ViewId.NormalHome`     | `0x0200` | HomeView.qml |
+| `ViewId.ViewId.NormalMenu`     | `0x0201` | MenuView.qml |
+| `ViewId.ViewId.NormalSample1`  | `0x0202` | Sample1View.qml |
+| `ViewId.ViewId.NormalSample2a` | `0x0203` | **Sample2View.qml** |
+| `ViewId.ViewId.NormalSample2b` | `0x0204` | **Sample2View.qml** (同 QML) |
+| `ViewId.ViewId.ClosingClosing` | `0x0300` | ClosingView.qml |
 
 ---
 

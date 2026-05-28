@@ -2,7 +2,7 @@
 // Scene の共通骨格 (§3-2 / §8-6)。
 //
 // 派生 scene が指定するもの:
-//   - thisSceneId : 自分の scene ID (NavigationTable.sceneOpening/sceneNormal/sceneClosing)
+//   - thisSceneId : 自分の scene ID (SceneId.SceneId.Opening/Normal/Closing)
 //
 // 派生 scene が override できるもの:
 //   - function handleAbsorb(vk, ve) : 吸収した場合 true を返す。
@@ -15,7 +15,8 @@
 //   - sceneEventGen 変化で handleAbsorb() を呼び、吸収されなければ view に転送
 
 import QtQuick
-import QulLoaderNavigation
+import Constants
+import Mediator
 
 Item {
     id: scene
@@ -32,27 +33,27 @@ Item {
     property bool ready: false
 
     Component.onCompleted: {
-        Logger.log(NavigationTable.sceneNameOf(scene.thisSceneId) + "Scene",
+        Logger.log(SceneId.nameOf(scene.thisSceneId) + "Scene",
                    "loaded", "", "")
         scene.ready = true
     }
     Component.onDestruction: Logger.log(
-        NavigationTable.sceneNameOf(scene.thisSceneId) + "Scene",
+        SceneId.nameOf(scene.thisSceneId) + "Scene",
         "destroyed", "", "")
 
     onSceneEventGenChanged: {
         if (!scene.ready) return
         var vk = KeyDispatcher.sceneEventVk
         var ve = KeyDispatcher.sceneEventVe
-        Logger.log(NavigationTable.sceneNameOf(scene.thisSceneId) + "Scene",
+        Logger.log(SceneId.nameOf(scene.thisSceneId) + "Scene",
                    "onSceneKeyEvent",
-                   "vk=" + Logger.vkName(vk) + ", ev=" + Logger.veName(ve), "")
+                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve), "")
         if (scene.handleAbsorb(vk, ve)) {
             return
         }
-        Logger.log(NavigationTable.sceneNameOf(scene.thisSceneId) + "Scene",
+        Logger.log(SceneId.nameOf(scene.thisSceneId) + "Scene",
                    "forward-to-view",
-                   "vk=" + Logger.vkName(vk) + ", ev=" + Logger.veName(ve), "")
+                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve), "")
         KeyDispatcher.dispatchToView(vk, ve)
     }
 
@@ -63,7 +64,7 @@ Item {
         source: {
             var vid = TransitionManager.viewSlotAViewId
             if (vid === 0) return ""
-            if (NavigationTable.sceneOf(vid) === scene.thisSceneId) {
+            if (ViewId.sceneOf(vid) === scene.thisSceneId) {
                 return TransitionManager.viewSlotASource
             }
             return ""
@@ -78,7 +79,7 @@ Item {
         source: {
             var vid = TransitionManager.viewSlotBViewId
             if (vid === 0) return ""
-            if (NavigationTable.sceneOf(vid) === scene.thisSceneId) {
+            if (ViewId.sceneOf(vid) === scene.thisSceneId) {
                 return TransitionManager.viewSlotBSource
             }
             return ""

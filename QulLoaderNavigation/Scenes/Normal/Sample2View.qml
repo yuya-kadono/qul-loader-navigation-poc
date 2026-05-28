@@ -9,14 +9,15 @@
 //   BACK(C) click → menu (Back)
 
 import QtQuick
-import QulLoaderNavigation
+import Constants
+import Mediator
 
 ViewBase {
     id: root
     // thisViewId を明示しない (= 0) → ViewBase が Mediator.nextLoadingViewId から取得
 
-    readonly property bool isVariantA: thisViewId === NavigationTable.idNormalSample2a
-    readonly property bool isVariantB: thisViewId === NavigationTable.idNormalSample2b
+    readonly property bool isVariantA: thisViewId === ViewId.ViewId.NormalSample2a
+    readonly property bool isVariantB: thisViewId === ViewId.ViewId.NormalSample2b
 
     displayName: isVariantA ? "SAMPLE 2A" : (isVariantB ? "SAMPLE 2B" : "SAMPLE 2?")
     backgroundColor: isVariantA ? "#6a1b9a" : "#283593"  // purple / indigo
@@ -31,12 +32,12 @@ ViewBase {
     }
 
     function onViewKey(vk, ve) {
-        if (ve !== KeyDispatcher.evClick) return
-        if (vk === KeyDispatcher.keyBack) {
-            Logger.log(NavigationTable.nameOf(thisViewId), "action", "BACK/CLICK",
+        if (ve !== Event.Event.Click) return
+        if (vk === Key.Key.Back) {
+            Logger.log(ViewId.nameOf(thisViewId), "action", "BACK/CLICK",
                        "requestNavigate(normal/menu, Back)")
-            Mediator.requestNavigate(NavigationTable.idNormalMenu,
-                                     TransitionManager.directionBack)
+            Mediator.requestNavigate(ViewId.ViewId.NormalMenu,
+                                     Direction.Direction.Back)
         }
     }
 }

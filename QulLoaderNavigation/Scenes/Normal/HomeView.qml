@@ -5,10 +5,11 @@
 //   ※ MENU(Z) は NormalScene が吸収 → normal/menu
 
 import QtQuick
-import QulLoaderNavigation
+import Constants
+import Mediator
 
 ViewBase {
-    thisViewId: NavigationTable.idNormalHome
+    thisViewId: ViewId.ViewId.NormalHome
     displayName: "HOME"
     backgroundColor: "#2e7d32"  // green
 
@@ -22,12 +23,12 @@ ViewBase {
     }
 
     function onViewKey(vk, ve) {
-        if (ve !== KeyDispatcher.evClick) return
-        if (vk === KeyDispatcher.keyEnter) {
+        if (ve !== Event.Event.Click) return
+        if (vk === Key.Key.Enter) {
             Logger.log("normal/home", "action", "ENTER/CLICK",
                        "requestNavigate(closing/closing, Next)")
-            Mediator.requestNavigate(NavigationTable.idClosingClosing,
-                                     TransitionManager.directionNext)
+            Mediator.requestNavigate(ViewId.ViewId.ClosingClosing,
+                                     Direction.Direction.Next)
         }
     }
 }

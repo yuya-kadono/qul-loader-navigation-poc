@@ -1,5 +1,8 @@
 // KeyDispatcher.qml
-// 仮想キー (§8-1) / 仮想イベント (§8-2) の enum、配送、enabled フラグ。
+// 仮想キー / 仮想イベントの配送、enabled フラグ (§8)。
+//
+// 仮想キー種別と仮想イベント種別はそれぞれ Key.qml / Event.qml の enum singleton
+// に分離した (例: Key.Key.Enter, Event.Event.Click)。
 //
 // QUL 移植性: signal + Connections{target: ...} は使わない。
 // 代わりに「世代カウンタ + 最終値プロパティ」で push する:
@@ -10,22 +13,9 @@
 
 pragma Singleton
 import QtQuick
-import QulLoaderNavigation
+import Constants
 
 QtObject {
-    // ---- 仮想キー種別 ----
-    readonly property int keyPrev:  0
-    readonly property int keyEnter: 1
-    readonly property int keyNext:  2
-    readonly property int keyMenu:  3
-    readonly property int keyHome:  4
-    readonly property int keyBack:  5
-
-    // ---- 仮想イベント種別 ----
-    readonly property int evPress:   0
-    readonly property int evRelease: 1
-    readonly property int evClick:   2
-
     // ---- 入力受付フラグ ----
     // false の間は dispatchToScene / dispatchToView が no-op。
     // TransitionManager が transition 中に false にする (§9-7)。
@@ -48,26 +38,26 @@ QtObject {
     // ---- 配送 API ----
     function dispatchToScene(vk, ve) {
         Logger.log("KeyDispatcher", "dispatchToScene",
-                   "vk=" + Logger.vkName(vk) + ", ev=" + Logger.veName(ve),
+                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve),
                    "enabled=" + enabled)
         if (!enabled) return
         sceneEventVk = vk
         sceneEventVe = ve
         sceneEventGen = sceneEventGen + 1  // 受け手の binding を更新
         Logger.log("KeyDispatcher", "sceneEvent posted",
-                   "vk=" + Logger.vkName(vk) + ", ev=" + Logger.veName(ve),
+                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve),
                    "gen=" + sceneEventGen)
     }
     function dispatchToView(vk, ve) {
         Logger.log("KeyDispatcher", "dispatchToView",
-                   "vk=" + Logger.vkName(vk) + ", ev=" + Logger.veName(ve),
+                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve),
                    "enabled=" + enabled)
         if (!enabled) return
         viewEventVk = vk
         viewEventVe = ve
         viewEventGen = viewEventGen + 1
         Logger.log("KeyDispatcher", "viewEvent posted",
-                   "vk=" + Logger.vkName(vk) + ", ev=" + Logger.veName(ve),
+                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve),
                    "gen=" + viewEventGen)
     }
 }

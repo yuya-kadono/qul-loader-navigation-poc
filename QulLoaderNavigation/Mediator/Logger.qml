@@ -11,8 +11,11 @@
 //
 // 呼び出し例:
 //   Logger.log("KeyDispatcher", "dispatchToScene",
-//              "vk=" + Logger.vkName(vk) + ", ev=" + Logger.veName(ve),
+//              "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve),
 //              "enabled=" + enabled)
+//
+// enum 名変換 (vkName/veName/dirName/lcName) は各 enum singleton (Key/Event/Direction/
+// Lifecycle) の nameOf に移管した。
 
 pragma Singleton
 import QtQuick
@@ -39,41 +42,5 @@ QtObject {
             msg += "  | " + params
         }
         console.log(msg)
-    }
-
-    // ---- enum 名変換ヘルパ ----
-    function vkName(vk) {
-        switch (vk) {
-            case 0: return "PREV"
-            case 1: return "ENTER"
-            case 2: return "NEXT"
-            case 3: return "MENU"
-            case 4: return "HOME"
-            case 5: return "BACK"
-        }
-        return "?(" + vk + ")"
-    }
-    function veName(ve) {
-        switch (ve) {
-            case 0: return "PRESS"
-            case 1: return "RELEASE"
-            case 2: return "CLICK"
-        }
-        return "?(" + ve + ")"
-    }
-    function dirName(d) {
-        switch (d) {
-            case 0: return "Next"
-            case 1: return "Back"
-        }
-        return "?(" + d + ")"
-    }
-    function lcName(lc) {
-        switch (lc) {
-            case 0: return "Idle"
-            case 1: return "Entering"
-            case 2: return "Leaving"
-        }
-        return "?(" + lc + ")"
     }
 }

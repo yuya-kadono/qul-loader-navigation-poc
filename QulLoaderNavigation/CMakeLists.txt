@@ -8,40 +8,41 @@ find_package(Qt6 REQUIRED COMPONENTS Quick)
 
 qt_standard_project_setup(REQUIRES 6.10)
 
+# ============================================================
+# サブモジュール (各 qt_add_qml_module で URI 登録)
+#   Constants  - enum + helper (依存なし)
+#   Mediator   - orchestration singleton 群 (Constants 依存)
+#   Scenes     - base + concrete Scene/View (Constants + Mediator 依存)
+# ============================================================
+add_subdirectory(Constants)
+add_subdirectory(Mediator)
+add_subdirectory(Scenes)
+
+# ============================================================
+# アプリ本体: Main.qml のみを QML_FILES に持つ
+#   3 サブモジュールに依存 (link するとプラグインが自動 register される)
+# ============================================================
 qt_add_executable(appQulLoaderNavigation
     main.cpp
 )
 
-# Mark singleton QML files BEFORE qt_add_qml_module
-set_source_files_properties(NavigationTable.qml  PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
-set_source_files_properties(KeyDispatcher.qml    PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
-set_source_files_properties(TransitionManager.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
-set_source_files_properties(Mediator.qml         PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
-set_source_files_properties(Logger.qml           PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
-
 qt_add_qml_module(appQulLoaderNavigation
     URI QulLoaderNavigation
+    VERSION 1.0
     QML_FILES
         Main.qml
-        # Singletons
-        NavigationTable.qml
-        KeyDispatcher.qml
-        TransitionManager.qml
-        Mediator.qml
-        Logger.qml
-        # Scenes
-        SceneBase.qml
-        OpeningScene.qml
-        NormalScene.qml
-        ClosingScene.qml
-        # Views
-        ViewBase.qml
-        OpeningView.qml
-        HomeView.qml
-        MenuView.qml
-        Sample1View.qml
-        Sample2View.qml
-        ClosingView.qml
+    IMPORTS
+        Constants
+        Mediator
+        Scenes
+)
+
+target_link_libraries(appQulLoaderNavigation
+    PRIVATE
+        Qt6::Quick
+        Constantsplugin
+        Mediatorplugin
+        Scenesplugin
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -53,10 +54,6 @@ set_target_properties(appQulLoaderNavigation PROPERTIES
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
-)
-
-target_link_libraries(appQulLoaderNavigation
-    PRIVATE Qt6::Quick
 )
 
 install(TARGETS appQulLoaderNavigation

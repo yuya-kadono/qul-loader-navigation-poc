@@ -12,7 +12,10 @@
 //     で検知する (QUL 互換)。
 
 import QtQuick
-import QulLoaderNavigation
+import Constants
+import Mediator
+// Scenes モジュールは import 不要 (Loader.source の URL 経由でロードされるだけで
+// QML 型として参照しないため。qmldir 登録は CMakeLists.txt で行う)
 
 Window {
     id: window
@@ -37,8 +40,8 @@ Window {
             pressedPhysicalKey = event.key
             Logger.log("Main", "Keys.onPressed",
                        "physicalKey=" + event.key,
-                       "vk=" + Logger.vkName(vk))
-            KeyDispatcher.dispatchToScene(vk, KeyDispatcher.evPress)
+                       "vk=" + Key.nameOf(vk))
+            KeyDispatcher.dispatchToScene(vk, Event.Event.Press)
             event.accepted = true
         }
         Keys.onReleased: function(event) {
@@ -47,14 +50,14 @@ Window {
             if (vk < 0) return
             Logger.log("Main", "Keys.onReleased",
                        "physicalKey=" + event.key,
-                       "vk=" + Logger.vkName(vk))
-            KeyDispatcher.dispatchToScene(vk, KeyDispatcher.evRelease)
+                       "vk=" + Key.nameOf(vk))
+            KeyDispatcher.dispatchToScene(vk, Event.Event.Release)
             // PRESS と対の RELEASE が成立 → CLICK を追加発火 (§8-2)
             if (pressedPhysicalKey === event.key) {
                 Logger.log("Main", "CLICK synthesized",
                            "physicalKey=" + event.key,
-                           "vk=" + Logger.vkName(vk))
-                KeyDispatcher.dispatchToScene(vk, KeyDispatcher.evClick)
+                           "vk=" + Key.nameOf(vk))
+                KeyDispatcher.dispatchToScene(vk, Event.Event.Click)
                 pressedPhysicalKey = -1
             }
             event.accepted = true
@@ -62,12 +65,12 @@ Window {
 
         function physicalToVirtual(key) {
             switch (key) {
-                case Qt.Key_A: return KeyDispatcher.keyPrev
-                case Qt.Key_S: return KeyDispatcher.keyEnter
-                case Qt.Key_D: return KeyDispatcher.keyNext
-                case Qt.Key_Z: return KeyDispatcher.keyMenu
-                case Qt.Key_X: return KeyDispatcher.keyHome
-                case Qt.Key_C: return KeyDispatcher.keyBack
+                case Qt.Key_A: return Key.Key.Prev
+                case Qt.Key_S: return Key.Key.Enter
+                case Qt.Key_D: return Key.Key.Next
+                case Qt.Key_Z: return Key.Key.Menu
+                case Qt.Key_X: return Key.Key.Home
+                case Qt.Key_C: return Key.Key.Back
             }
             return -1
         }
@@ -93,15 +96,15 @@ Window {
         onFinishedGenChanged: {
             if (!ready) return
             Logger.log("Main", "onTransitionFinished",
-                       "finalViewId=" + NavigationTable.nameOf(TransitionManager.lastFinishedViewId),
+                       "finalViewId=" + ViewId.nameOf(TransitionManager.lastFinishedViewId),
                        "")
         }
         Component.onCompleted: {
             ready = true
             Logger.log("Main", "Component.onCompleted", "",
                        "kickoff: requestNavigate(opening/opening, Next)")
-            Mediator.requestNavigate(NavigationTable.idOpeningOpening,
-                                     TransitionManager.directionNext)
+            Mediator.requestNavigate(ViewId.ViewId.OpeningOpening,
+                                     Direction.Direction.Next)
         }
     }
 }

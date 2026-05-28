@@ -3,12 +3,12 @@
 // 唯一の遷移 API: requestNavigate(viewId, direction)。
 // goNext / goBack は持たない — 戻り先・進み先は各 view が判断する (§5-3)。
 //
-// viewId は NavigationTable の整数 enum (例: NavigationTable.idNormalHome)。
-// 0 は「未指定」sentinel。
+// viewId は ViewId enum (例: ViewId.ViewId.NormalHome)。0 は「未指定」sentinel。
+// direction は Direction enum (Direction.Direction.Next / Back)。
 
 pragma Singleton
 import QtQuick
-import QulLoaderNavigation
+import Constants
 
 QtObject {
     // ---- 状態 ----
@@ -26,22 +26,22 @@ QtObject {
     property int nextLoadingViewId: 0
 
     // ---- 唯一の遷移 API ----
-    // direction は TransitionManager.directionNext / directionBack
-    // 省略時は directionNext として扱う。
+    // direction は Direction.Direction.Next / Back
+    // 省略時は Direction.Direction.Next として扱う。
     function requestNavigate(viewId, direction) {
-        if (direction === undefined) direction = TransitionManager.directionNext
+        if (direction === undefined) direction = Direction.Direction.Next
 
         Logger.log("Mediator", "requestNavigate",
-                   "viewId=" + NavigationTable.nameOf(viewId)
-                   + ", direction=" + Logger.dirName(direction),
-                   "currentViewId=" + NavigationTable.nameOf(currentViewId)
-                   + ", previousViewId=" + NavigationTable.nameOf(previousViewId)
+                   "viewId=" + ViewId.nameOf(viewId)
+                   + ", direction=" + Direction.nameOf(direction),
+                   "currentViewId=" + ViewId.nameOf(currentViewId)
+                   + ", previousViewId=" + ViewId.nameOf(previousViewId)
                    + ", history.length=" + history.length)
 
         // ViewBase が次にロードされる view の ID をスナップショットするための先行公開
         nextLoadingViewId = viewId
 
-        if (viewId === NavigationTable.idClosingClosing) {
+        if (viewId === ViewId.ViewId.ClosingClosing) {
             // closing に入る時点で履歴クリア・中断フラグリセット
             history = []
             closingAborted = false
@@ -58,8 +58,8 @@ QtObject {
         previousViewId = currentViewId
         currentViewId  = viewId
         Logger.log("Mediator", "state updated", "",
-                   "currentViewId=" + NavigationTable.nameOf(currentViewId)
-                   + ", previousViewId=" + NavigationTable.nameOf(previousViewId)
+                   "currentViewId=" + ViewId.nameOf(currentViewId)
+                   + ", previousViewId=" + ViewId.nameOf(previousViewId)
                    + ", history.length=" + history.length)
         TransitionManager.startTransition(viewId, direction)
     }

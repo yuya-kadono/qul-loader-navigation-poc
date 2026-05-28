@@ -8,17 +8,18 @@
 //   ※ HOME(X) は NormalScene が吸収 → normal/home
 //
 // 戻ってきた時のカーソル初期位置:
-//   previousViewId === idNormalSample1   → Sample 1   (cursorIndex=0)
-//   previousViewId === idNormalSample2a  → Sample 2A  (cursorIndex=1)
-//   previousViewId === idNormalSample2b  → Sample 2B  (cursorIndex=2)
-//   それ以外 (home から初めて来た等)     → Sample 1   (cursorIndex=0, デフォルト)
+//   previousViewId === ViewId.ViewId.NormalSample1   → Sample 1   (cursorIndex=0)
+//   previousViewId === ViewId.ViewId.NormalSample2a  → Sample 2A  (cursorIndex=1)
+//   previousViewId === ViewId.ViewId.NormalSample2b  → Sample 2B  (cursorIndex=2)
+//   それ以外 (home から初めて来た等)                 → Sample 1   (cursorIndex=0, デフォルト)
 
 import QtQuick
-import QulLoaderNavigation
+import Constants
+import Mediator
 
 ViewBase {
     id: menu
-    thisViewId: NavigationTable.idNormalMenu
+    thisViewId: ViewId.ViewId.NormalMenu
     displayName: "MENU"
     backgroundColor: "#ef6c00"  // orange
 
@@ -28,15 +29,15 @@ ViewBase {
     function onEntering() {
         var prev = Mediator.previousViewId
         var oldCursor = cursorIndex
-        if (prev === NavigationTable.idNormalSample2a) {
+        if (prev === ViewId.ViewId.NormalSample2a) {
             cursorIndex = 1
-        } else if (prev === NavigationTable.idNormalSample2b) {
+        } else if (prev === ViewId.ViewId.NormalSample2b) {
             cursorIndex = 2
         } else {
             cursorIndex = 0
         }
-        Logger.log(NavigationTable.nameOf(thisViewId), "onEntering cursor init",
-                   "previousViewId=" + NavigationTable.nameOf(prev),
+        Logger.log(ViewId.nameOf(thisViewId), "onEntering cursor init",
+                   "previousViewId=" + ViewId.nameOf(prev),
                    "cursorIndex: " + oldCursor + " → " + cursorIndex)
     }
 
@@ -99,9 +100,9 @@ ViewBase {
     }
 
     function onViewKey(vk, ve) {
-        if (ve !== KeyDispatcher.evClick) return
+        if (ve !== Event.Event.Click) return
         switch (vk) {
-            case KeyDispatcher.keyPrev:
+            case Key.Key.Prev:
                 if (menu.cursorIndex > 0) {
                     menu.cursorIndex = menu.cursorIndex - 1
                     Logger.log("normal/menu", "cursor moved", "PREV/CLICK",
@@ -111,7 +112,7 @@ ViewBase {
                                "already 0")
                 }
                 break
-            case KeyDispatcher.keyNext:
+            case Key.Key.Next:
                 if (menu.cursorIndex < 2) {
                     menu.cursorIndex = menu.cursorIndex + 1
                     Logger.log("normal/menu", "cursor moved", "NEXT/CLICK",
@@ -121,23 +122,23 @@ ViewBase {
                                "already 2")
                 }
                 break
-            case KeyDispatcher.keyEnter:
+            case Key.Key.Enter:
                 var targetId
                 switch (menu.cursorIndex) {
-                    case 0: targetId = NavigationTable.idNormalSample1;  break
-                    case 1: targetId = NavigationTable.idNormalSample2a; break
-                    case 2: targetId = NavigationTable.idNormalSample2b; break
+                    case 0: targetId = ViewId.ViewId.NormalSample1;  break
+                    case 1: targetId = ViewId.ViewId.NormalSample2a; break
+                    case 2: targetId = ViewId.ViewId.NormalSample2b; break
                 }
                 Logger.log("normal/menu", "action", "ENTER/CLICK",
                            "cursorIndex=" + menu.cursorIndex
-                           + " → requestNavigate(" + NavigationTable.nameOf(targetId) + ", Next)")
-                Mediator.requestNavigate(targetId, TransitionManager.directionNext)
+                           + " → requestNavigate(" + ViewId.nameOf(targetId) + ", Next)")
+                Mediator.requestNavigate(targetId, Direction.Direction.Next)
                 break
-            case KeyDispatcher.keyBack:
+            case Key.Key.Back:
                 Logger.log("normal/menu", "action", "BACK/CLICK",
                            "requestNavigate(normal/home, Back)")
-                Mediator.requestNavigate(NavigationTable.idNormalHome,
-                                         TransitionManager.directionBack)
+                Mediator.requestNavigate(ViewId.ViewId.NormalHome,
+                                         Direction.Direction.Back)
                 break
         }
     }

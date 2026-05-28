@@ -2,11 +2,12 @@
 // Closing: 「即完了 Enter + 内部別走アニメ」パターン (§10-2)。
 
 import QtQuick
-import QulLoaderNavigation
+import Constants
+import Mediator
 
 ViewBase {
     id: root
-    thisViewId: NavigationTable.idClosingClosing
+    thisViewId: ViewId.ViewId.ClosingClosing
     backgroundColor: "#37474f"
     showInfo: false
 
@@ -32,14 +33,14 @@ ViewBase {
         target: closingText; property: "opacity"; from: 1; to: 0
         duration: 3000
         onStopped: {
-            Logger.log(NavigationTable.nameOf(root.thisViewId), "internalAnim.onStopped", "",
+            Logger.log(ViewId.nameOf(root.thisViewId), "internalAnim.onStopped", "",
                        "closingAborted=" + Mediator.closingAborted)
             if (!Mediator.closingAborted) {
-                Logger.log(NavigationTable.nameOf(root.thisViewId), "Qt.quit", "",
+                Logger.log(ViewId.nameOf(root.thisViewId), "Qt.quit", "",
                            "natural completion")
                 Qt.quit()
             } else {
-                Logger.log(NavigationTable.nameOf(root.thisViewId), "Qt.quit SUPPRESSED",
+                Logger.log(ViewId.nameOf(root.thisViewId), "Qt.quit SUPPRESSED",
                            "closingAborted=true", "")
             }
         }
@@ -47,16 +48,16 @@ ViewBase {
 
     function performEnter() {
         opacity = 1
-        Logger.log(NavigationTable.nameOf(root.thisViewId), "performEnter (custom)",
+        Logger.log(ViewId.nameOf(root.thisViewId), "performEnter (custom)",
                    "", "deferred reportEnterComplete via Qt.callLater")
         Qt.callLater(emitEnterComplete)
-        Logger.log(NavigationTable.nameOf(root.thisViewId), "internalAnim.start", "",
+        Logger.log(ViewId.nameOf(root.thisViewId), "internalAnim.start", "",
                    "duration=3000ms")
         internalAnim.start()
     }
 
     function emitEnterComplete() {
-        Logger.log(NavigationTable.nameOf(root.thisViewId), "deferred reportEnterComplete", "",
+        Logger.log(ViewId.nameOf(root.thisViewId), "deferred reportEnterComplete", "",
                    "called via Qt.callLater")
         TransitionManager.reportEnterComplete(root.thisViewId)
     }
