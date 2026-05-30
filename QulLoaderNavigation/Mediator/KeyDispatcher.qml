@@ -1,14 +1,14 @@
 // KeyDispatcher.qml
 // 仮想キー / 仮想イベントの配送、enabled フラグ (§8)。
 //
-// 仮想キー種別と仮想イベント種別はそれぞれ Key.qml / Event.qml の enum singleton
-// に分離した (例: Key.Key.Enter, Event.Event.Click)。
+// 仮想キー種別と仮想イベント種別はそれぞれ VirtualKey.qml / VirtualEvent.qml の enum singleton
+// に分離した (例: VirtualKey.Enter, VirtualEvent.Click)。
 //
 // QUL 移植性: signal + Connections{target: ...} は使わない。
 // 代わりに「世代カウンタ + 最終値プロパティ」で push する:
-//   - sceneEventGen / sceneEventVk / sceneEventVe
+//   - screenEventGen / screenEventVk / screenEventVe
 //   - viewEventGen  / viewEventVk  / viewEventVe
-// 受け手 (Scene / View) は自分のローカルプロパティを singleton の世代カウンタに
+// 受け手 (Screen / View) は自分のローカルプロパティを singleton の世代カウンタに
 // バインドし、on<Property>Changed ハンドラで反応する (Connections 不要)。
 
 pragma Singleton
@@ -17,18 +17,18 @@ import Constants
 
 QtObject {
     // ---- 入力受付フラグ ----
-    // false の間は dispatchToScene / dispatchToView が no-op。
+    // false の間は dispatchToScreen / dispatchToView が no-op。
     // TransitionManager が transition 中に false にする (§9-7)。
     property bool enabled: true
     onEnabledChanged: Logger.log("KeyDispatcher", "enabled changed",
                                  "value=" + enabled, "")
 
-    // ---- Scene 向け配送状態 (signal 代替) ----
-    // sceneEventGen を Scene 側がバインド + on*Changed で監視する。
+    // ---- Screen 向け配送状態 (signal 代替) ----
+    // screenEventGen を Screen 側がバインド + on*Changed で監視する。
     // 値そのものに意味はなく、変化したら「新規イベントあり」のしるし。
-    property int sceneEventGen: 0
-    property int sceneEventVk:  0
-    property int sceneEventVe:  0
+    property int screenEventGen: 0
+    property int screenEventVk:  0
+    property int screenEventVe:  0
 
     // ---- View 向け配送状態 (signal 代替) ----
     property int viewEventGen: 0
@@ -36,28 +36,28 @@ QtObject {
     property int viewEventVe:  0
 
     // ---- 配送 API ----
-    function dispatchToScene(vk, ve) {
-        Logger.log("KeyDispatcher", "dispatchToScene",
-                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve),
+    function dispatchToScreen(vk, ve) {
+        Logger.log("KeyDispatcher", "dispatchToScreen",
+                   "vk=" + VirtualKey.nameOf(vk) + ", ev=" + VirtualEvent.nameOf(ve),
                    "enabled=" + enabled)
         if (!enabled) return
-        sceneEventVk = vk
-        sceneEventVe = ve
-        sceneEventGen = sceneEventGen + 1  // 受け手の binding を更新
-        Logger.log("KeyDispatcher", "sceneEvent posted",
-                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve),
-                   "gen=" + sceneEventGen)
+        screenEventVk = vk
+        screenEventVe = ve
+        screenEventGen = screenEventGen + 1  // 受け手の binding を更新
+        Logger.log("KeyDispatcher", "screenEvent posted",
+                   "vk=" + VirtualKey.nameOf(vk) + ", ev=" + VirtualEvent.nameOf(ve),
+                   "gen=" + screenEventGen)
     }
     function dispatchToView(vk, ve) {
         Logger.log("KeyDispatcher", "dispatchToView",
-                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve),
+                   "vk=" + VirtualKey.nameOf(vk) + ", ev=" + VirtualEvent.nameOf(ve),
                    "enabled=" + enabled)
         if (!enabled) return
         viewEventVk = vk
         viewEventVe = ve
         viewEventGen = viewEventGen + 1
         Logger.log("KeyDispatcher", "viewEvent posted",
-                   "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve),
+                   "vk=" + VirtualKey.nameOf(vk) + ", ev=" + VirtualEvent.nameOf(ve),
                    "gen=" + viewEventGen)
     }
 }

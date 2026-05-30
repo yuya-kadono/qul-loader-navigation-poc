@@ -10,12 +10,12 @@
 //   - console.log は QUL でもサポートあり (ただしホスト出力には限定)。
 //
 // 呼び出し例:
-//   Logger.log("KeyDispatcher", "dispatchToScene",
-//              "vk=" + Key.nameOf(vk) + ", ev=" + Event.nameOf(ve),
+//   Logger.log("KeyDispatcher", "dispatchToScreen",
+//              "vk=" + VirtualKey.nameOf(vk) + ", ev=" + VirtualEvent.nameOf(ve),
 //              "enabled=" + enabled)
 //
-// enum 名変換 (vkName/veName/dirName/lcName) は各 enum singleton (Key/Event/Direction/
-// Lifecycle) の nameOf に移管した。
+// enum 名変換 (vkName/veName/dirName/lcName) は各 enum singleton (VirtualKey/VirtualEvent/NavDirection/
+// ViewLifecycle) の nameOf に移管した。
 
 pragma Singleton
 import QtQuick

@@ -1,10 +1,10 @@
 // Mediator.qml
 // ナビゲーション意図と履歴トラッキング (§6)。
-// 唯一の遷移 API: requestNavigate(viewId, direction)。
+// 唯一の遷移 API: switchView(viewId, direction)。
 // goNext / goBack は持たない — 戻り先・進み先は各 view が判断する (§5-3)。
 //
-// viewId は ViewId enum (例: ViewId.ViewId.NormalHome)。0 は「未指定」sentinel。
-// direction は Direction enum (Direction.Direction.Next / Back)。
+// viewId は ViewId enum (例: ViewId.NormalHome)。0 は「未指定」sentinel。
+// direction は NavDirection enum (NavDirection.Next / Back)。
 
 pragma Singleton
 import QtQuick
@@ -20,28 +20,28 @@ QtObject {
     property bool closingAborted: false
 
     // ---- 次にロードされる view の ID (§9-10: ViewBase が自己取得用に参照) ----
-    // requestNavigate の冒頭で立てる。同一 QML を別 ID で再利用する view
+    // switchView の冒頭で立てる。同一 QML を別 ID で再利用する view
     // (例: Sample2View が sample2a / sample2b 両対応) が自分の thisViewId を
     // 動的に決めるためのスナップショット元。
-    property int nextLoadingViewId: 0
+    property int pendingViewId: 0
 
     // ---- 唯一の遷移 API ----
-    // direction は Direction.Direction.Next / Back
-    // 省略時は Direction.Direction.Next として扱う。
-    function requestNavigate(viewId, direction) {
-        if (direction === undefined) direction = Direction.Direction.Next
+    // direction は NavDirection.Next / Back
+    // 省略時は NavDirection.Next として扱う。
+    function switchView(viewId, direction) {
+        if (direction === undefined) direction = NavDirection.Next
 
-        Logger.log("Mediator", "requestNavigate",
+        Logger.log("Mediator", "switchView",
                    "viewId=" + ViewId.nameOf(viewId)
-                   + ", direction=" + Direction.nameOf(direction),
+                   + ", direction=" + NavDirection.nameOf(direction),
                    "currentViewId=" + ViewId.nameOf(currentViewId)
                    + ", previousViewId=" + ViewId.nameOf(previousViewId)
                    + ", history.length=" + history.length)
 
         // ViewBase が次にロードされる view の ID をスナップショットするための先行公開
-        nextLoadingViewId = viewId
+        pendingViewId = viewId
 
-        if (viewId === ViewId.ViewId.ClosingClosing) {
+        if (viewId === ViewId.ClosingClosing) {
             // closing に入る時点で履歴クリア・中断フラグリセット
             history = []
             closingAborted = false

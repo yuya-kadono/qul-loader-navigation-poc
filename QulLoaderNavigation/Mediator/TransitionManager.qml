@@ -2,12 +2,19 @@
 // View 主導ライフサイクルのオーケストレータ (§9)。
 //
 // viewId は ViewId enum (§5-2)。0 = 未指定。
-// direction は Direction.Direction.Next/Back。
-// lifecycle は Lifecycle.Lifecycle.Idle/Entering/Leaving。
+// direction は NavDirection.Next/Back。
+// lifecycle は ViewLifecycle.Idle/Entering/Leaving。
 //
 // QUL 移植性: signal + Connections は使わない。
 //   - transitionFinished signal の代替: finishedGen / lastFinishedViewId プロパティ
-//   - sceneSourceA/B 変化のログは自オブジェクト内の on<Property>Changed で完結
+//   - screenSourceA/B 変化のログは自オブジェクト内の on<Property>Changed で完結
+//
+// ★ ID → qrc URL の解決は DI (§3-3)。
+//   Mediator モジュールはメインモジュールの qrc 配置を知らない方針なので、URL マップ
+//   (ScreenRegistry singleton、メインモジュール所属) を起動時に外部から
+//   `TransitionManager.screenRegistry = ScreenRegistry` と注入してもらう。
+//   startTransition は screenRegistry.screenUrlOf / viewUrlOf 経由で URL を取得する。
+//   未注入のまま startTransition が呼ばれた場合はログだけ吐いて no-op。
 //
 // 外部 API:
 //   startTransition(toViewId, direction)  - 遷移を開始
@@ -28,28 +35,34 @@ import Constants
 QtObject {
     id: tm
 
+    // ---- DI: ID → qrc URL のリゾルバ (Main.qml で注入) ----
+    // ScreenRegistry singleton (メインモジュール所属) を期待。期待インターフェース:
+    //   function screenUrlOf(screenId: int) -> string
+    //   function viewUrlOf(viewId: int)   -> string
+    property var screenRegistry: null
+
     // ---- 進行状態 (Idle / InProgress) ----
-    property int state: Lifecycle.Lifecycle.Idle
+    property int state: ViewLifecycle.Idle
 
-    // ---- Scene スロット (Main.qml がバインド) ----
-    property string sceneSourceA: ""
-    property string sceneSourceB: ""
-    property bool   sceneAIsCurrent: true
+    // ---- Screen スロット (Main.qml がバインド) ----
+    property string screenSourceA: ""
+    property string screenSourceB: ""
+    property bool   screenAIsCurrent: true
 
-    onSceneSourceAChanged: Logger.log("TransitionManager", "sceneSourceA changed",
-                                      "", "value=" + sceneSourceA)
-    onSceneSourceBChanged: Logger.log("TransitionManager", "sceneSourceB changed",
-                                      "", "value=" + sceneSourceB)
+    onScreenSourceAChanged: Logger.log("TransitionManager", "screenSourceA changed",
+                                      "", "value=" + screenSourceA)
+    onScreenSourceBChanged: Logger.log("TransitionManager", "screenSourceB changed",
+                                      "", "value=" + screenSourceB)
 
-    // ---- View スロット (各 Scene 内 ViewLoader が scene フィルタ付きでバインド) ----
+    // ---- View スロット (各 Screen 内 ViewLoader が screen フィルタ付きでバインド) ----
     property string viewSlotASource: ""
     property string viewSlotBSource: ""
     property int    viewSlotAViewId: 0      // 0 = unset
     property int    viewSlotBViewId: 0
-    property int    viewSlotALifecycle: Lifecycle.Lifecycle.Idle
-    property int    viewSlotBLifecycle: Lifecycle.Lifecycle.Idle
-    property int    viewSlotADirection:  Direction.Direction.Next
-    property int    viewSlotBDirection:  Direction.Direction.Next
+    property int    viewSlotALifecycle: ViewLifecycle.Idle
+    property int    viewSlotBLifecycle: ViewLifecycle.Idle
+    property int    viewSlotADirection:  NavDirection.Next
+    property int    viewSlotBDirection:  NavDirection.Next
     property int    viewSlotAPartnerId:  0  // 0 = unset
     property int    viewSlotBPartnerId:  0
     property bool   viewAIsCurrent: true
@@ -62,7 +75,7 @@ QtObject {
     property bool   enterReported: false
     property bool   leaveReported: false
     property int    pendingFinalId: 0
-    property bool   isCrossScene:   false
+    property bool   isCrossScreen:   false
     property bool   hasLeavingView: false
 
     // ============================================================
@@ -71,12 +84,12 @@ QtObject {
     function lifecycleOf(viewId) {
         if (viewSlotAViewId === viewId) return viewSlotALifecycle
         if (viewSlotBViewId === viewId) return viewSlotBLifecycle
-        return Lifecycle.Lifecycle.Idle
+        return ViewLifecycle.Idle
     }
     function directionOf(viewId) {
         if (viewSlotAViewId === viewId) return viewSlotADirection
         if (viewSlotBViewId === viewId) return viewSlotBDirection
-        return Direction.Direction.Next
+        return NavDirection.Next
     }
     function partnerOf(viewId) {
         if (viewSlotAViewId === viewId) return viewSlotAPartnerId
@@ -90,11 +103,11 @@ QtObject {
     function reportEnterComplete(viewId) {
         Logger.log("TransitionManager", "reportEnterComplete",
                    "viewId=" + ViewId.nameOf(viewId),
-                   "slotA(" + ViewId.nameOf(viewSlotAViewId) + ")=" + Lifecycle.nameOf(viewSlotALifecycle)
-                   + ", slotB(" + ViewId.nameOf(viewSlotBViewId) + ")=" + Lifecycle.nameOf(viewSlotBLifecycle))
-        if (viewSlotAViewId === viewId && viewSlotALifecycle === Lifecycle.Lifecycle.Entering) {
+                   "slotA(" + ViewId.nameOf(viewSlotAViewId) + ")=" + ViewLifecycle.nameOf(viewSlotALifecycle)
+                   + ", slotB(" + ViewId.nameOf(viewSlotBViewId) + ")=" + ViewLifecycle.nameOf(viewSlotBLifecycle))
+        if (viewSlotAViewId === viewId && viewSlotALifecycle === ViewLifecycle.Entering) {
             enterReported = true
-        } else if (viewSlotBViewId === viewId && viewSlotBLifecycle === Lifecycle.Lifecycle.Entering) {
+        } else if (viewSlotBViewId === viewId && viewSlotBLifecycle === ViewLifecycle.Entering) {
             enterReported = true
         }
         checkAndFinish()
@@ -102,21 +115,21 @@ QtObject {
     function reportLeaveComplete(viewId) {
         Logger.log("TransitionManager", "reportLeaveComplete",
                    "viewId=" + ViewId.nameOf(viewId),
-                   "slotA(" + ViewId.nameOf(viewSlotAViewId) + ")=" + Lifecycle.nameOf(viewSlotALifecycle)
-                   + ", slotB(" + ViewId.nameOf(viewSlotBViewId) + ")=" + Lifecycle.nameOf(viewSlotBLifecycle))
-        if (viewSlotAViewId === viewId && viewSlotALifecycle === Lifecycle.Lifecycle.Leaving) {
+                   "slotA(" + ViewId.nameOf(viewSlotAViewId) + ")=" + ViewLifecycle.nameOf(viewSlotALifecycle)
+                   + ", slotB(" + ViewId.nameOf(viewSlotBViewId) + ")=" + ViewLifecycle.nameOf(viewSlotBLifecycle))
+        if (viewSlotAViewId === viewId && viewSlotALifecycle === ViewLifecycle.Leaving) {
             leaveReported = true
-        } else if (viewSlotBViewId === viewId && viewSlotBLifecycle === Lifecycle.Lifecycle.Leaving) {
+        } else if (viewSlotBViewId === viewId && viewSlotBLifecycle === ViewLifecycle.Leaving) {
             leaveReported = true
         }
         checkAndFinish()
     }
 
     function checkAndFinish() {
-        var enterNeeded = (viewSlotALifecycle === Lifecycle.Lifecycle.Entering
-                        || viewSlotBLifecycle === Lifecycle.Lifecycle.Entering)
-        var leaveNeeded = (viewSlotALifecycle === Lifecycle.Lifecycle.Leaving
-                        || viewSlotBLifecycle === Lifecycle.Lifecycle.Leaving)
+        var enterNeeded = (viewSlotALifecycle === ViewLifecycle.Entering
+                        || viewSlotBLifecycle === ViewLifecycle.Entering)
+        var leaveNeeded = (viewSlotALifecycle === ViewLifecycle.Leaving
+                        || viewSlotBLifecycle === ViewLifecycle.Leaving)
         Logger.log("TransitionManager", "checkAndFinish", "",
                    "enterNeeded=" + enterNeeded + "/reported=" + enterReported
                    + ", leaveNeeded=" + leaveNeeded + "/reported=" + leaveReported)
@@ -127,51 +140,51 @@ QtObject {
 
     function finalizeTransition() {
         Logger.log("TransitionManager", "finalizeTransition", "",
-                   "isCrossScene=" + isCrossScene
-                   + ", sceneAIsCurrent=" + sceneAIsCurrent
+                   "isCrossScreen=" + isCrossScreen
+                   + ", screenAIsCurrent=" + screenAIsCurrent
                    + ", viewAIsCurrent=" + viewAIsCurrent
                    + ", pendingFinalId=" + ViewId.nameOf(pendingFinalId))
         // Leaving 側のスロットを解放
-        if (viewSlotALifecycle === Lifecycle.Lifecycle.Leaving) {
+        if (viewSlotALifecycle === ViewLifecycle.Leaving) {
             viewSlotASource = ""
             viewSlotAViewId = 0
             viewSlotAPartnerId = 0
-            viewSlotALifecycle = Lifecycle.Lifecycle.Idle
+            viewSlotALifecycle = ViewLifecycle.Idle
         }
-        if (viewSlotBLifecycle === Lifecycle.Lifecycle.Leaving) {
+        if (viewSlotBLifecycle === ViewLifecycle.Leaving) {
             viewSlotBSource = ""
             viewSlotBViewId = 0
             viewSlotBPartnerId = 0
-            viewSlotBLifecycle = Lifecycle.Lifecycle.Idle
+            viewSlotBLifecycle = ViewLifecycle.Idle
         }
         // Entering 側のスロットを current に昇格
-        if (viewSlotALifecycle === Lifecycle.Lifecycle.Entering) {
-            viewSlotALifecycle = Lifecycle.Lifecycle.Idle
+        if (viewSlotALifecycle === ViewLifecycle.Entering) {
+            viewSlotALifecycle = ViewLifecycle.Idle
             viewSlotAPartnerId = 0
             viewAIsCurrent = true
         }
-        if (viewSlotBLifecycle === Lifecycle.Lifecycle.Entering) {
-            viewSlotBLifecycle = Lifecycle.Lifecycle.Idle
+        if (viewSlotBLifecycle === ViewLifecycle.Entering) {
+            viewSlotBLifecycle = ViewLifecycle.Idle
             viewSlotBPartnerId = 0
             viewAIsCurrent = false
         }
 
-        // Cross-scene の場合は旧 scene スロットを解放
-        if (isCrossScene) {
-            if (sceneAIsCurrent) {
-                sceneSourceA = ""
-                sceneAIsCurrent = false
+        // Cross-screen の場合は旧 screen スロットを解放
+        if (isCrossScreen) {
+            if (screenAIsCurrent) {
+                screenSourceA = ""
+                screenAIsCurrent = false
             } else {
-                sceneSourceB = ""
-                sceneAIsCurrent = true
+                screenSourceB = ""
+                screenAIsCurrent = true
             }
         }
 
-        state = Lifecycle.Lifecycle.Idle
+        state = ViewLifecycle.Idle
         KeyDispatcher.enabled = true
         enterReported = false
         leaveReported = false
-        isCrossScene = false
+        isCrossScreen = false
         hasLeavingView = false
 
         var finalId = pendingFinalId
@@ -181,8 +194,8 @@ QtObject {
         finishedGen = finishedGen + 1
         Logger.log("TransitionManager", "transition finished",
                    "finalViewId=" + ViewId.nameOf(finalId) + ", gen=" + finishedGen,
-                   "sceneSourceA=" + sceneSourceA + ", sceneSourceB=" + sceneSourceB
-                   + ", sceneAIsCurrent=" + sceneAIsCurrent
+                   "screenSourceA=" + screenSourceA + ", screenSourceB=" + screenSourceB
+                   + ", screenAIsCurrent=" + screenAIsCurrent
                    + ", viewSlotA(" + ViewId.nameOf(viewSlotAViewId) + ")"
                    + ", viewSlotB(" + ViewId.nameOf(viewSlotBViewId) + ")"
                    + ", viewAIsCurrent=" + viewAIsCurrent)
@@ -192,90 +205,97 @@ QtObject {
     // 遷移開始
     // ============================================================
     function startTransition(toViewId, direction) {
-        if (direction === undefined) direction = Direction.Direction.Next
+        if (direction === undefined) direction = NavDirection.Next
 
-        var fromViewId = (viewAIsCurrent ? viewSlotAViewId : viewSlotBViewId)
-        var targetSceneId = ViewId.sceneOf(toViewId)
-        var targetScene = SceneId.fileOf(targetSceneId)
-        var targetView  = ViewId.fileOf(toViewId)
-        if (targetScene === "" || targetView === "") {
+        if (!screenRegistry) {
             Logger.log("TransitionManager", "startTransition ABORT",
                        "toViewId=" + ViewId.nameOf(toViewId),
-                       "unknown view ID")
+                       "screenRegistry not injected (Main.qml の Component.onCompleted で代入忘れ?)")
             return
         }
-        var fromSceneId = (fromViewId !== 0) ? ViewId.sceneOf(fromViewId) : 0
-        var sceneChanged = (fromSceneId !== targetSceneId)
+
+        var fromViewId = (viewAIsCurrent ? viewSlotAViewId : viewSlotBViewId)
+        var targetScreenId = ViewId.screenOf(toViewId)
+        var targetScreen = screenRegistry.screenUrlOf(targetScreenId)
+        var targetView  = screenRegistry.viewUrlOf(toViewId)
+        if (targetScreen === "" || targetView === "") {
+            Logger.log("TransitionManager", "startTransition ABORT",
+                       "toViewId=" + ViewId.nameOf(toViewId),
+                       "screenRegistry returned empty URL (未登録の ID か qrc パスのずれ)")
+            return
+        }
+        var fromScreenId = (fromViewId !== 0) ? ViewId.screenOf(fromViewId) : 0
+        var screenChanged = (fromScreenId !== targetScreenId)
         Logger.log("TransitionManager", "startTransition",
                    "toViewId=" + ViewId.nameOf(toViewId)
-                   + ", direction=" + Direction.nameOf(direction),
+                   + ", direction=" + NavDirection.nameOf(direction),
                    "fromViewId=" + ViewId.nameOf(fromViewId)
-                   + ", sceneChanged=" + sceneChanged
+                   + ", screenChanged=" + screenChanged
                    + ", hasLeavingView=" + (fromViewId !== 0)
-                   + ", targetScene=" + targetScene
+                   + ", targetScreen=" + targetScreen
                    + ", targetView=" + targetView)
 
         KeyDispatcher.enabled = false
-        state = Lifecycle.Lifecycle.Entering
+        state = ViewLifecycle.Entering
         enterReported = false
         leaveReported = false
         pendingFinalId = toViewId
-        isCrossScene = sceneChanged
+        isCrossScreen = screenChanged
         hasLeavingView = (fromViewId !== 0)
 
-        // 新 scene をロード
-        if (sceneChanged) {
-            if (sceneAIsCurrent) {
-                sceneSourceB = targetScene
+        // 新 screen をロード
+        if (screenChanged) {
+            if (screenAIsCurrent) {
+                screenSourceB = targetScreen
             } else {
-                sceneSourceA = targetScene
+                screenSourceA = targetScreen
             }
         }
 
         // ★ write 順が重要 ★ (§9-3-1)
-        // 1. Incoming の metadata (ID/direction/partner/lifecycle) を先に
+        // 1. Entering の metadata (ID/direction/partner/lifecycle) を先に
         // 2. Leaving の metadata (= 既存 view の leaveAnim を起動)
-        // 3. Incoming の source を最後 (Loader.source 変化で新 view ロード時に
+        // 3. Entering の source を最後 (Loader.source 変化で新 view ロード時に
         //    metadata が揃っている → onCompleted が正しい state を見られる)
-        var incomingIsA = !viewAIsCurrent
+        var enteringIsA = !viewAIsCurrent
 
-        if (incomingIsA) {
-            // (1) Incoming = A の metadata
+        if (enteringIsA) {
+            // (1) Entering = A の metadata
             viewSlotAViewId     = toViewId
             viewSlotADirection  = direction
             viewSlotAPartnerId  = fromViewId
-            viewSlotALifecycle  = Lifecycle.Lifecycle.Entering
+            viewSlotALifecycle  = ViewLifecycle.Entering
 
             // (2) Leaving = B の metadata
             if (hasLeavingView) {
                 viewSlotBDirection  = direction
                 viewSlotBPartnerId  = toViewId
-                viewSlotBLifecycle  = Lifecycle.Lifecycle.Leaving
+                viewSlotBLifecycle  = ViewLifecycle.Leaving
             }
 
-            // (3) Incoming = A の source は最後
+            // (3) Entering = A の source は最後
             viewSlotASource     = targetView
         } else {
-            // (1) Incoming = B の metadata
+            // (1) Entering = B の metadata
             viewSlotBViewId     = toViewId
             viewSlotBDirection  = direction
             viewSlotBPartnerId  = fromViewId
-            viewSlotBLifecycle  = Lifecycle.Lifecycle.Entering
+            viewSlotBLifecycle  = ViewLifecycle.Entering
 
             // (2) Leaving = A の metadata
             if (hasLeavingView) {
                 viewSlotADirection  = direction
                 viewSlotAPartnerId  = toViewId
-                viewSlotALifecycle  = Lifecycle.Lifecycle.Leaving
+                viewSlotALifecycle  = ViewLifecycle.Leaving
             }
 
-            // (3) Incoming = B の source は最後
+            // (3) Entering = B の source は最後
             viewSlotBSource     = targetView
         }
         Logger.log("TransitionManager", "startTransition done", "",
-                   "incomingIsA=" + incomingIsA
-                   + ", slotA(" + ViewId.nameOf(viewSlotAViewId) + ")=" + Lifecycle.nameOf(viewSlotALifecycle)
-                   + ", slotB(" + ViewId.nameOf(viewSlotBViewId) + ")=" + Lifecycle.nameOf(viewSlotBLifecycle))
+                   "enteringIsA=" + enteringIsA
+                   + ", slotA(" + ViewId.nameOf(viewSlotAViewId) + ")=" + ViewLifecycle.nameOf(viewSlotALifecycle)
+                   + ", slotB(" + ViewId.nameOf(viewSlotBViewId) + ")=" + ViewLifecycle.nameOf(viewSlotBLifecycle))
     }
 
     // ============================================================
@@ -290,18 +310,18 @@ QtObject {
             viewSlotASource = ""
             viewSlotAViewId = 0
             viewSlotAPartnerId = 0
-            viewSlotALifecycle = Lifecycle.Lifecycle.Idle
+            viewSlotALifecycle = ViewLifecycle.Idle
         } else {
             viewSlotBSource = ""
             viewSlotBViewId = 0
             viewSlotBPartnerId = 0
-            viewSlotBLifecycle = Lifecycle.Lifecycle.Idle
+            viewSlotBLifecycle = ViewLifecycle.Idle
         }
-        state = Lifecycle.Lifecycle.Idle
+        state = ViewLifecycle.Idle
         enterReported = false
         leaveReported = false
         pendingFinalId = 0
-        isCrossScene = false
+        isCrossScreen = false
         hasLeavingView = false
         KeyDispatcher.enabled = true
     }
@@ -312,7 +332,7 @@ QtObject {
     function abortCurrentTransition() {
         Logger.log("TransitionManager", "abortCurrentTransition", "",
                    "state=" + state)
-        if (state === Lifecycle.Lifecycle.Idle) return
+        if (state === ViewLifecycle.Idle) return
         enterReported = true
         leaveReported = true
         finalizeTransition()

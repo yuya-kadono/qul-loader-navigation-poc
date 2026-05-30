@@ -1,437 +1,731 @@
-03:08:20: C:\develop\qul-loader-navigation-poc\QulLoaderNavigation\build\Desktop_Qt_6_11_0_MinGW_64_bit-Debug\appQulLoaderNavigation.exe を起動中...
+
+11:33:01: C:\develop\qul-loader-navigation-poc\QulLoaderNavigation\build\Desktop_Qt_6_11_0_MinGW_64_bit-Debug\appQulLoaderNavigation.exe を起動中...
 QML debugging is enabled. Only use this in a safe environment.
-qml: [03:08:21.887] Main.Component.onCompleted()  | kickoff: requestNavigate(opening/opening, Next)
-qml: [03:08:21.898] Mediator.requestNavigate(viewId=opening/opening, direction=Next)  | currentViewId=(unset), previousViewId=(unset), history.length=0
-qml: [03:08:21.898] Mediator.state updated()  | currentViewId=opening/opening, previousViewId=(unset), history.length=0
-qml: [03:08:21.899] TransitionManager.startTransition(toViewId=opening/opening, direction=Next)  | fromViewId=(unset), sceneChanged=true, hasLeavingView=false, targetScene=qrc:/qt/qml/Scenes/Opening/OpeningScene.qml, targetView=qrc:/qt/qml/Scenes/Opening/OpeningView.qml
-qml: [03:08:21.899] KeyDispatcher.enabled changed(value=false)
-qml: [03:08:21.899] TransitionManager.sceneSourceB changed()  | value=qrc:/qt/qml/Scenes/Opening/OpeningScene.qml
-qml: [03:08:21.901] openingScene.loaded()
-qml: [03:08:21.904] opening/opening.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=(none)
-qml: [03:08:21.904] opening/opening.performEnter (custom)()  | openingEnterAnim.start (1500ms)
-qml: [03:08:21.925] opening/opening.Component.onCompleted()  | myLifecycle=Entering
-qml: [03:08:21.928] TransitionManager.startTransition done()  | incomingIsA=false, slotA((unset))=Idle, slotB(opening/opening)=Entering
-qml: [03:08:23.674] opening/opening.openingEnterAnim.onStopped()  | duration=1500ms (long-enter pattern)
-qml: [03:08:23.674] TransitionManager.reportEnterComplete(viewId=opening/opening)  | slotA((unset))=Idle, slotB(opening/opening)=Entering
-qml: [03:08:23.679] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=false/reported=false
-qml: [03:08:23.679] TransitionManager.finalizeTransition()  | isCrossScene=true, sceneAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=opening/opening
-qml: [03:08:23.680] opening/opening.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=(none)
-qml: [03:08:23.681] KeyDispatcher.enabled changed(value=true)
-qml: [03:08:23.681] Main.onTransitionFinished(finalViewId=opening/opening)
-qml: [03:08:23.681] TransitionManager.transition finished(finalViewId=opening/opening, gen=1)  | sceneSourceA=, sceneSourceB=qrc:/qt/qml/Scenes/Opening/OpeningScene.qml, sceneAIsCurrent=false, viewSlotA((unset)), viewSlotB(opening/opening), viewAIsCurrent=false
-qml: [03:08:23.681] opening/opening.self-trigger(after enter complete)  | requestNavigate(normal/home, Next)
-qml: [03:08:23.681] Mediator.requestNavigate(viewId=normal/home, direction=Next)  | currentViewId=opening/opening, previousViewId=(unset), history.length=0
-qml: [03:08:23.682] Mediator.state updated()  | currentViewId=normal/home, previousViewId=opening/opening, history.length=1
-qml: [03:08:23.682] TransitionManager.startTransition(toViewId=normal/home, direction=Next)  | fromViewId=opening/opening, sceneChanged=true, hasLeavingView=true, targetScene=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, targetView=qrc:/qt/qml/Scenes/Normal/HomeView.qml
-qml: [03:08:23.682] KeyDispatcher.enabled changed(value=false)
-qml: [03:08:23.683] TransitionManager.sceneSourceA changed()  | value=qrc:/qt/qml/Scenes/Normal/NormalScene.qml
-qml: [03:08:23.684] normalScene.loaded()
-qml: [03:08:23.685] opening/opening.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=normal/home
-qml: [03:08:23.686] opening/opening.leaveAnim.start()  | duration=725ms
-qml: [03:08:23.687] normal/home.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=opening/opening
-qml: [03:08:23.687] normal/home.performEnter (instant)()  | duration=0, deferred report via Qt.callLater
-qml: [03:08:23.690] normal/home.Component.onCompleted()  | myLifecycle=Entering
-qml: [03:08:23.690] TransitionManager.startTransition done()  | incomingIsA=true, slotA(normal/home)=Entering, slotB(opening/opening)=Leaving
-qml: [03:08:23.690] normal/home.deferred reportEnterComplete()  | (instant enter)
-qml: [03:08:23.690] TransitionManager.reportEnterComplete(viewId=normal/home)  | slotA(normal/home)=Entering, slotB(opening/opening)=Leaving
-qml: [03:08:23.690] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
-qml: [03:08:24.399] opening/opening.leaveAnim.onStopped()  | duration=725ms
-qml: [03:08:24.399] TransitionManager.reportLeaveComplete(viewId=opening/opening)  | slotA(normal/home)=Entering, slotB(opening/opening)=Leaving
-qml: [03:08:24.412] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
-qml: [03:08:24.413] TransitionManager.finalizeTransition()  | isCrossScene=true, sceneAIsCurrent=false, viewAIsCurrent=false, pendingFinalId=normal/home
-qml: [03:08:24.413] opening/opening.Component.onDestruction()
-qml: [03:08:24.413] normal/home.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=opening/opening
-qml: [03:08:24.414] TransitionManager.sceneSourceB changed()  | value=
-qml: [03:08:24.414] openingScene.destroyed()
-qml: [03:08:24.414] KeyDispatcher.enabled changed(value=true)
-qml: [03:08:24.414] Main.onTransitionFinished(finalViewId=normal/home)
-qml: [03:08:24.414] TransitionManager.transition finished(finalViewId=normal/home, gen=2)  | sceneSourceA=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, sceneSourceB=, sceneAIsCurrent=true, viewSlotA(normal/home), viewSlotB((unset)), viewAIsCurrent=true
-qml: [03:08:27.567] Main.Keys.onPressed(physicalKey=90)  | vk=MENU
-qml: [03:08:27.567] KeyDispatcher.dispatchToScene(vk=MENU, ev=PRESS)  | enabled=true
-qml: [03:08:27.569] normalScene.onSceneKeyEvent(vk=MENU, ev=PRESS)
-qml: [03:08:27.570] normalScene.forward-to-view(vk=MENU, ev=PRESS)
-qml: [03:08:27.570] KeyDispatcher.dispatchToView(vk=MENU, ev=PRESS)  | enabled=true
-qml: [03:08:27.570] normal/home.onViewKey(vk=MENU, ev=PRESS)
-qml: [03:08:27.570] KeyDispatcher.viewEvent posted(vk=MENU, ev=PRESS)  | gen=1
-qml: [03:08:27.571] KeyDispatcher.sceneEvent posted(vk=MENU, ev=PRESS)  | gen=1
-qml: [03:08:27.704] Main.Keys.onReleased(physicalKey=90)  | vk=MENU
-qml: [03:08:27.704] KeyDispatcher.dispatchToScene(vk=MENU, ev=RELEASE)  | enabled=true
-qml: [03:08:27.706] normalScene.onSceneKeyEvent(vk=MENU, ev=RELEASE)
-qml: [03:08:27.706] normalScene.forward-to-view(vk=MENU, ev=RELEASE)
-qml: [03:08:27.706] KeyDispatcher.dispatchToView(vk=MENU, ev=RELEASE)  | enabled=true
-qml: [03:08:27.706] normal/home.onViewKey(vk=MENU, ev=RELEASE)
-qml: [03:08:27.706] KeyDispatcher.viewEvent posted(vk=MENU, ev=RELEASE)  | gen=2
-qml: [03:08:27.706] KeyDispatcher.sceneEvent posted(vk=MENU, ev=RELEASE)  | gen=2
-qml: [03:08:27.706] Main.CLICK synthesized(physicalKey=90)  | vk=MENU
-qml: [03:08:27.706] KeyDispatcher.dispatchToScene(vk=MENU, ev=CLICK)  | enabled=true
-qml: [03:08:27.706] normalScene.onSceneKeyEvent(vk=MENU, ev=CLICK)
-qml: [03:08:27.706] normalScene.absorb(vk=MENU/CLICK)  | action=requestNavigate(normal/menu, Next)
-qml: [03:08:27.706] Mediator.requestNavigate(viewId=normal/menu, direction=Next)  | currentViewId=normal/home, previousViewId=opening/opening, history.length=1
-qml: [03:08:27.707] Mediator.state updated()  | currentViewId=normal/menu, previousViewId=normal/home, history.length=2
-qml: [03:08:27.707] TransitionManager.startTransition(toViewId=normal/menu, direction=Next)  | fromViewId=normal/home, sceneChanged=false, hasLeavingView=true, targetScene=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, targetView=qrc:/qt/qml/Scenes/Normal/MenuView.qml
-qml: [03:08:27.707] KeyDispatcher.enabled changed(value=false)
-qml: [03:08:27.707] normal/home.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=normal/menu
-qml: [03:08:27.707] normal/home.performLeave (instant)()  | duration=0, deferred report via Qt.callLater
-qml: [03:08:27.709] normal/menu.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=normal/home
-qml: [03:08:27.709] normal/menu.onEntering cursor init(previousViewId=normal/home)  | cursorIndex: 0 → 0
-qml: [03:08:27.709] normal/menu.enterAnim.start()  | duration=665ms
-qml: [03:08:27.712] normal/menu.Component.onCompleted()  | myLifecycle=Entering
-qml: [03:08:27.712] TransitionManager.startTransition done()  | incomingIsA=false, slotA(normal/home)=Leaving, slotB(normal/menu)=Entering
-qml: [03:08:27.712] KeyDispatcher.sceneEvent posted(vk=MENU, ev=CLICK)  | gen=3
-qml: [03:08:27.712] normal/home.deferred reportLeaveComplete()  | (instant leave)
-qml: [03:08:27.712] TransitionManager.reportLeaveComplete(viewId=normal/home)  | slotA(normal/home)=Leaving, slotB(normal/menu)=Entering
-qml: [03:08:27.713] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=false, leaveNeeded=true/reported=true
-qml: [03:08:28.367] normal/menu.enterAnim.onStopped()  | duration=665ms
-qml: [03:08:28.367] TransitionManager.reportEnterComplete(viewId=normal/menu)  | slotA(normal/home)=Leaving, slotB(normal/menu)=Entering
-qml: [03:08:28.367] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
-qml: [03:08:28.379] TransitionManager.finalizeTransition()  | isCrossScene=false, sceneAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=normal/menu
-qml: [03:08:28.379] normal/home.Component.onDestruction()
-qml: [03:08:28.379] normal/menu.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=normal/home
-qml: [03:08:28.379] KeyDispatcher.enabled changed(value=true)
-qml: [03:08:28.379] Main.onTransitionFinished(finalViewId=normal/menu)
-qml: [03:08:28.379] TransitionManager.transition finished(finalViewId=normal/menu, gen=3)  | sceneSourceA=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, sceneSourceB=, sceneAIsCurrent=true, viewSlotA((unset)), viewSlotB(normal/menu), viewAIsCurrent=false
-qml: [03:08:28.899] Main.Keys.onPressed(physicalKey=68)  | vk=NEXT
-qml: [03:08:28.913] KeyDispatcher.dispatchToScene(vk=NEXT, ev=PRESS)  | enabled=true
-qml: [03:08:28.913] normalScene.onSceneKeyEvent(vk=NEXT, ev=PRESS)
-qml: [03:08:28.913] normalScene.forward-to-view(vk=NEXT, ev=PRESS)
-qml: [03:08:28.913] KeyDispatcher.dispatchToView(vk=NEXT, ev=PRESS)  | enabled=true
-qml: [03:08:28.913] normal/menu.onViewKey(vk=NEXT, ev=PRESS)
-qml: [03:08:28.913] KeyDispatcher.viewEvent posted(vk=NEXT, ev=PRESS)  | gen=3
-qml: [03:08:28.913] KeyDispatcher.sceneEvent posted(vk=NEXT, ev=PRESS)  | gen=4
-qml: [03:08:29.019] Main.Keys.onReleased(physicalKey=68)  | vk=NEXT
-qml: [03:08:29.019] KeyDispatcher.dispatchToScene(vk=NEXT, ev=RELEASE)  | enabled=true
-qml: [03:08:29.019] normalScene.onSceneKeyEvent(vk=NEXT, ev=RELEASE)
-qml: [03:08:29.033] normalScene.forward-to-view(vk=NEXT, ev=RELEASE)
-qml: [03:08:29.033] KeyDispatcher.dispatchToView(vk=NEXT, ev=RELEASE)  | enabled=true
-qml: [03:08:29.033] normal/menu.onViewKey(vk=NEXT, ev=RELEASE)
-qml: [03:08:29.033] KeyDispatcher.viewEvent posted(vk=NEXT, ev=RELEASE)  | gen=4
-qml: [03:08:29.033] KeyDispatcher.sceneEvent posted(vk=NEXT, ev=RELEASE)  | gen=5
-qml: [03:08:29.034] Main.CLICK synthesized(physicalKey=68)  | vk=NEXT
-qml: [03:08:29.034] KeyDispatcher.dispatchToScene(vk=NEXT, ev=CLICK)  | enabled=true
-qml: [03:08:29.034] normalScene.onSceneKeyEvent(vk=NEXT, ev=CLICK)
-qml: [03:08:29.034] normalScene.forward-to-view(vk=NEXT, ev=CLICK)
-qml: [03:08:29.034] KeyDispatcher.dispatchToView(vk=NEXT, ev=CLICK)  | enabled=true
-qml: [03:08:29.034] normal/menu.onViewKey(vk=NEXT, ev=CLICK)
-qml: [03:08:29.034] normal/menu.cursor moved(NEXT/CLICK)  | cursorIndex=1
-qml: [03:08:29.034] KeyDispatcher.viewEvent posted(vk=NEXT, ev=CLICK)  | gen=5
-qml: [03:08:29.034] KeyDispatcher.sceneEvent posted(vk=NEXT, ev=CLICK)  | gen=6
-qml: [03:08:29.108] Main.Keys.onPressed(physicalKey=68)  | vk=NEXT
-qml: [03:08:29.108] KeyDispatcher.dispatchToScene(vk=NEXT, ev=PRESS)  | enabled=true
-qml: [03:08:29.108] normalScene.onSceneKeyEvent(vk=NEXT, ev=PRESS)
-qml: [03:08:29.110] normalScene.forward-to-view(vk=NEXT, ev=PRESS)
-qml: [03:08:29.110] KeyDispatcher.dispatchToView(vk=NEXT, ev=PRESS)  | enabled=true
-qml: [03:08:29.110] normal/menu.onViewKey(vk=NEXT, ev=PRESS)
-qml: [03:08:29.111] KeyDispatcher.viewEvent posted(vk=NEXT, ev=PRESS)  | gen=6
-qml: [03:08:29.111] KeyDispatcher.sceneEvent posted(vk=NEXT, ev=PRESS)  | gen=7
-qml: [03:08:29.262] Main.Keys.onReleased(physicalKey=68)  | vk=NEXT
-qml: [03:08:29.262] KeyDispatcher.dispatchToScene(vk=NEXT, ev=RELEASE)  | enabled=true
-qml: [03:08:29.266] normalScene.onSceneKeyEvent(vk=NEXT, ev=RELEASE)
-qml: [03:08:29.266] normalScene.forward-to-view(vk=NEXT, ev=RELEASE)
-qml: [03:08:29.266] KeyDispatcher.dispatchToView(vk=NEXT, ev=RELEASE)  | enabled=true
-qml: [03:08:29.266] normal/menu.onViewKey(vk=NEXT, ev=RELEASE)
-qml: [03:08:29.266] KeyDispatcher.viewEvent posted(vk=NEXT, ev=RELEASE)  | gen=7
-qml: [03:08:29.266] KeyDispatcher.sceneEvent posted(vk=NEXT, ev=RELEASE)  | gen=8
-qml: [03:08:29.266] Main.CLICK synthesized(physicalKey=68)  | vk=NEXT
-qml: [03:08:29.266] KeyDispatcher.dispatchToScene(vk=NEXT, ev=CLICK)  | enabled=true
-qml: [03:08:29.266] normalScene.onSceneKeyEvent(vk=NEXT, ev=CLICK)
-qml: [03:08:29.267] normalScene.forward-to-view(vk=NEXT, ev=CLICK)
-qml: [03:08:29.267] KeyDispatcher.dispatchToView(vk=NEXT, ev=CLICK)  | enabled=true
-qml: [03:08:29.267] normal/menu.onViewKey(vk=NEXT, ev=CLICK)
-qml: [03:08:29.268] normal/menu.cursor moved(NEXT/CLICK)  | cursorIndex=2
-qml: [03:08:29.268] KeyDispatcher.viewEvent posted(vk=NEXT, ev=CLICK)  | gen=8
-qml: [03:08:29.268] KeyDispatcher.sceneEvent posted(vk=NEXT, ev=CLICK)  | gen=9
-qml: [03:08:29.386] Main.Keys.onPressed(physicalKey=83)  | vk=ENTER
-qml: [03:08:29.386] KeyDispatcher.dispatchToScene(vk=ENTER, ev=PRESS)  | enabled=true
-qml: [03:08:29.386] normalScene.onSceneKeyEvent(vk=ENTER, ev=PRESS)
-qml: [03:08:29.386] normalScene.forward-to-view(vk=ENTER, ev=PRESS)
-qml: [03:08:29.386] KeyDispatcher.dispatchToView(vk=ENTER, ev=PRESS)  | enabled=true
-qml: [03:08:29.386] normal/menu.onViewKey(vk=ENTER, ev=PRESS)
-qml: [03:08:29.387] KeyDispatcher.viewEvent posted(vk=ENTER, ev=PRESS)  | gen=9
-qml: [03:08:29.387] KeyDispatcher.sceneEvent posted(vk=ENTER, ev=PRESS)  | gen=10
-qml: [03:08:29.508] Main.Keys.onReleased(physicalKey=83)  | vk=ENTER
-qml: [03:08:29.508] KeyDispatcher.dispatchToScene(vk=ENTER, ev=RELEASE)  | enabled=true
-qml: [03:08:29.508] normalScene.onSceneKeyEvent(vk=ENTER, ev=RELEASE)
-qml: [03:08:29.514] normalScene.forward-to-view(vk=ENTER, ev=RELEASE)
-qml: [03:08:29.514] KeyDispatcher.dispatchToView(vk=ENTER, ev=RELEASE)  | enabled=true
-qml: [03:08:29.514] normal/menu.onViewKey(vk=ENTER, ev=RELEASE)
-qml: [03:08:29.514] KeyDispatcher.viewEvent posted(vk=ENTER, ev=RELEASE)  | gen=10
-qml: [03:08:29.514] KeyDispatcher.sceneEvent posted(vk=ENTER, ev=RELEASE)  | gen=11
-qml: [03:08:29.514] Main.CLICK synthesized(physicalKey=83)  | vk=ENTER
-qml: [03:08:29.515] KeyDispatcher.dispatchToScene(vk=ENTER, ev=CLICK)  | enabled=true
-qml: [03:08:29.515] normalScene.onSceneKeyEvent(vk=ENTER, ev=CLICK)
-qml: [03:08:29.515] normalScene.forward-to-view(vk=ENTER, ev=CLICK)
-qml: [03:08:29.515] KeyDispatcher.dispatchToView(vk=ENTER, ev=CLICK)  | enabled=true
-qml: [03:08:29.515] normal/menu.onViewKey(vk=ENTER, ev=CLICK)
-qml: [03:08:29.515] normal/menu.action(ENTER/CLICK)  | cursorIndex=2 → requestNavigate(normal/sample2b, Next)
-qml: [03:08:29.516] Mediator.requestNavigate(viewId=normal/sample2b, direction=Next)  | currentViewId=normal/menu, previousViewId=normal/home, history.length=2
-qml: [03:08:29.516] Mediator.state updated()  | currentViewId=normal/sample2b, previousViewId=normal/menu, history.length=3
-qml: [03:08:29.517] TransitionManager.startTransition(toViewId=normal/sample2b, direction=Next)  | fromViewId=normal/menu, sceneChanged=false, hasLeavingView=true, targetScene=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, targetView=qrc:/qt/qml/Scenes/Normal/Sample2View.qml
-qml: [03:08:29.517] KeyDispatcher.enabled changed(value=false)
-qml: [03:08:29.518] normal/menu.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=normal/sample2b
-qml: [03:08:29.518] normal/menu.leaveAnim.start()  | duration=359ms
-qml: [03:08:29.519] normal/sample2b.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=normal/menu
-qml: [03:08:29.519] normal/sample2b.enterAnim.start()  | duration=637ms
-qml: [03:08:29.523] normal/sample2b.thisViewId auto-resolved()  | from Mediator.nextLoadingViewId=normal/sample2b
-qml: [03:08:29.523] normal/sample2b.Component.onCompleted()  | myLifecycle=Entering
-qml: [03:08:29.523] TransitionManager.startTransition done()  | incomingIsA=true, slotA(normal/sample2b)=Entering, slotB(normal/menu)=Leaving
-qml: [03:08:29.523] KeyDispatcher.viewEvent posted(vk=ENTER, ev=CLICK)  | gen=11
-qml: [03:08:29.523] KeyDispatcher.sceneEvent posted(vk=ENTER, ev=CLICK)  | gen=12
-qml: [03:08:29.864] normal/menu.leaveAnim.onStopped()  | duration=359ms
-qml: [03:08:29.864] TransitionManager.reportLeaveComplete(viewId=normal/menu)  | slotA(normal/sample2b)=Entering, slotB(normal/menu)=Leaving
-qml: [03:08:29.879] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=false, leaveNeeded=true/reported=true
-qml: [03:08:30.162] normal/sample2b.enterAnim.onStopped()  | duration=637ms
-qml: [03:08:30.163] TransitionManager.reportEnterComplete(viewId=normal/sample2b)  | slotA(normal/sample2b)=Entering, slotB(normal/menu)=Leaving
-qml: [03:08:30.164] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
-qml: [03:08:30.164] TransitionManager.finalizeTransition()  | isCrossScene=false, sceneAIsCurrent=true, viewAIsCurrent=false, pendingFinalId=normal/sample2b
-qml: [03:08:30.164] normal/menu.Component.onDestruction()
-qml: [03:08:30.164] normal/sample2b.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=normal/menu
-qml: [03:08:30.165] KeyDispatcher.enabled changed(value=true)
-qml: [03:08:30.165] Main.onTransitionFinished(finalViewId=normal/sample2b)
-qml: [03:08:30.165] TransitionManager.transition finished(finalViewId=normal/sample2b, gen=4)  | sceneSourceA=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, sceneSourceB=, sceneAIsCurrent=true, viewSlotA(normal/sample2b), viewSlotB((unset)), viewAIsCurrent=true
-qml: [03:08:33.358] Main.Keys.onPressed(physicalKey=67)  | vk=BACK
-qml: [03:08:33.358] KeyDispatcher.dispatchToScene(vk=BACK, ev=PRESS)  | enabled=true
-qml: [03:08:33.358] normalScene.onSceneKeyEvent(vk=BACK, ev=PRESS)
-qml: [03:08:33.363] normalScene.forward-to-view(vk=BACK, ev=PRESS)
-qml: [03:08:33.363] KeyDispatcher.dispatchToView(vk=BACK, ev=PRESS)  | enabled=true
-qml: [03:08:33.363] normal/sample2b.onViewKey(vk=BACK, ev=PRESS)
-qml: [03:08:33.363] KeyDispatcher.viewEvent posted(vk=BACK, ev=PRESS)  | gen=12
-qml: [03:08:33.363] KeyDispatcher.sceneEvent posted(vk=BACK, ev=PRESS)  | gen=13
-qml: [03:08:33.513] Main.Keys.onReleased(physicalKey=67)  | vk=BACK
-qml: [03:08:33.513] KeyDispatcher.dispatchToScene(vk=BACK, ev=RELEASE)  | enabled=true
-qml: [03:08:33.515] normalScene.onSceneKeyEvent(vk=BACK, ev=RELEASE)
-qml: [03:08:33.515] normalScene.forward-to-view(vk=BACK, ev=RELEASE)
-qml: [03:08:33.515] KeyDispatcher.dispatchToView(vk=BACK, ev=RELEASE)  | enabled=true
-qml: [03:08:33.515] normal/sample2b.onViewKey(vk=BACK, ev=RELEASE)
-qml: [03:08:33.515] KeyDispatcher.viewEvent posted(vk=BACK, ev=RELEASE)  | gen=13
-qml: [03:08:33.515] KeyDispatcher.sceneEvent posted(vk=BACK, ev=RELEASE)  | gen=14
-qml: [03:08:33.515] Main.CLICK synthesized(physicalKey=67)  | vk=BACK
-qml: [03:08:33.515] KeyDispatcher.dispatchToScene(vk=BACK, ev=CLICK)  | enabled=true
-qml: [03:08:33.515] normalScene.onSceneKeyEvent(vk=BACK, ev=CLICK)
-qml: [03:08:33.516] normalScene.forward-to-view(vk=BACK, ev=CLICK)
-qml: [03:08:33.516] KeyDispatcher.dispatchToView(vk=BACK, ev=CLICK)  | enabled=true
-qml: [03:08:33.516] normal/sample2b.onViewKey(vk=BACK, ev=CLICK)
-qml: [03:08:33.516] normal/sample2b.action(BACK/CLICK)  | requestNavigate(normal/menu, Back)
-qml: [03:08:33.516] Mediator.requestNavigate(viewId=normal/menu, direction=Back)  | currentViewId=normal/sample2b, previousViewId=normal/menu, history.length=3
-qml: [03:08:33.517] Mediator.state updated()  | currentViewId=normal/menu, previousViewId=normal/sample2b, history.length=4
-qml: [03:08:33.517] TransitionManager.startTransition(toViewId=normal/menu, direction=Back)  | fromViewId=normal/sample2b, sceneChanged=false, hasLeavingView=true, targetScene=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, targetView=qrc:/qt/qml/Scenes/Normal/MenuView.qml
-qml: [03:08:33.517] KeyDispatcher.enabled changed(value=false)
-qml: [03:08:33.517] normal/sample2b.reactToLifecycle()  | myLifecycle=Leaving, direction=Back, partner=normal/menu
-qml: [03:08:33.518] normal/sample2b.leaveAnim.start()  | duration=755ms
-qml: [03:08:33.519] normal/menu.reactToLifecycle()  | myLifecycle=Entering, direction=Back, partner=normal/sample2b
-qml: [03:08:33.519] normal/menu.onEntering cursor init(previousViewId=normal/sample2b)  | cursorIndex: 0 → 2
-qml: [03:08:33.520] normal/menu.enterAnim.start()  | duration=603ms
-qml: [03:08:33.520] normal/menu.Component.onCompleted()  | myLifecycle=Entering
-qml: [03:08:33.521] TransitionManager.startTransition done()  | incomingIsA=false, slotA(normal/sample2b)=Leaving, slotB(normal/menu)=Entering
-qml: [03:08:33.521] KeyDispatcher.viewEvent posted(vk=BACK, ev=CLICK)  | gen=14
-qml: [03:08:33.521] KeyDispatcher.sceneEvent posted(vk=BACK, ev=CLICK)  | gen=15
-qml: [03:08:34.115] normal/menu.enterAnim.onStopped()  | duration=603ms
-qml: [03:08:34.115] TransitionManager.reportEnterComplete(viewId=normal/menu)  | slotA(normal/sample2b)=Leaving, slotB(normal/menu)=Entering
-qml: [03:08:34.115] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
-qml: [03:08:34.266] normal/sample2b.leaveAnim.onStopped()  | duration=755ms
-qml: [03:08:34.279] TransitionManager.reportLeaveComplete(viewId=normal/sample2b)  | slotA(normal/sample2b)=Leaving, slotB(normal/menu)=Entering
-qml: [03:08:34.279] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
-qml: [03:08:34.279] TransitionManager.finalizeTransition()  | isCrossScene=false, sceneAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=normal/menu
-qml: [03:08:34.279] normal/sample2b.Component.onDestruction()
-qml: [03:08:34.280] normal/menu.reactToLifecycle()  | myLifecycle=Idle, direction=Back, partner=normal/sample2b
-qml: [03:08:34.280] KeyDispatcher.enabled changed(value=true)
-qml: [03:08:34.280] Main.onTransitionFinished(finalViewId=normal/menu)
-qml: [03:08:34.280] TransitionManager.transition finished(finalViewId=normal/menu, gen=5)  | sceneSourceA=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, sceneSourceB=, sceneAIsCurrent=true, viewSlotA((unset)), viewSlotB(normal/menu), viewAIsCurrent=false
-qml: [03:08:34.860] Main.Keys.onPressed(physicalKey=88)  | vk=HOME
-qml: [03:08:34.860] KeyDispatcher.dispatchToScene(vk=HOME, ev=PRESS)  | enabled=true
-qml: [03:08:34.860] normalScene.onSceneKeyEvent(vk=HOME, ev=PRESS)
-qml: [03:08:34.860] normalScene.forward-to-view(vk=HOME, ev=PRESS)
-qml: [03:08:34.866] KeyDispatcher.dispatchToView(vk=HOME, ev=PRESS)  | enabled=true
-qml: [03:08:34.866] normal/menu.onViewKey(vk=HOME, ev=PRESS)
-qml: [03:08:34.866] KeyDispatcher.viewEvent posted(vk=HOME, ev=PRESS)  | gen=15
-qml: [03:08:34.866] KeyDispatcher.sceneEvent posted(vk=HOME, ev=PRESS)  | gen=16
-qml: [03:08:35.064] Main.Keys.onReleased(physicalKey=88)  | vk=HOME
-qml: [03:08:35.064] KeyDispatcher.dispatchToScene(vk=HOME, ev=RELEASE)  | enabled=true
-qml: [03:08:35.064] normalScene.onSceneKeyEvent(vk=HOME, ev=RELEASE)
-qml: [03:08:35.070] normalScene.forward-to-view(vk=HOME, ev=RELEASE)
-qml: [03:08:35.070] KeyDispatcher.dispatchToView(vk=HOME, ev=RELEASE)  | enabled=true
-qml: [03:08:35.070] normal/menu.onViewKey(vk=HOME, ev=RELEASE)
-qml: [03:08:35.070] KeyDispatcher.viewEvent posted(vk=HOME, ev=RELEASE)  | gen=16
-qml: [03:08:35.070] KeyDispatcher.sceneEvent posted(vk=HOME, ev=RELEASE)  | gen=17
-qml: [03:08:35.070] Main.CLICK synthesized(physicalKey=88)  | vk=HOME
-qml: [03:08:35.071] KeyDispatcher.dispatchToScene(vk=HOME, ev=CLICK)  | enabled=true
-qml: [03:08:35.071] normalScene.onSceneKeyEvent(vk=HOME, ev=CLICK)
-qml: [03:08:35.071] normalScene.absorb(vk=HOME/CLICK)  | action=requestNavigate(normal/home, Next)
-qml: [03:08:35.071] Mediator.requestNavigate(viewId=normal/home, direction=Next)  | currentViewId=normal/menu, previousViewId=normal/sample2b, history.length=4
-qml: [03:08:35.071] Mediator.state updated()  | currentViewId=normal/home, previousViewId=normal/menu, history.length=5
-qml: [03:08:35.071] TransitionManager.startTransition(toViewId=normal/home, direction=Next)  | fromViewId=normal/menu, sceneChanged=false, hasLeavingView=true, targetScene=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, targetView=qrc:/qt/qml/Scenes/Normal/HomeView.qml
-qml: [03:08:35.072] KeyDispatcher.enabled changed(value=false)
-qml: [03:08:35.072] normal/menu.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=normal/home
-qml: [03:08:35.072] normal/menu.leaveAnim.start()  | duration=728ms
-qml: [03:08:35.073] normal/home.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=normal/menu
-qml: [03:08:35.073] normal/home.enterAnim.start()  | duration=712ms
-qml: [03:08:35.073] normal/home.Component.onCompleted()  | myLifecycle=Entering
-qml: [03:08:35.074] TransitionManager.startTransition done()  | incomingIsA=true, slotA(normal/home)=Entering, slotB(normal/menu)=Leaving
-qml: [03:08:35.074] KeyDispatcher.sceneEvent posted(vk=HOME, ev=CLICK)  | gen=18
-qml: [03:08:35.778] normal/home.enterAnim.onStopped()  | duration=712ms
-qml: [03:08:35.778] TransitionManager.reportEnterComplete(viewId=normal/home)  | slotA(normal/home)=Entering, slotB(normal/menu)=Leaving
-qml: [03:08:35.778] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
-qml: [03:08:35.789] normal/menu.leaveAnim.onStopped()  | duration=728ms
-qml: [03:08:35.789] TransitionManager.reportLeaveComplete(viewId=normal/menu)  | slotA(normal/home)=Entering, slotB(normal/menu)=Leaving
-qml: [03:08:35.789] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
-qml: [03:08:35.789] TransitionManager.finalizeTransition()  | isCrossScene=false, sceneAIsCurrent=true, viewAIsCurrent=false, pendingFinalId=normal/home
-qml: [03:08:35.796] normal/menu.Component.onDestruction()
-qml: [03:08:35.796] normal/home.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=normal/menu
-qml: [03:08:35.797] KeyDispatcher.enabled changed(value=true)
-qml: [03:08:35.797] Main.onTransitionFinished(finalViewId=normal/home)
-qml: [03:08:35.797] TransitionManager.transition finished(finalViewId=normal/home, gen=6)  | sceneSourceA=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, sceneSourceB=, sceneAIsCurrent=true, viewSlotA(normal/home), viewSlotB((unset)), viewAIsCurrent=true
-qml: [03:08:36.281] Main.Keys.onPressed(physicalKey=83)  | vk=ENTER
-qml: [03:08:36.281] KeyDispatcher.dispatchToScene(vk=ENTER, ev=PRESS)  | enabled=true
-qml: [03:08:36.281] normalScene.onSceneKeyEvent(vk=ENTER, ev=PRESS)
-qml: [03:08:36.286] normalScene.forward-to-view(vk=ENTER, ev=PRESS)
-qml: [03:08:36.286] KeyDispatcher.dispatchToView(vk=ENTER, ev=PRESS)  | enabled=true
-qml: [03:08:36.286] normal/home.onViewKey(vk=ENTER, ev=PRESS)
-qml: [03:08:36.286] KeyDispatcher.viewEvent posted(vk=ENTER, ev=PRESS)  | gen=17
-qml: [03:08:36.287] KeyDispatcher.sceneEvent posted(vk=ENTER, ev=PRESS)  | gen=19
-qml: [03:08:36.419] Main.Keys.onReleased(physicalKey=83)  | vk=ENTER
-qml: [03:08:36.419] KeyDispatcher.dispatchToScene(vk=ENTER, ev=RELEASE)  | enabled=true
-qml: [03:08:36.419] normalScene.onSceneKeyEvent(vk=ENTER, ev=RELEASE)
-qml: [03:08:36.429] normalScene.forward-to-view(vk=ENTER, ev=RELEASE)
-qml: [03:08:36.429] KeyDispatcher.dispatchToView(vk=ENTER, ev=RELEASE)  | enabled=true
-qml: [03:08:36.429] normal/home.onViewKey(vk=ENTER, ev=RELEASE)
-qml: [03:08:36.429] KeyDispatcher.viewEvent posted(vk=ENTER, ev=RELEASE)  | gen=18
-qml: [03:08:36.429] KeyDispatcher.sceneEvent posted(vk=ENTER, ev=RELEASE)  | gen=20
-qml: [03:08:36.429] Main.CLICK synthesized(physicalKey=83)  | vk=ENTER
-qml: [03:08:36.429] KeyDispatcher.dispatchToScene(vk=ENTER, ev=CLICK)  | enabled=true
-qml: [03:08:36.429] normalScene.onSceneKeyEvent(vk=ENTER, ev=CLICK)
-qml: [03:08:36.429] normalScene.forward-to-view(vk=ENTER, ev=CLICK)
-qml: [03:08:36.429] KeyDispatcher.dispatchToView(vk=ENTER, ev=CLICK)  | enabled=true
-qml: [03:08:36.429] normal/home.onViewKey(vk=ENTER, ev=CLICK)
-qml: [03:08:36.429] normal/home.action(ENTER/CLICK)  | requestNavigate(closing/closing, Next)
-qml: [03:08:36.429] Mediator.requestNavigate(viewId=closing/closing, direction=Next)  | currentViewId=normal/home, previousViewId=normal/menu, history.length=5
-qml: [03:08:36.429] Mediator.closing entry reset()  | history cleared, closingAborted=false
-qml: [03:08:36.429] Mediator.state updated()  | currentViewId=closing/closing, previousViewId=normal/home, history.length=0
-qml: [03:08:36.430] TransitionManager.startTransition(toViewId=closing/closing, direction=Next)  | fromViewId=normal/home, sceneChanged=true, hasLeavingView=true, targetScene=qrc:/qt/qml/Scenes/Closing/ClosingScene.qml, targetView=qrc:/qt/qml/Scenes/Closing/ClosingView.qml
-qml: [03:08:36.430] KeyDispatcher.enabled changed(value=false)
-qml: [03:08:36.430] TransitionManager.sceneSourceB changed()  | value=qrc:/qt/qml/Scenes/Closing/ClosingScene.qml
-qml: [03:08:36.431] closingScene.loaded()
-qml: [03:08:36.432] normal/home.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=closing/closing
-qml: [03:08:36.432] normal/home.leaveAnim.start()  | duration=323ms
-qml: [03:08:36.433] closing/closing.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=normal/home
-qml: [03:08:36.433] closing/closing.performEnter (custom)()  | deferred reportEnterComplete via Qt.callLater
-qml: [03:08:36.433] closing/closing.internalAnim.start()  | duration=3000ms
-qml: [03:08:36.434] closing/closing.Component.onCompleted()  | myLifecycle=Entering
-qml: [03:08:36.434] TransitionManager.startTransition done()  | incomingIsA=false, slotA(normal/home)=Leaving, slotB(closing/closing)=Entering
-qml: [03:08:36.434] KeyDispatcher.viewEvent posted(vk=ENTER, ev=CLICK)  | gen=19
-qml: [03:08:36.434] KeyDispatcher.sceneEvent posted(vk=ENTER, ev=CLICK)  | gen=21
-qml: [03:08:36.435] closing/closing.deferred reportEnterComplete()  | called via Qt.callLater
-qml: [03:08:36.435] TransitionManager.reportEnterComplete(viewId=closing/closing)  | slotA(normal/home)=Leaving, slotB(closing/closing)=Entering
-qml: [03:08:36.435] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
-qml: [03:08:36.760] normal/home.leaveAnim.onStopped()  | duration=323ms
-qml: [03:08:36.760] TransitionManager.reportLeaveComplete(viewId=normal/home)  | slotA(normal/home)=Leaving, slotB(closing/closing)=Entering
-qml: [03:08:36.762] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
-qml: [03:08:36.762] TransitionManager.finalizeTransition()  | isCrossScene=true, sceneAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=closing/closing
-qml: [03:08:36.762] normal/home.Component.onDestruction()
-qml: [03:08:36.762] closing/closing.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=normal/home
-qml: [03:08:36.762] TransitionManager.sceneSourceA changed()  | value=
-qml: [03:08:36.763] normalScene.destroyed()
-qml: [03:08:36.763] KeyDispatcher.enabled changed(value=true)
-qml: [03:08:36.763] Main.onTransitionFinished(finalViewId=closing/closing)
-qml: [03:08:36.763] TransitionManager.transition finished(finalViewId=closing/closing, gen=7)  | sceneSourceA=, sceneSourceB=qrc:/qt/qml/Scenes/Closing/ClosingScene.qml, sceneAIsCurrent=false, viewSlotA((unset)), viewSlotB(closing/closing), viewAIsCurrent=false
-qml: [03:08:37.587] Main.Keys.onPressed(physicalKey=67)  | vk=BACK
-qml: [03:08:37.587] KeyDispatcher.dispatchToScene(vk=BACK, ev=PRESS)  | enabled=true
-qml: [03:08:37.587] closingScene.onSceneKeyEvent(vk=BACK, ev=PRESS)
-qml: [03:08:37.587] closingScene.forward-to-view(vk=BACK, ev=PRESS)
-qml: [03:08:37.594] KeyDispatcher.dispatchToView(vk=BACK, ev=PRESS)  | enabled=true
-qml: [03:08:37.594] closing/closing.onViewKey(vk=BACK, ev=PRESS)
-qml: [03:08:37.594] KeyDispatcher.viewEvent posted(vk=BACK, ev=PRESS)  | gen=20
-qml: [03:08:37.594] KeyDispatcher.sceneEvent posted(vk=BACK, ev=PRESS)  | gen=22
-qml: [03:08:37.724] Main.Keys.onReleased(physicalKey=67)  | vk=BACK
-qml: [03:08:37.724] KeyDispatcher.dispatchToScene(vk=BACK, ev=RELEASE)  | enabled=true
-qml: [03:08:37.724] closingScene.onSceneKeyEvent(vk=BACK, ev=RELEASE)
-qml: [03:08:37.730] closingScene.forward-to-view(vk=BACK, ev=RELEASE)
-qml: [03:08:37.730] KeyDispatcher.dispatchToView(vk=BACK, ev=RELEASE)  | enabled=true
-qml: [03:08:37.730] closing/closing.onViewKey(vk=BACK, ev=RELEASE)
-qml: [03:08:37.730] KeyDispatcher.viewEvent posted(vk=BACK, ev=RELEASE)  | gen=21
-qml: [03:08:37.730] KeyDispatcher.sceneEvent posted(vk=BACK, ev=RELEASE)  | gen=23
-qml: [03:08:37.730] Main.CLICK synthesized(physicalKey=67)  | vk=BACK
-qml: [03:08:37.731] KeyDispatcher.dispatchToScene(vk=BACK, ev=CLICK)  | enabled=true
-qml: [03:08:37.731] closingScene.onSceneKeyEvent(vk=BACK, ev=CLICK)
-qml: [03:08:37.731] closingScene.absorb (abort sequence start)(vk=BACK/CLICK)  | step1: closingAborted=true
-qml: [03:08:37.731] closingScene.abort sequence()  | step2: forceUnloadCurrentView
-qml: [03:08:37.731] TransitionManager.forceUnloadCurrentView()  | viewAIsCurrent=false, slotA=(unset), slotB=closing/closing
-qml: [03:08:37.731] closing/closing.Component.onDestruction()
-qml: [03:08:37.732] closingScene.abort sequence()  | step3: requestNavigate(normal/home, Back)
-qml: [03:08:37.732] Mediator.requestNavigate(viewId=normal/home, direction=Back)  | currentViewId=closing/closing, previousViewId=normal/home, history.length=0
-qml: [03:08:37.732] Mediator.state updated()  | currentViewId=normal/home, previousViewId=closing/closing, history.length=1
-qml: [03:08:37.732] TransitionManager.startTransition(toViewId=normal/home, direction=Back)  | fromViewId=(unset), sceneChanged=true, hasLeavingView=false, targetScene=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, targetView=qrc:/qt/qml/Scenes/Normal/HomeView.qml
-qml: [03:08:37.732] KeyDispatcher.enabled changed(value=false)
-qml: [03:08:37.732] TransitionManager.sceneSourceA changed()  | value=qrc:/qt/qml/Scenes/Normal/NormalScene.qml
-qml: [03:08:37.733] normalScene.loaded()
-qml: [03:08:37.734] normal/home.reactToLifecycle()  | myLifecycle=Entering, direction=Back, partner=(none)
-qml: [03:08:37.734] normal/home.enterAnim.start()  | duration=484ms
-qml: [03:08:37.735] normal/home.Component.onCompleted()  | myLifecycle=Entering
-qml: [03:08:37.735] TransitionManager.startTransition done()  | incomingIsA=true, slotA(normal/home)=Entering, slotB((unset))=Idle
-qml: [03:08:37.735] KeyDispatcher.sceneEvent posted(vk=BACK, ev=CLICK)  | gen=24
-qml: [03:08:38.209] normal/home.enterAnim.onStopped()  | duration=484ms
-qml: [03:08:38.209] TransitionManager.reportEnterComplete(viewId=normal/home)  | slotA(normal/home)=Entering, slotB((unset))=Idle
-qml: [03:08:38.209] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=false/reported=false
-qml: [03:08:38.212] TransitionManager.finalizeTransition()  | isCrossScene=true, sceneAIsCurrent=false, viewAIsCurrent=false, pendingFinalId=normal/home
-qml: [03:08:38.212] normal/home.reactToLifecycle()  | myLifecycle=Idle, direction=Back, partner=(none)
-qml: [03:08:38.212] TransitionManager.sceneSourceB changed()  | value=
-qml: [03:08:38.212] closingScene.destroyed()
-qml: [03:08:38.212] KeyDispatcher.enabled changed(value=true)
-qml: [03:08:38.212] Main.onTransitionFinished(finalViewId=normal/home)
-qml: [03:08:38.213] TransitionManager.transition finished(finalViewId=normal/home, gen=8)  | sceneSourceA=qrc:/qt/qml/Scenes/Normal/NormalScene.qml, sceneSourceB=, sceneAIsCurrent=true, viewSlotA(normal/home), viewSlotB((unset)), viewAIsCurrent=true
-qml: [03:08:38.698] Main.Keys.onPressed(physicalKey=83)  | vk=ENTER
-qml: [03:08:38.698] KeyDispatcher.dispatchToScene(vk=ENTER, ev=PRESS)  | enabled=true
-qml: [03:08:38.698] normalScene.onSceneKeyEvent(vk=ENTER, ev=PRESS)
-qml: [03:08:38.706] normalScene.forward-to-view(vk=ENTER, ev=PRESS)
-qml: [03:08:38.706] KeyDispatcher.dispatchToView(vk=ENTER, ev=PRESS)  | enabled=true
-qml: [03:08:38.706] normal/home.onViewKey(vk=ENTER, ev=PRESS)
-qml: [03:08:38.706] KeyDispatcher.viewEvent posted(vk=ENTER, ev=PRESS)  | gen=22
-qml: [03:08:38.706] KeyDispatcher.sceneEvent posted(vk=ENTER, ev=PRESS)  | gen=25
-qml: [03:08:38.820] Main.Keys.onReleased(physicalKey=83)  | vk=ENTER
-qml: [03:08:38.820] KeyDispatcher.dispatchToScene(vk=ENTER, ev=RELEASE)  | enabled=true
-qml: [03:08:38.820] normalScene.onSceneKeyEvent(vk=ENTER, ev=RELEASE)
-qml: [03:08:38.834] normalScene.forward-to-view(vk=ENTER, ev=RELEASE)
-qml: [03:08:38.834] KeyDispatcher.dispatchToView(vk=ENTER, ev=RELEASE)  | enabled=true
-qml: [03:08:38.834] normal/home.onViewKey(vk=ENTER, ev=RELEASE)
-qml: [03:08:38.834] KeyDispatcher.viewEvent posted(vk=ENTER, ev=RELEASE)  | gen=23
-qml: [03:08:38.835] KeyDispatcher.sceneEvent posted(vk=ENTER, ev=RELEASE)  | gen=26
-qml: [03:08:38.836] Main.CLICK synthesized(physicalKey=83)  | vk=ENTER
-qml: [03:08:38.836] KeyDispatcher.dispatchToScene(vk=ENTER, ev=CLICK)  | enabled=true
-qml: [03:08:38.836] normalScene.onSceneKeyEvent(vk=ENTER, ev=CLICK)
-qml: [03:08:38.836] normalScene.forward-to-view(vk=ENTER, ev=CLICK)
-qml: [03:08:38.836] KeyDispatcher.dispatchToView(vk=ENTER, ev=CLICK)  | enabled=true
-qml: [03:08:38.836] normal/home.onViewKey(vk=ENTER, ev=CLICK)
-qml: [03:08:38.836] normal/home.action(ENTER/CLICK)  | requestNavigate(closing/closing, Next)
-qml: [03:08:38.837] Mediator.requestNavigate(viewId=closing/closing, direction=Next)  | currentViewId=normal/home, previousViewId=closing/closing, history.length=1
-qml: [03:08:38.837] Mediator.closing entry reset()  | history cleared, closingAborted=false
-qml: [03:08:38.837] Mediator.state updated()  | currentViewId=closing/closing, previousViewId=normal/home, history.length=0
-qml: [03:08:38.837] TransitionManager.startTransition(toViewId=closing/closing, direction=Next)  | fromViewId=normal/home, sceneChanged=true, hasLeavingView=true, targetScene=qrc:/qt/qml/Scenes/Closing/ClosingScene.qml, targetView=qrc:/qt/qml/Scenes/Closing/ClosingView.qml
-qml: [03:08:38.839] KeyDispatcher.enabled changed(value=false)
-qml: [03:08:38.839] TransitionManager.sceneSourceB changed()  | value=qrc:/qt/qml/Scenes/Closing/ClosingScene.qml
-qml: [03:08:38.839] closingScene.loaded()
-qml: [03:08:38.839] normal/home.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=closing/closing
-qml: [03:08:38.839] normal/home.leaveAnim.start()  | duration=310ms
-qml: [03:08:38.839] closing/closing.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=normal/home
-qml: [03:08:38.839] closing/closing.performEnter (custom)()  | deferred reportEnterComplete via Qt.callLater
-qml: [03:08:38.839] closing/closing.internalAnim.start()  | duration=3000ms
-qml: [03:08:38.839] closing/closing.Component.onCompleted()  | myLifecycle=Entering
-qml: [03:08:38.839] TransitionManager.startTransition done()  | incomingIsA=false, slotA(normal/home)=Leaving, slotB(closing/closing)=Entering
-qml: [03:08:38.839] KeyDispatcher.viewEvent posted(vk=ENTER, ev=CLICK)  | gen=24
-qml: [03:08:38.839] KeyDispatcher.sceneEvent posted(vk=ENTER, ev=CLICK)  | gen=27
-qml: [03:08:38.839] closing/closing.deferred reportEnterComplete()  | called via Qt.callLater
-qml: [03:08:38.840] TransitionManager.reportEnterComplete(viewId=closing/closing)  | slotA(normal/home)=Leaving, slotB(closing/closing)=Entering
-qml: [03:08:38.840] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
-qml: [03:08:39.133] normal/home.leaveAnim.onStopped()  | duration=310ms
-qml: [03:08:39.133] TransitionManager.reportLeaveComplete(viewId=normal/home)  | slotA(normal/home)=Leaving, slotB(closing/closing)=Entering
-qml: [03:08:39.133] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
-qml: [03:08:39.133] TransitionManager.finalizeTransition()  | isCrossScene=true, sceneAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=closing/closing
-qml: [03:08:39.145] normal/home.Component.onDestruction()
-qml: [03:08:39.145] closing/closing.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=normal/home
-qml: [03:08:39.146] TransitionManager.sceneSourceA changed()  | value=
-qml: [03:08:39.146] normalScene.destroyed()
-qml: [03:08:39.146] KeyDispatcher.enabled changed(value=true)
-qml: [03:08:39.146] Main.onTransitionFinished(finalViewId=closing/closing)
-qml: [03:08:39.146] TransitionManager.transition finished(finalViewId=closing/closing, gen=9)  | sceneSourceA=, sceneSourceB=qrc:/qt/qml/Scenes/Closing/ClosingScene.qml, sceneAIsCurrent=false, viewSlotA((unset)), viewSlotB(closing/closing), viewAIsCurrent=false
-qml: [03:08:41.841] closing/closing.internalAnim.onStopped()  | closingAborted=false
-qml: [03:08:41.841] closing/closing.Qt.quit()  | natural completion
-qml: [03:08:41.860] closingScene.destroyed()
-qml: [03:08:41.860] closing/closing.Component.onDestruction()
-03:08:41: コマンド "C:\develop\qul-loader-navigation-poc\QulLoaderNavigation\build\Desktop_Qt_6_11_0_MinGW_64_bit-Debug\appQulLoaderNavigation.exe" は正常に終了しました。
+qml: [11:33:03.092] Main.DI(ScreenRegistry)  | TransitionManager.screenRegistry = ScreenRegistry
+qml: [11:33:03.092] Main.Component.onCompleted()  | kickoff: switchView(Opening/Opening, Next)
+qml: [11:33:03.099] Mediator.switchView(viewId=Opening/Opening, direction=Next)  | currentViewId=None, previousViewId=None, history.length=0
+qml: [11:33:03.099] Mediator.state updated()  | currentViewId=Opening/Opening, previousViewId=None, history.length=0
+qml: [11:33:03.099] TransitionManager.startTransition(toViewId=Opening/Opening, direction=Next)  | fromViewId=None, screenChanged=true, hasLeavingView=false, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Opening/OpeningScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Opening/OpeningView.qml
+qml: [11:33:03.099] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:03.100] TransitionManager.screenSourceB changed()  | value=qrc:/qt/qml/QulLoaderNavigation/Screens/Opening/OpeningScreen.qml
+qml: [11:33:03.102] OpeningScreen.loaded()
+qml: [11:33:03.108] Opening/Opening.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=(none)
+qml: [11:33:03.108] Opening/Opening.performEnter (custom)()  | openingEnterAnim.start (1800ms)
+qml: [11:33:03.110] Opening/Opening.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:03.110] TransitionManager.startTransition done()  | enteringIsA=false, slotA(None)=Idle, slotB(Opening/Opening)=Entering
+qml: [11:33:05.120] Opening/Opening.openingEnterAnim.onStopped()  | duration=1800ms (long-enter pattern)
+qml: [11:33:05.120] TransitionManager.reportEnterComplete(viewId=Opening/Opening)  | slotA(None)=Idle, slotB(Opening/Opening)=Entering
+qml: [11:33:05.128] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=false/reported=false
+qml: [11:33:05.128] TransitionManager.finalizeTransition()  | isCrossScreen=true, screenAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=Opening/Opening
+qml: [11:33:05.129] Opening/Opening.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=(none)
+qml: [11:33:05.130] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:05.130] Main.onTransitionFinished(finalViewId=Opening/Opening)
+qml: [11:33:05.130] TransitionManager.transition finished(finalViewId=Opening/Opening, gen=1)  | screenSourceA=, screenSourceB=qrc:/qt/qml/QulLoaderNavigation/Screens/Opening/OpeningScreen.qml, screenAIsCurrent=false, viewSlotA(None), viewSlotB(Opening/Opening), viewAIsCurrent=false
+qml: [11:33:05.130] Opening/Opening.self-trigger(after enter complete)  | switchView(Normal/Home, Next)
+qml: [11:33:05.130] Mediator.switchView(viewId=Normal/Home, direction=Next)  | currentViewId=Opening/Opening, previousViewId=None, history.length=0
+qml: [11:33:05.130] Mediator.state updated()  | currentViewId=Normal/Home, previousViewId=Opening/Opening, history.length=1
+qml: [11:33:05.132] TransitionManager.startTransition(toViewId=Normal/Home, direction=Next)  | fromViewId=Opening/Opening, screenChanged=true, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/HomeView.qml
+qml: [11:33:05.132] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:05.132] TransitionManager.screenSourceA changed()  | value=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml
+qml: [11:33:05.136] NormalScreen.loaded()
+qml: [11:33:05.136] Opening/Opening.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Normal/Home
+qml: [11:33:05.136] Opening/Opening.leaveAnim.start()  | duration=756ms
+qml: [11:33:05.138] Normal/Home.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=Opening/Opening
+qml: [11:33:05.138] normal/home.onEntering cursor init(previousViewId=Opening/Opening)  | cursorIndex: 0 → 0
+qml: [11:33:05.138] Normal/Home.performEnter (instant)()  | duration=0, deferred report via Qt.callLater
+qml: [11:33:05.490] Normal/Home.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:05.490] TransitionManager.startTransition done()  | enteringIsA=true, slotA(Normal/Home)=Entering, slotB(Opening/Opening)=Leaving
+qml: [11:33:05.493] Normal/Home.deferred reportEnterComplete()  | (instant enter)
+qml: [11:33:05.493] TransitionManager.reportEnterComplete(viewId=Normal/Home)  | slotA(Normal/Home)=Entering, slotB(Opening/Opening)=Leaving
+qml: [11:33:05.494] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:06.230] Opening/Opening.leaveAnim.onStopped()  | duration=756ms
+qml: [11:33:06.230] TransitionManager.reportLeaveComplete(viewId=Opening/Opening)  | slotA(Normal/Home)=Entering, slotB(Opening/Opening)=Leaving
+qml: [11:33:06.230] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:06.230] TransitionManager.finalizeTransition()  | isCrossScreen=true, screenAIsCurrent=false, viewAIsCurrent=false, pendingFinalId=Normal/Home
+qml: [11:33:06.246] Opening/Opening.Component.onDestruction()
+qml: [11:33:06.247] Normal/Home.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Opening/Opening
+qml: [11:33:06.247] TransitionManager.screenSourceB changed()  | value=
+qml: [11:33:06.247] OpeningScreen.destroyed()
+qml: [11:33:06.247] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:06.247] Main.onTransitionFinished(finalViewId=Normal/Home)
+qml: [11:33:06.247] TransitionManager.transition finished(finalViewId=Normal/Home, gen=2)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(Normal/Home), viewSlotB(None), viewAIsCurrent=true
+qml: [11:33:11.926] Main.Keys.onPressed(physicalKey=83)  | vk=Enter
+qml: [11:33:11.926] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Press)  | enabled=true
+qml: [11:33:11.932] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Press)
+qml: [11:33:11.932] NormalScreen.forward-to-view(vk=Enter, ev=Press)
+qml: [11:33:11.932] KeyDispatcher.dispatchToView(vk=Enter, ev=Press)  | enabled=true
+qml: [11:33:11.933] Normal/Home.onViewKey(vk=Enter, ev=Press)
+qml: [11:33:11.933] KeyDispatcher.viewEvent posted(vk=Enter, ev=Press)  | gen=1
+qml: [11:33:11.933] KeyDispatcher.screenEvent posted(vk=Enter, ev=Press)  | gen=1
+qml: [11:33:12.095] Main.Keys.onReleased(physicalKey=83)  | vk=Enter
+qml: [11:33:12.095] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Release)  | enabled=true
+qml: [11:33:12.095] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Release)
+qml: [11:33:12.106] NormalScreen.forward-to-view(vk=Enter, ev=Release)
+qml: [11:33:12.106] KeyDispatcher.dispatchToView(vk=Enter, ev=Release)  | enabled=true
+qml: [11:33:12.106] Normal/Home.onViewKey(vk=Enter, ev=Release)
+qml: [11:33:12.106] KeyDispatcher.viewEvent posted(vk=Enter, ev=Release)  | gen=2
+qml: [11:33:12.106] KeyDispatcher.screenEvent posted(vk=Enter, ev=Release)  | gen=2
+qml: [11:33:12.107] Main.CLICK synthesized(physicalKey=83)  | vk=Enter
+qml: [11:33:12.107] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Click)  | enabled=true
+qml: [11:33:12.107] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Click)
+qml: [11:33:12.107] NormalScreen.forward-to-view(vk=Enter, ev=Click)
+qml: [11:33:12.107] KeyDispatcher.dispatchToView(vk=Enter, ev=Click)  | enabled=true
+qml: [11:33:12.107] Normal/Home.onViewKey(vk=Enter, ev=Click)
+qml: [11:33:12.107] normal/home.action(ENTER/CLICK on Menu)  | switchView(normal/menu, Next)
+qml: [11:33:12.108] Mediator.switchView(viewId=Normal/Menu, direction=Next)  | currentViewId=Normal/Home, previousViewId=Opening/Opening, history.length=1
+qml: [11:33:12.109] Mediator.state updated()  | currentViewId=Normal/Menu, previousViewId=Normal/Home, history.length=2
+qml: [11:33:12.109] TransitionManager.startTransition(toViewId=Normal/Menu, direction=Next)  | fromViewId=Normal/Home, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/MenuView.qml
+qml: [11:33:12.109] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:12.109] Normal/Home.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Normal/Menu
+qml: [11:33:12.109] Normal/Home.leaveAnim.start()  | duration=653ms
+qml: [11:33:12.111] Normal/Menu.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=Normal/Home
+qml: [11:33:12.111] normal/menu.onEntering cursor init(previousViewId=Normal/Home)  | cursorIndex: 0 → 0
+qml: [11:33:12.111] Normal/Menu.enterAnim.start()  | duration=377ms
+qml: [11:33:12.112] Normal/Menu.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:12.112] TransitionManager.startTransition done()  | enteringIsA=false, slotA(Normal/Home)=Leaving, slotB(Normal/Menu)=Entering
+qml: [11:33:12.112] KeyDispatcher.viewEvent posted(vk=Enter, ev=Click)  | gen=3
+qml: [11:33:12.112] KeyDispatcher.screenEvent posted(vk=Enter, ev=Click)  | gen=3
+qml: [11:33:12.484] Normal/Menu.enterAnim.onStopped()  | duration=377ms
+qml: [11:33:12.484] TransitionManager.reportEnterComplete(viewId=Normal/Menu)  | slotA(Normal/Home)=Leaving, slotB(Normal/Menu)=Entering
+qml: [11:33:12.494] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:12.775] Normal/Home.leaveAnim.onStopped()  | duration=653ms
+qml: [11:33:12.775] TransitionManager.reportLeaveComplete(viewId=Normal/Home)  | slotA(Normal/Home)=Leaving, slotB(Normal/Menu)=Entering
+qml: [11:33:12.775] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:12.778] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=Normal/Menu
+qml: [11:33:12.778] Normal/Home.Component.onDestruction()
+qml: [11:33:12.779] Normal/Menu.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Home
+qml: [11:33:12.779] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:12.779] Main.onTransitionFinished(finalViewId=Normal/Menu)
+qml: [11:33:12.779] TransitionManager.transition finished(finalViewId=Normal/Menu, gen=3)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(None), viewSlotB(Normal/Menu), viewAIsCurrent=false
+qml: [11:33:15.438] Main.Keys.onPressed(physicalKey=68)  | vk=Next
+qml: [11:33:15.438] KeyDispatcher.dispatchToScreen(vk=Next, ev=Press)  | enabled=true
+qml: [11:33:15.446] NormalScreen.onScreenKeyEvent(vk=Next, ev=Press)
+qml: [11:33:15.446] NormalScreen.forward-to-view(vk=Next, ev=Press)
+qml: [11:33:15.446] KeyDispatcher.dispatchToView(vk=Next, ev=Press)  | enabled=true
+qml: [11:33:15.446] Normal/Menu.onViewKey(vk=Next, ev=Press)
+qml: [11:33:15.446] KeyDispatcher.viewEvent posted(vk=Next, ev=Press)  | gen=4
+qml: [11:33:15.447] KeyDispatcher.screenEvent posted(vk=Next, ev=Press)  | gen=4
+qml: [11:33:15.608] Main.Keys.onReleased(physicalKey=68)  | vk=Next
+qml: [11:33:15.608] KeyDispatcher.dispatchToScreen(vk=Next, ev=Release)  | enabled=true
+qml: [11:33:15.608] NormalScreen.onScreenKeyEvent(vk=Next, ev=Release)
+qml: [11:33:15.609] NormalScreen.forward-to-view(vk=Next, ev=Release)
+qml: [11:33:15.609] KeyDispatcher.dispatchToView(vk=Next, ev=Release)  | enabled=true
+qml: [11:33:15.609] Normal/Menu.onViewKey(vk=Next, ev=Release)
+qml: [11:33:15.609] KeyDispatcher.viewEvent posted(vk=Next, ev=Release)  | gen=5
+qml: [11:33:15.610] KeyDispatcher.screenEvent posted(vk=Next, ev=Release)  | gen=5
+qml: [11:33:15.610] Main.CLICK synthesized(physicalKey=68)  | vk=Next
+qml: [11:33:15.610] KeyDispatcher.dispatchToScreen(vk=Next, ev=Click)  | enabled=true
+qml: [11:33:15.610] NormalScreen.onScreenKeyEvent(vk=Next, ev=Click)
+qml: [11:33:15.612] NormalScreen.forward-to-view(vk=Next, ev=Click)
+qml: [11:33:15.612] KeyDispatcher.dispatchToView(vk=Next, ev=Click)  | enabled=true
+qml: [11:33:15.612] Normal/Menu.onViewKey(vk=Next, ev=Click)
+qml: [11:33:15.612] normal/menu.cursor moved(NEXT/CLICK)  | cursorIndex=1
+qml: [11:33:15.612] KeyDispatcher.viewEvent posted(vk=Next, ev=Click)  | gen=6
+qml: [11:33:15.612] KeyDispatcher.screenEvent posted(vk=Next, ev=Click)  | gen=6
+qml: [11:33:15.714] Main.Keys.onPressed(physicalKey=83)  | vk=Enter
+qml: [11:33:15.714] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Press)  | enabled=true
+qml: [11:33:15.714] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Press)
+qml: [11:33:15.725] NormalScreen.forward-to-view(vk=Enter, ev=Press)
+qml: [11:33:15.725] KeyDispatcher.dispatchToView(vk=Enter, ev=Press)  | enabled=true
+qml: [11:33:15.725] Normal/Menu.onViewKey(vk=Enter, ev=Press)
+qml: [11:33:15.725] KeyDispatcher.viewEvent posted(vk=Enter, ev=Press)  | gen=7
+qml: [11:33:15.727] KeyDispatcher.screenEvent posted(vk=Enter, ev=Press)  | gen=7
+qml: [11:33:15.865] Main.Keys.onReleased(physicalKey=83)  | vk=Enter
+qml: [11:33:15.865] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Release)  | enabled=true
+qml: [11:33:15.865] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Release)
+qml: [11:33:15.873] NormalScreen.forward-to-view(vk=Enter, ev=Release)
+qml: [11:33:15.873] KeyDispatcher.dispatchToView(vk=Enter, ev=Release)  | enabled=true
+qml: [11:33:15.873] Normal/Menu.onViewKey(vk=Enter, ev=Release)
+qml: [11:33:15.873] KeyDispatcher.viewEvent posted(vk=Enter, ev=Release)  | gen=8
+qml: [11:33:15.873] KeyDispatcher.screenEvent posted(vk=Enter, ev=Release)  | gen=8
+qml: [11:33:15.873] Main.CLICK synthesized(physicalKey=83)  | vk=Enter
+qml: [11:33:15.875] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Click)  | enabled=true
+qml: [11:33:15.875] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Click)
+qml: [11:33:15.875] NormalScreen.forward-to-view(vk=Enter, ev=Click)
+qml: [11:33:15.875] KeyDispatcher.dispatchToView(vk=Enter, ev=Click)  | enabled=true
+qml: [11:33:15.875] Normal/Menu.onViewKey(vk=Enter, ev=Click)
+qml: [11:33:15.875] normal/menu.action(ENTER/CLICK)  | switchView(Normal/Sample2a, Next)
+qml: [11:33:15.876] Mediator.switchView(viewId=Normal/Sample2a, direction=Next)  | currentViewId=Normal/Menu, previousViewId=Normal/Home, history.length=2
+qml: [11:33:15.876] Mediator.state updated()  | currentViewId=Normal/Sample2a, previousViewId=Normal/Menu, history.length=3
+qml: [11:33:15.876] TransitionManager.startTransition(toViewId=Normal/Sample2a, direction=Next)  | fromViewId=Normal/Menu, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/Sample2View.qml
+qml: [11:33:15.876] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:15.878] Normal/Menu.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Normal/Sample2a
+qml: [11:33:15.878] Normal/Menu.leaveAnim.start()  | duration=675ms
+qml: [11:33:15.882] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=(none)
+qml: [11:33:15.882] Normal/Sample2a.enterAnim.start()  | duration=417ms
+qml: [11:33:15.882] Normal/Sample2a.thisViewId auto-resolved()  | from Mediator.pendingViewId=Normal/Sample2a
+qml: [11:33:15.883] Normal/Sample2a.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:15.883] TransitionManager.startTransition done()  | enteringIsA=true, slotA(Normal/Sample2a)=Entering, slotB(Normal/Menu)=Leaving
+qml: [11:33:15.883] KeyDispatcher.viewEvent posted(vk=Enter, ev=Click)  | gen=9
+qml: [11:33:15.883] KeyDispatcher.screenEvent posted(vk=Enter, ev=Click)  | gen=9
+qml: [11:33:16.310] Normal/Sample2a.enterAnim.onStopped()  | duration=417ms
+qml: [11:33:16.312] TransitionManager.reportEnterComplete(viewId=Normal/Sample2a)  | slotA(Normal/Sample2a)=Entering, slotB(Normal/Menu)=Leaving
+qml: [11:33:16.312] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:16.562] Normal/Menu.leaveAnim.onStopped()  | duration=675ms
+qml: [11:33:16.562] TransitionManager.reportLeaveComplete(viewId=Normal/Menu)  | slotA(Normal/Sample2a)=Entering, slotB(Normal/Menu)=Leaving
+qml: [11:33:16.562] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:16.564] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=false, pendingFinalId=Normal/Sample2a
+qml: [11:33:16.564] Normal/Menu.Component.onDestruction()
+qml: [11:33:16.565] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Menu
+qml: [11:33:16.565] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:16.566] Main.onTransitionFinished(finalViewId=Normal/Sample2a)
+qml: [11:33:16.566] TransitionManager.transition finished(finalViewId=Normal/Sample2a, gen=4)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(Normal/Sample2a), viewSlotB(None), viewAIsCurrent=true
+qml: [11:33:18.059] Main.HIDDEN JUMP(physicalKey=51)  | switchView(Normal/Sample1, Next)
+qml: [11:33:18.065] Mediator.switchView(viewId=Normal/Sample1, direction=Next)  | currentViewId=Normal/Sample2a, previousViewId=Normal/Menu, history.length=3
+qml: [11:33:18.066] Mediator.state updated()  | currentViewId=Normal/Sample1, previousViewId=Normal/Sample2a, history.length=4
+qml: [11:33:18.066] TransitionManager.startTransition(toViewId=Normal/Sample1, direction=Next)  | fromViewId=Normal/Sample2a, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/Sample1View.qml
+qml: [11:33:18.067] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:18.067] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Normal/Sample1
+qml: [11:33:18.068] Normal/Sample2a.leaveAnim.start()  | duration=380ms
+qml: [11:33:18.071] Normal/Sample1.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=Normal/Sample2a
+qml: [11:33:18.071] Normal/Sample1.enterAnim.start()  | duration=480ms
+qml: [11:33:18.074] Normal/Sample1.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:18.074] TransitionManager.startTransition done()  | enteringIsA=false, slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample1)=Entering
+qml: [11:33:18.444] Normal/Sample2a.leaveAnim.onStopped()  | duration=380ms
+qml: [11:33:18.444] TransitionManager.reportLeaveComplete(viewId=Normal/Sample2a)  | slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample1)=Entering
+qml: [11:33:18.446] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=false, leaveNeeded=true/reported=true
+qml: [11:33:18.542] Normal/Sample1.enterAnim.onStopped()  | duration=480ms
+qml: [11:33:18.542] TransitionManager.reportEnterComplete(viewId=Normal/Sample1)  | slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample1)=Entering
+qml: [11:33:18.542] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:18.542] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=Normal/Sample1
+qml: [11:33:18.545] Normal/Sample2a.Component.onDestruction()
+qml: [11:33:18.545] Normal/Sample1.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Sample2a
+qml: [11:33:18.546] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:18.546] Main.onTransitionFinished(finalViewId=Normal/Sample1)
+qml: [11:33:18.546] TransitionManager.transition finished(finalViewId=Normal/Sample1, gen=5)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(None), viewSlotB(Normal/Sample1), viewAIsCurrent=false
+qml: [11:33:22.513] Main.HIDDEN JUMP(physicalKey=52)  | switchView(Normal/Sample2a, Next)
+qml: [11:33:22.513] Mediator.switchView(viewId=Normal/Sample2a, direction=Next)  | currentViewId=Normal/Sample1, previousViewId=Normal/Sample2a, history.length=4
+qml: [11:33:22.522] Mediator.state updated()  | currentViewId=Normal/Sample2a, previousViewId=Normal/Sample1, history.length=5
+qml: [11:33:22.522] TransitionManager.startTransition(toViewId=Normal/Sample2a, direction=Next)  | fromViewId=Normal/Sample1, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/Sample2View.qml
+qml: [11:33:22.522] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:22.523] Normal/Sample1.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Normal/Sample2a
+qml: [11:33:22.523] Normal/Sample1.leaveAnim.start()  | duration=758ms
+qml: [11:33:22.524] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=(none)
+qml: [11:33:22.524] Normal/Sample2a.enterAnim.start()  | duration=580ms
+qml: [11:33:22.524] Normal/Sample2a.thisViewId auto-resolved()  | from Mediator.pendingViewId=Normal/Sample2a
+qml: [11:33:22.524] Normal/Sample2a.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:22.526] TransitionManager.startTransition done()  | enteringIsA=true, slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample1)=Leaving
+qml: [11:33:23.096] Normal/Sample2a.enterAnim.onStopped()  | duration=580ms
+qml: [11:33:23.096] TransitionManager.reportEnterComplete(viewId=Normal/Sample2a)  | slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample1)=Leaving
+qml: [11:33:23.112] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:23.282] Normal/Sample1.leaveAnim.onStopped()  | duration=758ms
+qml: [11:33:23.282] TransitionManager.reportLeaveComplete(viewId=Normal/Sample1)  | slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample1)=Leaving
+qml: [11:33:23.282] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:23.295] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=false, pendingFinalId=Normal/Sample2a
+qml: [11:33:23.295] Normal/Sample1.Component.onDestruction()
+qml: [11:33:23.295] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Sample1
+qml: [11:33:23.295] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:23.295] Main.onTransitionFinished(finalViewId=Normal/Sample2a)
+qml: [11:33:23.295] TransitionManager.transition finished(finalViewId=Normal/Sample2a, gen=6)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(Normal/Sample2a), viewSlotB(None), viewAIsCurrent=true
+qml: [11:33:23.642] Main.Keys.onPressed(physicalKey=68)  | vk=Next
+qml: [11:33:23.642] KeyDispatcher.dispatchToScreen(vk=Next, ev=Press)  | enabled=true
+qml: [11:33:23.642] NormalScreen.onScreenKeyEvent(vk=Next, ev=Press)
+qml: [11:33:23.645] NormalScreen.forward-to-view(vk=Next, ev=Press)
+qml: [11:33:23.645] KeyDispatcher.dispatchToView(vk=Next, ev=Press)  | enabled=true
+qml: [11:33:23.645] Normal/Sample2a.onViewKey(vk=Next, ev=Press)
+qml: [11:33:23.645] KeyDispatcher.viewEvent posted(vk=Next, ev=Press)  | gen=10
+qml: [11:33:23.645] KeyDispatcher.screenEvent posted(vk=Next, ev=Press)  | gen=10
+qml: [11:33:23.797] Main.Keys.onReleased(physicalKey=68)  | vk=Next
+qml: [11:33:23.797] KeyDispatcher.dispatchToScreen(vk=Next, ev=Release)  | enabled=true
+qml: [11:33:23.797] NormalScreen.onScreenKeyEvent(vk=Next, ev=Release)
+qml: [11:33:23.805] NormalScreen.forward-to-view(vk=Next, ev=Release)
+qml: [11:33:23.805] KeyDispatcher.dispatchToView(vk=Next, ev=Release)  | enabled=true
+qml: [11:33:23.805] Normal/Sample2a.onViewKey(vk=Next, ev=Release)
+qml: [11:33:23.805] KeyDispatcher.viewEvent posted(vk=Next, ev=Release)  | gen=11
+qml: [11:33:23.805] KeyDispatcher.screenEvent posted(vk=Next, ev=Release)  | gen=11
+qml: [11:33:23.806] Main.CLICK synthesized(physicalKey=68)  | vk=Next
+qml: [11:33:23.806] KeyDispatcher.dispatchToScreen(vk=Next, ev=Click)  | enabled=true
+qml: [11:33:23.806] NormalScreen.onScreenKeyEvent(vk=Next, ev=Click)
+qml: [11:33:23.806] NormalScreen.forward-to-view(vk=Next, ev=Click)
+qml: [11:33:23.806] KeyDispatcher.dispatchToView(vk=Next, ev=Click)  | enabled=true
+qml: [11:33:23.807] Normal/Sample2a.onViewKey(vk=Next, ev=Click)
+qml: [11:33:23.807] Normal/Sample2a.action(NEXT/CLICK)  | switchView(normal/sample2b, Next)
+qml: [11:33:23.807] Mediator.switchView(viewId=Normal/Sample2b, direction=Next)  | currentViewId=Normal/Sample2a, previousViewId=Normal/Sample1, history.length=5
+qml: [11:33:23.808] Mediator.state updated()  | currentViewId=Normal/Sample2b, previousViewId=Normal/Sample2a, history.length=6
+qml: [11:33:23.808] TransitionManager.startTransition(toViewId=Normal/Sample2b, direction=Next)  | fromViewId=Normal/Sample2a, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/Sample2View.qml
+qml: [11:33:23.808] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:23.808] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Normal/Sample2b
+qml: [11:33:23.808] Normal/Sample2a.leaveAnim.start()  | duration=210ms
+qml: [11:33:23.810] Normal/Sample2b.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=(none)
+qml: [11:33:23.810] Normal/Sample2b.performEnter (instant)()  | duration=0, deferred report via Qt.callLater
+qml: [11:33:23.810] Normal/Sample2b.thisViewId auto-resolved()  | from Mediator.pendingViewId=Normal/Sample2b
+qml: [11:33:23.810] Normal/Sample2b.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:23.810] TransitionManager.startTransition done()  | enteringIsA=false, slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample2b)=Entering
+qml: [11:33:23.810] KeyDispatcher.viewEvent posted(vk=Next, ev=Click)  | gen=12
+qml: [11:33:23.811] KeyDispatcher.screenEvent posted(vk=Next, ev=Click)  | gen=12
+qml: [11:33:23.812] Normal/Sample2b.deferred reportEnterComplete()  | (instant enter)
+qml: [11:33:23.812] TransitionManager.reportEnterComplete(viewId=Normal/Sample2b)  | slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample2b)=Entering
+qml: [11:33:23.812] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:24.013] Normal/Sample2a.leaveAnim.onStopped()  | duration=210ms
+qml: [11:33:24.013] TransitionManager.reportLeaveComplete(viewId=Normal/Sample2a)  | slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample2b)=Entering
+qml: [11:33:24.013] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:24.028] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=Normal/Sample2b
+qml: [11:33:24.029] Normal/Sample2a.Component.onDestruction()
+qml: [11:33:24.029] Normal/Sample2b.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Sample2a
+qml: [11:33:24.029] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:24.029] Main.onTransitionFinished(finalViewId=Normal/Sample2b)
+qml: [11:33:24.029] TransitionManager.transition finished(finalViewId=Normal/Sample2b, gen=7)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(None), viewSlotB(Normal/Sample2b), viewAIsCurrent=false
+qml: [11:33:24.742] Main.Keys.onPressed(physicalKey=65)  | vk=Prev
+qml: [11:33:24.742] KeyDispatcher.dispatchToScreen(vk=Prev, ev=Press)  | enabled=true
+qml: [11:33:24.742] NormalScreen.onScreenKeyEvent(vk=Prev, ev=Press)
+qml: [11:33:24.753] NormalScreen.forward-to-view(vk=Prev, ev=Press)
+qml: [11:33:24.753] KeyDispatcher.dispatchToView(vk=Prev, ev=Press)  | enabled=true
+qml: [11:33:24.753] Normal/Sample2b.onViewKey(vk=Prev, ev=Press)
+qml: [11:33:24.754] KeyDispatcher.viewEvent posted(vk=Prev, ev=Press)  | gen=13
+qml: [11:33:24.754] KeyDispatcher.screenEvent posted(vk=Prev, ev=Press)  | gen=13
+qml: [11:33:24.890] Main.Keys.onReleased(physicalKey=65)  | vk=Prev
+qml: [11:33:24.890] KeyDispatcher.dispatchToScreen(vk=Prev, ev=Release)  | enabled=true
+qml: [11:33:24.890] NormalScreen.onScreenKeyEvent(vk=Prev, ev=Release)
+qml: [11:33:24.893] NormalScreen.forward-to-view(vk=Prev, ev=Release)
+qml: [11:33:24.893] KeyDispatcher.dispatchToView(vk=Prev, ev=Release)  | enabled=true
+qml: [11:33:24.893] Normal/Sample2b.onViewKey(vk=Prev, ev=Release)
+qml: [11:33:24.893] KeyDispatcher.viewEvent posted(vk=Prev, ev=Release)  | gen=14
+qml: [11:33:24.893] KeyDispatcher.screenEvent posted(vk=Prev, ev=Release)  | gen=14
+qml: [11:33:24.894] Main.CLICK synthesized(physicalKey=65)  | vk=Prev
+qml: [11:33:24.894] KeyDispatcher.dispatchToScreen(vk=Prev, ev=Click)  | enabled=true
+qml: [11:33:24.894] NormalScreen.onScreenKeyEvent(vk=Prev, ev=Click)
+qml: [11:33:24.894] NormalScreen.forward-to-view(vk=Prev, ev=Click)
+qml: [11:33:24.894] KeyDispatcher.dispatchToView(vk=Prev, ev=Click)  | enabled=true
+qml: [11:33:24.895] Normal/Sample2b.onViewKey(vk=Prev, ev=Click)
+qml: [11:33:24.895] Normal/Sample2b.action(PREV/CLICK)  | switchView(normal/sample2a, Back)
+qml: [11:33:24.895] Mediator.switchView(viewId=Normal/Sample2a, direction=Back)  | currentViewId=Normal/Sample2b, previousViewId=Normal/Sample2a, history.length=6
+qml: [11:33:24.895] Mediator.state updated()  | currentViewId=Normal/Sample2a, previousViewId=Normal/Sample2b, history.length=7
+qml: [11:33:24.895] TransitionManager.startTransition(toViewId=Normal/Sample2a, direction=Back)  | fromViewId=Normal/Sample2b, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/Sample2View.qml
+qml: [11:33:24.896] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:24.896] Normal/Sample2b.reactToLifecycle()  | myLifecycle=Leaving, direction=Back, partner=Normal/Sample2a
+qml: [11:33:24.896] Normal/Sample2b.leaveAnim.start()  | duration=219ms
+qml: [11:33:24.898] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=(none)
+qml: [11:33:24.898] Normal/Sample2a.enterAnim.start()  | duration=564ms
+qml: [11:33:24.898] Normal/Sample2a.thisViewId auto-resolved()  | from Mediator.pendingViewId=Normal/Sample2a
+qml: [11:33:24.898] Normal/Sample2a.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:24.899] TransitionManager.startTransition done()  | enteringIsA=true, slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample2b)=Leaving
+qml: [11:33:24.899] KeyDispatcher.viewEvent posted(vk=Prev, ev=Click)  | gen=15
+qml: [11:33:24.899] KeyDispatcher.screenEvent posted(vk=Prev, ev=Click)  | gen=15
+qml: [11:33:25.125] Normal/Sample2b.leaveAnim.onStopped()  | duration=219ms
+qml: [11:33:25.125] TransitionManager.reportLeaveComplete(viewId=Normal/Sample2b)  | slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample2b)=Leaving
+qml: [11:33:25.125] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=false, leaveNeeded=true/reported=true
+qml: [11:33:25.460] Normal/Sample2a.enterAnim.onStopped()  | duration=564ms
+qml: [11:33:25.460] TransitionManager.reportEnterComplete(viewId=Normal/Sample2a)  | slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample2b)=Leaving
+qml: [11:33:25.460] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:25.461] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=false, pendingFinalId=Normal/Sample2a
+qml: [11:33:25.461] Normal/Sample2b.Component.onDestruction()
+qml: [11:33:25.461] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Idle, direction=Back, partner=Normal/Sample2b
+qml: [11:33:25.462] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:25.462] Main.onTransitionFinished(finalViewId=Normal/Sample2a)
+qml: [11:33:25.462] TransitionManager.transition finished(finalViewId=Normal/Sample2a, gen=8)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(Normal/Sample2a), viewSlotB(None), viewAIsCurrent=true
+qml: [11:33:25.823] Main.Keys.onPressed(physicalKey=68)  | vk=Next
+qml: [11:33:25.823] KeyDispatcher.dispatchToScreen(vk=Next, ev=Press)  | enabled=true
+qml: [11:33:25.823] NormalScreen.onScreenKeyEvent(vk=Next, ev=Press)
+qml: [11:33:25.823] NormalScreen.forward-to-view(vk=Next, ev=Press)
+qml: [11:33:25.824] KeyDispatcher.dispatchToView(vk=Next, ev=Press)  | enabled=true
+qml: [11:33:25.824] Normal/Sample2a.onViewKey(vk=Next, ev=Press)
+qml: [11:33:25.824] KeyDispatcher.viewEvent posted(vk=Next, ev=Press)  | gen=16
+qml: [11:33:25.824] KeyDispatcher.screenEvent posted(vk=Next, ev=Press)  | gen=16
+qml: [11:33:25.930] Main.Keys.onReleased(physicalKey=68)  | vk=Next
+qml: [11:33:25.930] KeyDispatcher.dispatchToScreen(vk=Next, ev=Release)  | enabled=true
+qml: [11:33:25.930] NormalScreen.onScreenKeyEvent(vk=Next, ev=Release)
+qml: [11:33:25.936] NormalScreen.forward-to-view(vk=Next, ev=Release)
+qml: [11:33:25.936] KeyDispatcher.dispatchToView(vk=Next, ev=Release)  | enabled=true
+qml: [11:33:25.936] Normal/Sample2a.onViewKey(vk=Next, ev=Release)
+qml: [11:33:25.936] KeyDispatcher.viewEvent posted(vk=Next, ev=Release)  | gen=17
+qml: [11:33:25.937] KeyDispatcher.screenEvent posted(vk=Next, ev=Release)  | gen=17
+qml: [11:33:25.937] Main.CLICK synthesized(physicalKey=68)  | vk=Next
+qml: [11:33:25.937] KeyDispatcher.dispatchToScreen(vk=Next, ev=Click)  | enabled=true
+qml: [11:33:25.937] NormalScreen.onScreenKeyEvent(vk=Next, ev=Click)
+qml: [11:33:25.937] NormalScreen.forward-to-view(vk=Next, ev=Click)
+qml: [11:33:25.938] KeyDispatcher.dispatchToView(vk=Next, ev=Click)  | enabled=true
+qml: [11:33:25.938] Normal/Sample2a.onViewKey(vk=Next, ev=Click)
+qml: [11:33:25.938] Normal/Sample2a.action(NEXT/CLICK)  | switchView(normal/sample2b, Next)
+qml: [11:33:25.938] Mediator.switchView(viewId=Normal/Sample2b, direction=Next)  | currentViewId=Normal/Sample2a, previousViewId=Normal/Sample2b, history.length=7
+qml: [11:33:25.939] Mediator.state updated()  | currentViewId=Normal/Sample2b, previousViewId=Normal/Sample2a, history.length=8
+qml: [11:33:25.939] TransitionManager.startTransition(toViewId=Normal/Sample2b, direction=Next)  | fromViewId=Normal/Sample2a, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/Sample2View.qml
+qml: [11:33:25.939] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:25.940] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Normal/Sample2b
+qml: [11:33:25.940] Normal/Sample2a.leaveAnim.start()  | duration=207ms
+qml: [11:33:25.941] Normal/Sample2b.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=(none)
+qml: [11:33:25.941] Normal/Sample2b.performEnter (instant)()  | duration=0, deferred report via Qt.callLater
+qml: [11:33:25.941] Normal/Sample2b.thisViewId auto-resolved()  | from Mediator.pendingViewId=Normal/Sample2b
+qml: [11:33:25.943] Normal/Sample2b.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:25.943] TransitionManager.startTransition done()  | enteringIsA=false, slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample2b)=Entering
+qml: [11:33:25.943] KeyDispatcher.viewEvent posted(vk=Next, ev=Click)  | gen=18
+qml: [11:33:25.943] KeyDispatcher.screenEvent posted(vk=Next, ev=Click)  | gen=18
+qml: [11:33:25.943] Normal/Sample2b.deferred reportEnterComplete()  | (instant enter)
+qml: [11:33:25.943] TransitionManager.reportEnterComplete(viewId=Normal/Sample2b)  | slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample2b)=Entering
+qml: [11:33:25.943] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:26.144] Normal/Sample2a.leaveAnim.onStopped()  | duration=207ms
+qml: [11:33:26.144] TransitionManager.reportLeaveComplete(viewId=Normal/Sample2a)  | slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample2b)=Entering
+qml: [11:33:26.144] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:26.146] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=Normal/Sample2b
+qml: [11:33:26.146] Normal/Sample2a.Component.onDestruction()
+qml: [11:33:26.146] Normal/Sample2b.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Sample2a
+qml: [11:33:26.147] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:26.147] Main.onTransitionFinished(finalViewId=Normal/Sample2b)
+qml: [11:33:26.147] TransitionManager.transition finished(finalViewId=Normal/Sample2b, gen=9)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(None), viewSlotB(Normal/Sample2b), viewAIsCurrent=false
+qml: [11:33:26.443] Main.Keys.onPressed(physicalKey=65)  | vk=Prev
+qml: [11:33:26.443] KeyDispatcher.dispatchToScreen(vk=Prev, ev=Press)  | enabled=true
+qml: [11:33:26.443] NormalScreen.onScreenKeyEvent(vk=Prev, ev=Press)
+qml: [11:33:26.448] NormalScreen.forward-to-view(vk=Prev, ev=Press)
+qml: [11:33:26.448] KeyDispatcher.dispatchToView(vk=Prev, ev=Press)  | enabled=true
+qml: [11:33:26.448] Normal/Sample2b.onViewKey(vk=Prev, ev=Press)
+qml: [11:33:26.448] KeyDispatcher.viewEvent posted(vk=Prev, ev=Press)  | gen=19
+qml: [11:33:26.448] KeyDispatcher.screenEvent posted(vk=Prev, ev=Press)  | gen=19
+qml: [11:33:26.555] Main.Keys.onReleased(physicalKey=65)  | vk=Prev
+qml: [11:33:26.556] KeyDispatcher.dispatchToScreen(vk=Prev, ev=Release)  | enabled=true
+qml: [11:33:26.556] NormalScreen.onScreenKeyEvent(vk=Prev, ev=Release)
+qml: [11:33:26.556] NormalScreen.forward-to-view(vk=Prev, ev=Release)
+qml: [11:33:26.556] KeyDispatcher.dispatchToView(vk=Prev, ev=Release)  | enabled=true
+qml: [11:33:26.556] Normal/Sample2b.onViewKey(vk=Prev, ev=Release)
+qml: [11:33:26.556] KeyDispatcher.viewEvent posted(vk=Prev, ev=Release)  | gen=20
+qml: [11:33:26.556] KeyDispatcher.screenEvent posted(vk=Prev, ev=Release)  | gen=20
+qml: [11:33:26.556] Main.CLICK synthesized(physicalKey=65)  | vk=Prev
+qml: [11:33:26.556] KeyDispatcher.dispatchToScreen(vk=Prev, ev=Click)  | enabled=true
+qml: [11:33:26.556] NormalScreen.onScreenKeyEvent(vk=Prev, ev=Click)
+qml: [11:33:26.556] NormalScreen.forward-to-view(vk=Prev, ev=Click)
+qml: [11:33:26.556] KeyDispatcher.dispatchToView(vk=Prev, ev=Click)  | enabled=true
+qml: [11:33:26.556] Normal/Sample2b.onViewKey(vk=Prev, ev=Click)
+qml: [11:33:26.557] Normal/Sample2b.action(PREV/CLICK)  | switchView(normal/sample2a, Back)
+qml: [11:33:26.557] Mediator.switchView(viewId=Normal/Sample2a, direction=Back)  | currentViewId=Normal/Sample2b, previousViewId=Normal/Sample2a, history.length=8
+qml: [11:33:26.558] Mediator.state updated()  | currentViewId=Normal/Sample2a, previousViewId=Normal/Sample2b, history.length=9
+qml: [11:33:26.558] TransitionManager.startTransition(toViewId=Normal/Sample2a, direction=Back)  | fromViewId=Normal/Sample2b, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/Sample2View.qml
+qml: [11:33:26.558] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:26.558] Normal/Sample2b.reactToLifecycle()  | myLifecycle=Leaving, direction=Back, partner=Normal/Sample2a
+qml: [11:33:26.558] Normal/Sample2b.leaveAnim.start()  | duration=260ms
+qml: [11:33:26.559] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=(none)
+qml: [11:33:26.559] Normal/Sample2a.performEnter (instant)()  | duration=0, deferred report via Qt.callLater
+qml: [11:33:26.560] Normal/Sample2a.thisViewId auto-resolved()  | from Mediator.pendingViewId=Normal/Sample2a
+qml: [11:33:26.560] Normal/Sample2a.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:26.560] TransitionManager.startTransition done()  | enteringIsA=true, slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample2b)=Leaving
+qml: [11:33:26.560] KeyDispatcher.viewEvent posted(vk=Prev, ev=Click)  | gen=21
+qml: [11:33:26.560] KeyDispatcher.screenEvent posted(vk=Prev, ev=Click)  | gen=21
+qml: [11:33:26.561] Normal/Sample2a.deferred reportEnterComplete()  | (instant enter)
+qml: [11:33:26.562] TransitionManager.reportEnterComplete(viewId=Normal/Sample2a)  | slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample2b)=Leaving
+qml: [11:33:26.562] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:26.821] Normal/Sample2b.leaveAnim.onStopped()  | duration=260ms
+qml: [11:33:26.821] TransitionManager.reportLeaveComplete(viewId=Normal/Sample2b)  | slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample2b)=Leaving
+qml: [11:33:26.821] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:26.827] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=false, pendingFinalId=Normal/Sample2a
+qml: [11:33:26.827] Normal/Sample2b.Component.onDestruction()
+qml: [11:33:26.827] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Idle, direction=Back, partner=Normal/Sample2b
+qml: [11:33:26.827] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:26.827] Main.onTransitionFinished(finalViewId=Normal/Sample2a)
+qml: [11:33:26.827] TransitionManager.transition finished(finalViewId=Normal/Sample2a, gen=10)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(Normal/Sample2a), viewSlotB(None), viewAIsCurrent=true
+qml: [11:33:27.199] Main.Keys.onPressed(physicalKey=68)  | vk=Next
+qml: [11:33:27.199] KeyDispatcher.dispatchToScreen(vk=Next, ev=Press)  | enabled=true
+qml: [11:33:27.199] NormalScreen.onScreenKeyEvent(vk=Next, ev=Press)
+qml: [11:33:27.200] NormalScreen.forward-to-view(vk=Next, ev=Press)
+qml: [11:33:27.200] KeyDispatcher.dispatchToView(vk=Next, ev=Press)  | enabled=true
+qml: [11:33:27.200] Normal/Sample2a.onViewKey(vk=Next, ev=Press)
+qml: [11:33:27.200] KeyDispatcher.viewEvent posted(vk=Next, ev=Press)  | gen=22
+qml: [11:33:27.201] KeyDispatcher.screenEvent posted(vk=Next, ev=Press)  | gen=22
+qml: [11:33:27.336] Main.Keys.onReleased(physicalKey=68)  | vk=Next
+qml: [11:33:27.336] KeyDispatcher.dispatchToScreen(vk=Next, ev=Release)  | enabled=true
+qml: [11:33:27.336] NormalScreen.onScreenKeyEvent(vk=Next, ev=Release)
+qml: [11:33:27.344] NormalScreen.forward-to-view(vk=Next, ev=Release)
+qml: [11:33:27.344] KeyDispatcher.dispatchToView(vk=Next, ev=Release)  | enabled=true
+qml: [11:33:27.344] Normal/Sample2a.onViewKey(vk=Next, ev=Release)
+qml: [11:33:27.344] KeyDispatcher.viewEvent posted(vk=Next, ev=Release)  | gen=23
+qml: [11:33:27.344] KeyDispatcher.screenEvent posted(vk=Next, ev=Release)  | gen=23
+qml: [11:33:27.345] Main.CLICK synthesized(physicalKey=68)  | vk=Next
+qml: [11:33:27.345] KeyDispatcher.dispatchToScreen(vk=Next, ev=Click)  | enabled=true
+qml: [11:33:27.345] NormalScreen.onScreenKeyEvent(vk=Next, ev=Click)
+qml: [11:33:27.345] NormalScreen.forward-to-view(vk=Next, ev=Click)
+qml: [11:33:27.345] KeyDispatcher.dispatchToView(vk=Next, ev=Click)  | enabled=true
+qml: [11:33:27.345] Normal/Sample2a.onViewKey(vk=Next, ev=Click)
+qml: [11:33:27.345] Normal/Sample2a.action(NEXT/CLICK)  | switchView(normal/sample2b, Next)
+qml: [11:33:27.345] Mediator.switchView(viewId=Normal/Sample2b, direction=Next)  | currentViewId=Normal/Sample2a, previousViewId=Normal/Sample2b, history.length=9
+qml: [11:33:27.346] Mediator.state updated()  | currentViewId=Normal/Sample2b, previousViewId=Normal/Sample2a, history.length=10
+qml: [11:33:27.346] TransitionManager.startTransition(toViewId=Normal/Sample2b, direction=Next)  | fromViewId=Normal/Sample2a, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/Sample2View.qml
+qml: [11:33:27.347] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:27.347] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Normal/Sample2b
+qml: [11:33:27.347] Normal/Sample2a.leaveAnim.start()  | duration=752ms
+qml: [11:33:27.349] Normal/Sample2b.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=(none)
+qml: [11:33:27.349] Normal/Sample2b.enterAnim.start()  | duration=655ms
+qml: [11:33:27.349] Normal/Sample2b.thisViewId auto-resolved()  | from Mediator.pendingViewId=Normal/Sample2b
+qml: [11:33:27.349] Normal/Sample2b.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:27.349] TransitionManager.startTransition done()  | enteringIsA=false, slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample2b)=Entering
+qml: [11:33:27.349] KeyDispatcher.viewEvent posted(vk=Next, ev=Click)  | gen=24
+qml: [11:33:27.349] KeyDispatcher.screenEvent posted(vk=Next, ev=Click)  | gen=24
+qml: [11:33:27.998] Normal/Sample2b.enterAnim.onStopped()  | duration=655ms
+qml: [11:33:27.998] TransitionManager.reportEnterComplete(viewId=Normal/Sample2b)  | slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample2b)=Entering
+qml: [11:33:27.998] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:28.039] Main.Keys.onPressed(physicalKey=65)  | vk=Prev
+qml: [11:33:28.039] KeyDispatcher.dispatchToScreen(vk=Prev, ev=Press)  | enabled=false
+qml: [11:33:28.097] Normal/Sample2a.leaveAnim.onStopped()  | duration=752ms
+qml: [11:33:28.097] TransitionManager.reportLeaveComplete(viewId=Normal/Sample2a)  | slotA(Normal/Sample2a)=Leaving, slotB(Normal/Sample2b)=Entering
+qml: [11:33:28.097] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:28.111] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=Normal/Sample2b
+qml: [11:33:28.112] Normal/Sample2a.Component.onDestruction()
+qml: [11:33:28.112] Normal/Sample2b.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Sample2a
+qml: [11:33:28.112] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:28.112] Main.onTransitionFinished(finalViewId=Normal/Sample2b)
+qml: [11:33:28.113] TransitionManager.transition finished(finalViewId=Normal/Sample2b, gen=11)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(None), viewSlotB(Normal/Sample2b), viewAIsCurrent=false
+qml: [11:33:28.170] Main.Keys.onReleased(physicalKey=65)  | vk=Prev
+qml: [11:33:28.170] KeyDispatcher.dispatchToScreen(vk=Prev, ev=Release)  | enabled=true
+qml: [11:33:28.170] NormalScreen.onScreenKeyEvent(vk=Prev, ev=Release)
+qml: [11:33:28.170] NormalScreen.forward-to-view(vk=Prev, ev=Release)
+qml: [11:33:28.183] KeyDispatcher.dispatchToView(vk=Prev, ev=Release)  | enabled=true
+qml: [11:33:28.183] Normal/Sample2b.onViewKey(vk=Prev, ev=Release)
+qml: [11:33:28.183] KeyDispatcher.viewEvent posted(vk=Prev, ev=Release)  | gen=25
+qml: [11:33:28.183] KeyDispatcher.screenEvent posted(vk=Prev, ev=Release)  | gen=25
+qml: [11:33:28.183] Main.CLICK synthesized(physicalKey=65)  | vk=Prev
+qml: [11:33:28.183] KeyDispatcher.dispatchToScreen(vk=Prev, ev=Click)  | enabled=true
+qml: [11:33:28.183] NormalScreen.onScreenKeyEvent(vk=Prev, ev=Click)
+qml: [11:33:28.183] NormalScreen.forward-to-view(vk=Prev, ev=Click)
+qml: [11:33:28.183] KeyDispatcher.dispatchToView(vk=Prev, ev=Click)  | enabled=true
+qml: [11:33:28.184] Normal/Sample2b.onViewKey(vk=Prev, ev=Click)
+qml: [11:33:28.184] Normal/Sample2b.action(PREV/CLICK)  | switchView(normal/sample2a, Back)
+qml: [11:33:28.184] Mediator.switchView(viewId=Normal/Sample2a, direction=Back)  | currentViewId=Normal/Sample2b, previousViewId=Normal/Sample2a, history.length=10
+qml: [11:33:28.185] Mediator.state updated()  | currentViewId=Normal/Sample2a, previousViewId=Normal/Sample2b, history.length=11
+qml: [11:33:28.185] TransitionManager.startTransition(toViewId=Normal/Sample2a, direction=Back)  | fromViewId=Normal/Sample2b, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/Sample2View.qml
+qml: [11:33:28.185] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:28.186] Normal/Sample2b.reactToLifecycle()  | myLifecycle=Leaving, direction=Back, partner=Normal/Sample2a
+qml: [11:33:28.186] Normal/Sample2b.leaveAnim.start()  | duration=622ms
+qml: [11:33:28.188] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=(none)
+qml: [11:33:28.188] Normal/Sample2a.enterAnim.start()  | duration=589ms
+qml: [11:33:28.188] Normal/Sample2a.thisViewId auto-resolved()  | from Mediator.pendingViewId=Normal/Sample2a
+qml: [11:33:28.188] Normal/Sample2a.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:28.188] TransitionManager.startTransition done()  | enteringIsA=true, slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample2b)=Leaving
+qml: [11:33:28.188] KeyDispatcher.viewEvent posted(vk=Prev, ev=Click)  | gen=26
+qml: [11:33:28.188] KeyDispatcher.screenEvent posted(vk=Prev, ev=Click)  | gen=26
+qml: [11:33:28.769] Normal/Sample2a.enterAnim.onStopped()  | duration=589ms
+qml: [11:33:28.769] TransitionManager.reportEnterComplete(viewId=Normal/Sample2a)  | slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample2b)=Leaving
+qml: [11:33:28.769] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:28.796] Normal/Sample2b.leaveAnim.onStopped()  | duration=622ms
+qml: [11:33:28.796] TransitionManager.reportLeaveComplete(viewId=Normal/Sample2b)  | slotA(Normal/Sample2a)=Entering, slotB(Normal/Sample2b)=Leaving
+qml: [11:33:28.796] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:28.796] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=false, pendingFinalId=Normal/Sample2a
+qml: [11:33:28.811] Normal/Sample2b.Component.onDestruction()
+qml: [11:33:28.812] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Idle, direction=Back, partner=Normal/Sample2b
+qml: [11:33:28.812] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:28.812] Main.onTransitionFinished(finalViewId=Normal/Sample2a)
+qml: [11:33:28.812] TransitionManager.transition finished(finalViewId=Normal/Sample2a, gen=12)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(Normal/Sample2a), viewSlotB(None), viewAIsCurrent=true
+qml: [11:33:29.318] Main.HIDDEN JUMP(physicalKey=50)  | switchView(Normal/Menu, Next)
+qml: [11:33:29.318] Mediator.switchView(viewId=Normal/Menu, direction=Next)  | currentViewId=Normal/Sample2a, previousViewId=Normal/Sample2b, history.length=11
+qml: [11:33:29.324] Mediator.state updated()  | currentViewId=Normal/Menu, previousViewId=Normal/Sample2a, history.length=12
+qml: [11:33:29.324] TransitionManager.startTransition(toViewId=Normal/Menu, direction=Next)  | fromViewId=Normal/Sample2a, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/MenuView.qml
+qml: [11:33:29.324] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:29.325] Normal/Sample2a.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Normal/Menu
+qml: [11:33:29.325] Normal/Sample2a.performLeave (instant)()  | duration=0, deferred report via Qt.callLater
+qml: [11:33:29.326] Normal/Menu.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=Normal/Sample2a
+qml: [11:33:29.326] normal/menu.onEntering cursor init(previousViewId=Normal/Sample2a)  | cursorIndex: 0 → 1
+qml: [11:33:29.327] Normal/Menu.enterAnim.start()  | duration=665ms
+qml: [11:33:29.328] Normal/Menu.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:29.328] TransitionManager.startTransition done()  | enteringIsA=false, slotA(Normal/Sample2a)=Leaving, slotB(Normal/Menu)=Entering
+qml: [11:33:29.328] Normal/Sample2a.deferred reportLeaveComplete()  | (instant leave)
+qml: [11:33:29.328] TransitionManager.reportLeaveComplete(viewId=Normal/Sample2a)  | slotA(Normal/Sample2a)=Leaving, slotB(Normal/Menu)=Entering
+qml: [11:33:29.328] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=false, leaveNeeded=true/reported=true
+qml: [11:33:29.992] Normal/Menu.enterAnim.onStopped()  | duration=665ms
+qml: [11:33:29.992] TransitionManager.reportEnterComplete(viewId=Normal/Menu)  | slotA(Normal/Sample2a)=Leaving, slotB(Normal/Menu)=Entering
+qml: [11:33:29.992] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:29.994] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=Normal/Menu
+qml: [11:33:29.994] Normal/Sample2a.Component.onDestruction()
+qml: [11:33:29.995] Normal/Menu.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Sample2a
+qml: [11:33:29.995] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:29.995] Main.onTransitionFinished(finalViewId=Normal/Menu)
+qml: [11:33:29.995] TransitionManager.transition finished(finalViewId=Normal/Menu, gen=13)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(None), viewSlotB(Normal/Menu), viewAIsCurrent=false
+qml: [11:33:30.035] Main.HIDDEN JUMP(physicalKey=49)  | switchView(Normal/Home, Next)
+qml: [11:33:30.035] Mediator.switchView(viewId=Normal/Home, direction=Next)  | currentViewId=Normal/Menu, previousViewId=Normal/Sample2a, history.length=12
+qml: [11:33:30.044] Mediator.state updated()  | currentViewId=Normal/Home, previousViewId=Normal/Menu, history.length=13
+qml: [11:33:30.044] TransitionManager.startTransition(toViewId=Normal/Home, direction=Next)  | fromViewId=Normal/Menu, screenChanged=false, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/HomeView.qml
+qml: [11:33:30.044] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:30.045] Normal/Menu.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Normal/Home
+qml: [11:33:30.045] Normal/Menu.performLeave (instant)()  | duration=0, deferred report via Qt.callLater
+qml: [11:33:30.045] Normal/Home.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=Normal/Menu
+qml: [11:33:30.045] normal/home.onEntering cursor init(previousViewId=Normal/Menu)  | cursorIndex: 0 → 0
+qml: [11:33:30.045] Normal/Home.performEnter (instant)()  | duration=0, deferred report via Qt.callLater
+qml: [11:33:30.047] Normal/Home.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:30.047] TransitionManager.startTransition done()  | enteringIsA=true, slotA(Normal/Home)=Entering, slotB(Normal/Menu)=Leaving
+qml: [11:33:30.047] Normal/Menu.deferred reportLeaveComplete()  | (instant leave)
+qml: [11:33:30.047] TransitionManager.reportLeaveComplete(viewId=Normal/Menu)  | slotA(Normal/Home)=Entering, slotB(Normal/Menu)=Leaving
+qml: [11:33:30.047] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=false, leaveNeeded=true/reported=true
+qml: [11:33:30.047] Normal/Home.deferred reportEnterComplete()  | (instant enter)
+qml: [11:33:30.047] TransitionManager.reportEnterComplete(viewId=Normal/Home)  | slotA(Normal/Home)=Entering, slotB(Normal/Menu)=Leaving
+qml: [11:33:30.048] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:30.048] TransitionManager.finalizeTransition()  | isCrossScreen=false, screenAIsCurrent=true, viewAIsCurrent=false, pendingFinalId=Normal/Home
+qml: [11:33:30.048] Normal/Menu.Component.onDestruction()
+qml: [11:33:30.048] Normal/Home.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Menu
+qml: [11:33:30.048] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:30.048] Main.onTransitionFinished(finalViewId=Normal/Home)
+qml: [11:33:30.048] TransitionManager.transition finished(finalViewId=Normal/Home, gen=14)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(Normal/Home), viewSlotB(None), viewAIsCurrent=true
+qml: [11:33:31.590] Main.Keys.onPressed(physicalKey=68)  | vk=Next
+qml: [11:33:31.590] KeyDispatcher.dispatchToScreen(vk=Next, ev=Press)  | enabled=true
+qml: [11:33:31.590] NormalScreen.onScreenKeyEvent(vk=Next, ev=Press)
+qml: [11:33:31.604] NormalScreen.forward-to-view(vk=Next, ev=Press)
+qml: [11:33:31.604] KeyDispatcher.dispatchToView(vk=Next, ev=Press)  | enabled=true
+qml: [11:33:31.604] Normal/Home.onViewKey(vk=Next, ev=Press)
+qml: [11:33:31.606] KeyDispatcher.viewEvent posted(vk=Next, ev=Press)  | gen=27
+qml: [11:33:31.606] KeyDispatcher.screenEvent posted(vk=Next, ev=Press)  | gen=27
+qml: [11:33:31.710] Main.Keys.onReleased(physicalKey=68)  | vk=Next
+qml: [11:33:31.710] KeyDispatcher.dispatchToScreen(vk=Next, ev=Release)  | enabled=true
+qml: [11:33:31.710] NormalScreen.onScreenKeyEvent(vk=Next, ev=Release)
+qml: [11:33:31.716] NormalScreen.forward-to-view(vk=Next, ev=Release)
+qml: [11:33:31.716] KeyDispatcher.dispatchToView(vk=Next, ev=Release)  | enabled=true
+qml: [11:33:31.716] Normal/Home.onViewKey(vk=Next, ev=Release)
+qml: [11:33:31.716] KeyDispatcher.viewEvent posted(vk=Next, ev=Release)  | gen=28
+qml: [11:33:31.716] KeyDispatcher.screenEvent posted(vk=Next, ev=Release)  | gen=28
+qml: [11:33:31.717] Main.CLICK synthesized(physicalKey=68)  | vk=Next
+qml: [11:33:31.717] KeyDispatcher.dispatchToScreen(vk=Next, ev=Click)  | enabled=true
+qml: [11:33:31.717] NormalScreen.onScreenKeyEvent(vk=Next, ev=Click)
+qml: [11:33:31.717] NormalScreen.forward-to-view(vk=Next, ev=Click)
+qml: [11:33:31.717] KeyDispatcher.dispatchToView(vk=Next, ev=Click)  | enabled=true
+qml: [11:33:31.717] Normal/Home.onViewKey(vk=Next, ev=Click)
+qml: [11:33:31.719] normal/home.cursor moved(NEXT/CLICK)  | cursorIndex=1
+qml: [11:33:31.719] KeyDispatcher.viewEvent posted(vk=Next, ev=Click)  | gen=29
+qml: [11:33:31.719] KeyDispatcher.screenEvent posted(vk=Next, ev=Click)  | gen=29
+qml: [11:33:32.008] Main.Keys.onPressed(physicalKey=83)  | vk=Enter
+qml: [11:33:32.008] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Press)  | enabled=true
+qml: [11:33:32.008] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Press)
+qml: [11:33:32.008] NormalScreen.forward-to-view(vk=Enter, ev=Press)
+qml: [11:33:32.019] KeyDispatcher.dispatchToView(vk=Enter, ev=Press)  | enabled=true
+qml: [11:33:32.019] Normal/Home.onViewKey(vk=Enter, ev=Press)
+qml: [11:33:32.019] KeyDispatcher.viewEvent posted(vk=Enter, ev=Press)  | gen=30
+qml: [11:33:32.019] KeyDispatcher.screenEvent posted(vk=Enter, ev=Press)  | gen=30
+qml: [11:33:32.126] Main.Keys.onReleased(physicalKey=83)  | vk=Enter
+qml: [11:33:32.126] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Release)  | enabled=true
+qml: [11:33:32.126] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Release)
+qml: [11:33:32.128] NormalScreen.forward-to-view(vk=Enter, ev=Release)
+qml: [11:33:32.128] KeyDispatcher.dispatchToView(vk=Enter, ev=Release)  | enabled=true
+qml: [11:33:32.128] Normal/Home.onViewKey(vk=Enter, ev=Release)
+qml: [11:33:32.128] KeyDispatcher.viewEvent posted(vk=Enter, ev=Release)  | gen=31
+qml: [11:33:32.128] KeyDispatcher.screenEvent posted(vk=Enter, ev=Release)  | gen=31
+qml: [11:33:32.130] Main.CLICK synthesized(physicalKey=83)  | vk=Enter
+qml: [11:33:32.130] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Click)  | enabled=true
+qml: [11:33:32.130] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Click)
+qml: [11:33:32.130] NormalScreen.forward-to-view(vk=Enter, ev=Click)
+qml: [11:33:32.130] KeyDispatcher.dispatchToView(vk=Enter, ev=Click)  | enabled=true
+qml: [11:33:32.131] Normal/Home.onViewKey(vk=Enter, ev=Click)
+qml: [11:33:32.131] normal/home.action(ENTER/CLICK on Shutdown)  | switchView(closing/closing, Next)
+qml: [11:33:32.131] Mediator.switchView(viewId=Closing/Closing, direction=Next)  | currentViewId=Normal/Home, previousViewId=Normal/Menu, history.length=13
+qml: [11:33:32.132] Mediator.closing entry reset()  | history cleared, closingAborted=false
+qml: [11:33:32.132] Mediator.state updated()  | currentViewId=Closing/Closing, previousViewId=Normal/Home, history.length=0
+qml: [11:33:32.132] TransitionManager.startTransition(toViewId=Closing/Closing, direction=Next)  | fromViewId=Normal/Home, screenChanged=true, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Closing/ClosingScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Closing/ClosingView.qml
+qml: [11:33:32.132] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:32.132] TransitionManager.screenSourceB changed()  | value=qrc:/qt/qml/QulLoaderNavigation/Screens/Closing/ClosingScreen.qml
+qml: [11:33:32.134] ClosingScreen.loaded()
+qml: [11:33:32.135] Normal/Home.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Closing/Closing
+qml: [11:33:32.135] Normal/Home.leaveAnim.start()  | duration=269ms
+qml: [11:33:32.135] Closing/Closing.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=Normal/Home
+qml: [11:33:32.135] Closing/Closing.performEnter (custom)()  | deferred reportEnterComplete via Qt.callLater
+qml: [11:33:32.136] Closing/Closing.closingTimer.start()  | interval=3000ms
+qml: [11:33:32.137] Closing/Closing.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:32.137] TransitionManager.startTransition done()  | enteringIsA=false, slotA(Normal/Home)=Leaving, slotB(Closing/Closing)=Entering
+qml: [11:33:32.137] KeyDispatcher.viewEvent posted(vk=Enter, ev=Click)  | gen=32
+qml: [11:33:32.137] KeyDispatcher.screenEvent posted(vk=Enter, ev=Click)  | gen=32
+qml: [11:33:32.137] Closing/Closing.deferred reportEnterComplete()  | called via Qt.callLater
+qml: [11:33:32.137] TransitionManager.reportEnterComplete(viewId=Closing/Closing)  | slotA(Normal/Home)=Leaving, slotB(Closing/Closing)=Entering
+qml: [11:33:32.137] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:32.404] Normal/Home.leaveAnim.onStopped()  | duration=269ms
+qml: [11:33:32.404] TransitionManager.reportLeaveComplete(viewId=Normal/Home)  | slotA(Normal/Home)=Leaving, slotB(Closing/Closing)=Entering
+qml: [11:33:32.404] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:32.411] TransitionManager.finalizeTransition()  | isCrossScreen=true, screenAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=Closing/Closing
+qml: [11:33:32.411] Normal/Home.Component.onDestruction()
+qml: [11:33:32.412] Closing/Closing.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Home
+qml: [11:33:32.412] TransitionManager.screenSourceA changed()  | value=
+qml: [11:33:32.412] NormalScreen.destroyed()
+qml: [11:33:32.413] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:32.413] Main.onTransitionFinished(finalViewId=Closing/Closing)
+qml: [11:33:32.413] TransitionManager.transition finished(finalViewId=Closing/Closing, gen=15)  | screenSourceA=, screenSourceB=qrc:/qt/qml/QulLoaderNavigation/Screens/Closing/ClosingScreen.qml, screenAIsCurrent=false, viewSlotA(None), viewSlotB(Closing/Closing), viewAIsCurrent=false
+qml: [11:33:33.795] Main.Keys.onPressed(physicalKey=67)  | vk=Back
+qml: [11:33:33.795] KeyDispatcher.dispatchToScreen(vk=Back, ev=Press)  | enabled=true
+qml: [11:33:33.795] ClosingScreen.onScreenKeyEvent(vk=Back, ev=Press)
+qml: [11:33:33.799] ClosingScreen.forward-to-view(vk=Back, ev=Press)
+qml: [11:33:33.799] KeyDispatcher.dispatchToView(vk=Back, ev=Press)  | enabled=true
+qml: [11:33:33.799] Closing/Closing.onViewKey(vk=Back, ev=Press)
+qml: [11:33:33.799] KeyDispatcher.viewEvent posted(vk=Back, ev=Press)  | gen=33
+qml: [11:33:33.799] KeyDispatcher.screenEvent posted(vk=Back, ev=Press)  | gen=33
+qml: [11:33:33.929] Main.Keys.onReleased(physicalKey=67)  | vk=Back
+qml: [11:33:33.929] KeyDispatcher.dispatchToScreen(vk=Back, ev=Release)  | enabled=true
+qml: [11:33:33.929] ClosingScreen.onScreenKeyEvent(vk=Back, ev=Release)
+qml: [11:33:33.933] ClosingScreen.forward-to-view(vk=Back, ev=Release)
+qml: [11:33:33.933] KeyDispatcher.dispatchToView(vk=Back, ev=Release)  | enabled=true
+qml: [11:33:33.933] Closing/Closing.onViewKey(vk=Back, ev=Release)
+qml: [11:33:33.933] KeyDispatcher.viewEvent posted(vk=Back, ev=Release)  | gen=34
+qml: [11:33:33.933] KeyDispatcher.screenEvent posted(vk=Back, ev=Release)  | gen=34
+qml: [11:33:33.933] Main.CLICK synthesized(physicalKey=67)  | vk=Back
+qml: [11:33:33.934] KeyDispatcher.dispatchToScreen(vk=Back, ev=Click)  | enabled=true
+qml: [11:33:33.934] ClosingScreen.onScreenKeyEvent(vk=Back, ev=Click)
+qml: [11:33:33.934] closingScreen.absorb (abort sequence start)(vk=Back/CLICK)  | step1: closingAborted=true
+qml: [11:33:33.934] closingScreen.abort sequence()  | step2: forceUnloadCurrentView
+qml: [11:33:33.934] TransitionManager.forceUnloadCurrentView()  | viewAIsCurrent=false, slotA=None, slotB=Closing/Closing
+qml: [11:33:33.934] Closing/Closing.Component.onDestruction()
+qml: [11:33:33.934] closingScreen.abort sequence()  | step3: switchView(normal/home, Back)
+qml: [11:33:33.935] Mediator.switchView(viewId=Normal/Home, direction=Back)  | currentViewId=Closing/Closing, previousViewId=Normal/Home, history.length=0
+qml: [11:33:33.935] Mediator.state updated()  | currentViewId=Normal/Home, previousViewId=Closing/Closing, history.length=1
+qml: [11:33:33.935] TransitionManager.startTransition(toViewId=Normal/Home, direction=Back)  | fromViewId=None, screenChanged=true, hasLeavingView=false, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/HomeView.qml
+qml: [11:33:33.935] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:33.935] TransitionManager.screenSourceA changed()  | value=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml
+qml: [11:33:33.937] NormalScreen.loaded()
+qml: [11:33:33.937] Normal/Home.reactToLifecycle()  | myLifecycle=Entering, direction=Back, partner=(none)
+qml: [11:33:33.938] normal/home.onEntering cursor init(previousViewId=Closing/Closing)  | cursorIndex: 0 → 1
+qml: [11:33:33.938] Normal/Home.performEnter (instant)()  | duration=0, deferred report via Qt.callLater
+qml: [11:33:33.938] Normal/Home.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:33.938] TransitionManager.startTransition done()  | enteringIsA=true, slotA(Normal/Home)=Entering, slotB(None)=Idle
+qml: [11:33:33.938] KeyDispatcher.screenEvent posted(vk=Back, ev=Click)  | gen=35
+qml: [11:33:33.939] Normal/Home.deferred reportEnterComplete()  | (instant enter)
+qml: [11:33:33.939] TransitionManager.reportEnterComplete(viewId=Normal/Home)  | slotA(Normal/Home)=Entering, slotB(None)=Idle
+qml: [11:33:33.939] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=false/reported=false
+qml: [11:33:33.939] TransitionManager.finalizeTransition()  | isCrossScreen=true, screenAIsCurrent=false, viewAIsCurrent=false, pendingFinalId=Normal/Home
+qml: [11:33:33.939] Normal/Home.reactToLifecycle()  | myLifecycle=Idle, direction=Back, partner=(none)
+qml: [11:33:33.939] TransitionManager.screenSourceB changed()  | value=
+qml: [11:33:33.939] ClosingScreen.destroyed()
+qml: [11:33:33.939] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:33.939] Main.onTransitionFinished(finalViewId=Normal/Home)
+qml: [11:33:33.939] TransitionManager.transition finished(finalViewId=Normal/Home, gen=16)  | screenSourceA=qrc:/qt/qml/QulLoaderNavigation/Screens/Normal/NormalScreen.qml, screenSourceB=, screenAIsCurrent=true, viewSlotA(Normal/Home), viewSlotB(None), viewAIsCurrent=true
+qml: [11:33:35.595] Main.Keys.onPressed(physicalKey=83)  | vk=Enter
+qml: [11:33:35.595] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Press)  | enabled=true
+qml: [11:33:35.595] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Press)
+qml: [11:33:35.608] NormalScreen.forward-to-view(vk=Enter, ev=Press)
+qml: [11:33:35.608] KeyDispatcher.dispatchToView(vk=Enter, ev=Press)  | enabled=true
+qml: [11:33:35.608] Normal/Home.onViewKey(vk=Enter, ev=Press)
+qml: [11:33:35.609] KeyDispatcher.viewEvent posted(vk=Enter, ev=Press)  | gen=35
+qml: [11:33:35.609] KeyDispatcher.screenEvent posted(vk=Enter, ev=Press)  | gen=36
+qml: [11:33:35.715] Main.Keys.onReleased(physicalKey=83)  | vk=Enter
+qml: [11:33:35.715] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Release)  | enabled=true
+qml: [11:33:35.715] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Release)
+qml: [11:33:35.725] NormalScreen.forward-to-view(vk=Enter, ev=Release)
+qml: [11:33:35.725] KeyDispatcher.dispatchToView(vk=Enter, ev=Release)  | enabled=true
+qml: [11:33:35.725] Normal/Home.onViewKey(vk=Enter, ev=Release)
+qml: [11:33:35.725] KeyDispatcher.viewEvent posted(vk=Enter, ev=Release)  | gen=36
+qml: [11:33:35.725] KeyDispatcher.screenEvent posted(vk=Enter, ev=Release)  | gen=37
+qml: [11:33:35.726] Main.CLICK synthesized(physicalKey=83)  | vk=Enter
+qml: [11:33:35.726] KeyDispatcher.dispatchToScreen(vk=Enter, ev=Click)  | enabled=true
+qml: [11:33:35.726] NormalScreen.onScreenKeyEvent(vk=Enter, ev=Click)
+qml: [11:33:35.726] NormalScreen.forward-to-view(vk=Enter, ev=Click)
+qml: [11:33:35.726] KeyDispatcher.dispatchToView(vk=Enter, ev=Click)  | enabled=true
+qml: [11:33:35.726] Normal/Home.onViewKey(vk=Enter, ev=Click)
+qml: [11:33:35.726] normal/home.action(ENTER/CLICK on Shutdown)  | switchView(closing/closing, Next)
+qml: [11:33:35.726] Mediator.switchView(viewId=Closing/Closing, direction=Next)  | currentViewId=Normal/Home, previousViewId=Closing/Closing, history.length=1
+qml: [11:33:35.726] Mediator.closing entry reset()  | history cleared, closingAborted=false
+qml: [11:33:35.726] Mediator.state updated()  | currentViewId=Closing/Closing, previousViewId=Normal/Home, history.length=0
+qml: [11:33:35.728] TransitionManager.startTransition(toViewId=Closing/Closing, direction=Next)  | fromViewId=Normal/Home, screenChanged=true, hasLeavingView=true, targetScreen=qrc:/qt/qml/QulLoaderNavigation/Screens/Closing/ClosingScreen.qml, targetView=qrc:/qt/qml/QulLoaderNavigation/Screens/Closing/ClosingView.qml
+qml: [11:33:35.728] KeyDispatcher.enabled changed(value=false)
+qml: [11:33:35.728] TransitionManager.screenSourceB changed()  | value=qrc:/qt/qml/QulLoaderNavigation/Screens/Closing/ClosingScreen.qml
+qml: [11:33:35.728] ClosingScreen.loaded()
+qml: [11:33:35.729] Normal/Home.reactToLifecycle()  | myLifecycle=Leaving, direction=Next, partner=Closing/Closing
+qml: [11:33:35.729] Normal/Home.leaveAnim.start()  | duration=759ms
+qml: [11:33:35.729] Closing/Closing.reactToLifecycle()  | myLifecycle=Entering, direction=Next, partner=Normal/Home
+qml: [11:33:35.730] Closing/Closing.performEnter (custom)()  | deferred reportEnterComplete via Qt.callLater
+qml: [11:33:35.730] Closing/Closing.closingTimer.start()  | interval=3000ms
+qml: [11:33:35.731] Closing/Closing.Component.onCompleted()  | myLifecycle=Entering
+qml: [11:33:35.731] TransitionManager.startTransition done()  | enteringIsA=false, slotA(Normal/Home)=Leaving, slotB(Closing/Closing)=Entering
+qml: [11:33:35.731] KeyDispatcher.viewEvent posted(vk=Enter, ev=Click)  | gen=37
+qml: [11:33:35.731] KeyDispatcher.screenEvent posted(vk=Enter, ev=Click)  | gen=38
+qml: [11:33:35.732] Closing/Closing.deferred reportEnterComplete()  | called via Qt.callLater
+qml: [11:33:35.732] TransitionManager.reportEnterComplete(viewId=Closing/Closing)  | slotA(Normal/Home)=Leaving, slotB(Closing/Closing)=Entering
+qml: [11:33:35.732] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=false
+qml: [11:33:36.487] Normal/Home.leaveAnim.onStopped()  | duration=759ms
+qml: [11:33:36.487] TransitionManager.reportLeaveComplete(viewId=Normal/Home)  | slotA(Normal/Home)=Leaving, slotB(Closing/Closing)=Entering
+qml: [11:33:36.487] TransitionManager.checkAndFinish()  | enterNeeded=true/reported=true, leaveNeeded=true/reported=true
+qml: [11:33:36.495] TransitionManager.finalizeTransition()  | isCrossScreen=true, screenAIsCurrent=true, viewAIsCurrent=true, pendingFinalId=Closing/Closing
+qml: [11:33:36.495] Normal/Home.Component.onDestruction()
+qml: [11:33:36.495] Closing/Closing.reactToLifecycle()  | myLifecycle=Idle, direction=Next, partner=Normal/Home
+qml: [11:33:36.496] TransitionManager.screenSourceA changed()  | value=
+qml: [11:33:36.497] NormalScreen.destroyed()
+qml: [11:33:36.497] KeyDispatcher.enabled changed(value=true)
+qml: [11:33:36.497] Main.onTransitionFinished(finalViewId=Closing/Closing)
+qml: [11:33:36.497] TransitionManager.transition finished(finalViewId=Closing/Closing, gen=17)  | screenSourceA=, screenSourceB=qrc:/qt/qml/QulLoaderNavigation/Screens/Closing/ClosingScreen.qml, screenAIsCurrent=false, viewSlotA(None), viewSlotB(Closing/Closing), viewAIsCurrent=false
+qml: [11:33:38.734] Closing/Closing.closingTimer.onTriggered()  | closingAborted=false
+qml: [11:33:38.734] Closing/Closing.Qt.quit()  | natural completion
+qml: [11:33:38.757] ClosingScreen.destroyed()
+qml: [11:33:38.757] Closing/Closing.Component.onDestruction()
+11:33:38: コマンド "C:\develop\qul-loader-navigation-poc\QulLoaderNavigation\build\Desktop_Qt_6_11_0_MinGW_64_bit-Debug\appQulLoaderNavigation.exe" は正常に終了しました。
