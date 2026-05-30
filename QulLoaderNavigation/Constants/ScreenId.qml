@@ -5,7 +5,7 @@
 // 0 は「未指定」sentinel として予約。
 //
 // helper:
-//   ScreenId.nameOf(screenId)  - "normal" などログ可読化用
+//   ScreenId.nameOf(screenId)  - "Normal" などログ可読化用
 //
 // 設計メモ: ID → qrc URL のマップは ScreenRegistry (メインモジュール所属) に持たせる。
 // Constants は値とその名前だけ管理し、メインモジュールの qrc 配置を一切知らない。

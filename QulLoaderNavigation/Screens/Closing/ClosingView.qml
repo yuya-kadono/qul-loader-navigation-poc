@@ -111,22 +111,42 @@ ViewBase {
     }
 
     // ---- 内部 Timer (lifecycle と独立。3 秒後 Qt.quit) ----
+    //      中断時は onViewKey / Component.onDestruction が stop() を呼ぶため、
+    //      ここに到達した時点で「中断されなかった」= 自然完了と確定する。
     Timer {
         id: closingTimer
         interval: 3000
         running: false
         repeat: false
         onTriggered: {
-            Logger.log(ViewId.nameOf(root.thisViewId), "closingTimer.onTriggered", "",
-                       "closingAborted=" + Mediator.closingAborted)
-            if (!Mediator.closingAborted) {
-                Logger.log(ViewId.nameOf(root.thisViewId), "Qt.quit", "",
-                           "natural completion")
-                Qt.quit()
-            } else {
-                Logger.log(ViewId.nameOf(root.thisViewId), "Qt.quit SUPPRESSED",
-                           "closingAborted=true", "")
-            }
+            Logger.log(ViewId.nameOf(root.thisViewId), "closingTimer.onTriggered",
+                       "", "natural completion → Qt.quit")
+            Qt.quit()
+        }
+    }
+
+    // ---- 中断ハンドリング: BACK/HOME Click を自分で捕捉して
+    //      Timer を止め、HomeView へ通常遷移する (§10-2)。
+    //      → Mediator / TransitionManager 側に中断専用 API は不要
+    //        (closingAborted フラグも forceUnloadCurrentView も持たない)。
+    function onViewKey(vk, ve) {
+        if (ve !== VirtualEvent.Click) return
+        if (vk !== VirtualKey.Back && vk !== VirtualKey.Home) return
+        Logger.log(ViewId.nameOf(root.thisViewId), "abort closing",
+                   "vk=" + VirtualKey.nameOf(vk) + "/CLICK",
+                   "stop closingTimer + switchView(NormalHome, Back)")
+        closingTimer.stop()
+        Mediator.switchView(ViewId.NormalHome, NavDirection.Back)
+    }
+
+    // ---- 保険: View 破棄時にも Timer を確実に停止 ----
+    //      onViewKey を経由しない破棄 (将来の経路追加など) でも
+    //      Qt.quit が漏れないようにする最後の砦。
+    Component.onDestruction: {
+        if (closingTimer.running) {
+            Logger.log(ViewId.nameOf(root.thisViewId), "Component.onDestruction",
+                       "", "closingTimer still running -> stop (safety net)")
+            closingTimer.stop()
         }
     }
 

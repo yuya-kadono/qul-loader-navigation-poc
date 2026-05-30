@@ -49,7 +49,7 @@ ViewBase {
         }
         if (cursorIndex < 0) cursorIndex = 0
         enterPressed = false  // 念のため
-        Logger.log("normal/home", "onEntering cursor init",
+        Logger.log("Normal/Home", "onEntering cursor init",
                    "previousViewId=" + ViewId.nameOf(prev),
                    "cursorIndex: " + oldCursor + " → " + cursorIndex)
     }
@@ -122,20 +122,20 @@ ViewBase {
             case VirtualKey.Prev:
                 if (home.cursorIndex > 0) {
                     home.cursorIndex = home.cursorIndex - 1
-                    Logger.log("normal/home", "cursor moved", "PREV/CLICK",
+                    Logger.log("Normal/Home", "cursor moved", "PREV/CLICK",
                                "cursorIndex=" + home.cursorIndex)
                 } else {
-                    Logger.log("normal/home", "cursor unchanged", "PREV/CLICK",
+                    Logger.log("Normal/Home", "cursor unchanged", "PREV/CLICK",
                                "already 0 (boundary)")
                 }
                 break
             case VirtualKey.Next:
                 if (home.cursorIndex < home.iconCount - 1) {
                     home.cursorIndex = home.cursorIndex + 1
-                    Logger.log("normal/home", "cursor moved", "NEXT/CLICK",
+                    Logger.log("Normal/Home", "cursor moved", "NEXT/CLICK",
                                "cursorIndex=" + home.cursorIndex)
                 } else {
-                    Logger.log("normal/home", "cursor unchanged", "NEXT/CLICK",
+                    Logger.log("Normal/Home", "cursor unchanged", "NEXT/CLICK",
                                "already " + (home.iconCount - 1) + " (boundary)")
                 }
                 break
@@ -146,17 +146,17 @@ ViewBase {
         var action = home.iconModel[idx].action
         switch (action) {
             case "menu":
-                Logger.log("normal/home", "action", "ENTER/CLICK on Menu",
+                Logger.log("Normal/Home", "action", "ENTER/CLICK on Menu",
                            "switchView(normal/menu, Next)")
                 Mediator.switchView(ViewId.NormalMenu, NavDirection.Next)
                 break
             case "shutdown":
-                Logger.log("normal/home", "action", "ENTER/CLICK on Shutdown",
+                Logger.log("Normal/Home", "action", "ENTER/CLICK on Shutdown",
                            "switchView(closing/closing, Next)")
                 Mediator.switchView(ViewId.ClosingClosing, NavDirection.Next)
                 break
             default:
-                Logger.log("normal/home", "action ignored",
+                Logger.log("Normal/Home", "action ignored",
                            "ENTER/CLICK on cursorIndex=" + idx,
                            "unknown action: " + action)
                 break

@@ -1,6 +1,7 @@
 // Main.qml
 // Window + 物理キー → 仮想キー変換層 (§8-4) + 同時押し検出 + 隠しジャンプキー
-//        + ScreenSlot ペア (§3-2) + 右上 debug overlay + 左下ミニキーボード。
+//        + ScreenSlot ペア (§3-2)。
+// 視覚的な POC overlay は別ファイルに分離 (DebugOverlay.qml / MiniKeyboardOverlay.qml)。
 //
 // 移植性メモ:
 //   - Keys.onPressed/onReleased は **POC 限定の物理キー受信** (デスクトップ Qt 6 で
@@ -8,11 +9,10 @@
 //     直接 KeyDispatcher.dispatchToScreen() を呼ぶ形になるため、この層は丸ごと
 //     置き換わる。よってここでは Qt 6 推奨の function(event) 形式を使い、Qt 6 の
 //     deprecation 警告を抑止する (QUL 互換性は不要)。
-//   - 一方、Connections{target: TransitionManager} は singleton 通知パターンの本質
-//     なので不使用。代わりに finishedGen を local property にバインドして on*Changed
-//     で検知する (QUL 互換)。
-//   - 右上 debug overlay、左下ミニキーボード、隠しジャンプキー (1-5) は production
-//     移植時に削除する想定 (POC 動作確認用)。
+//   - Connections{target: TransitionManager} は singleton 通知パターンの本質なので不使用。
+//     代わりに finishedGen を local property にバインドして on*Changed で検知する (QUL 互換)。
+//   - DebugOverlay / MiniKeyboardOverlay / 隠しジャンプキー (1-5) は production 移植時に
+//     削除する想定 (POC 動作確認用)。
 //
 // 同時押し検出ポリシー (キー dispatch の信頼性確保):
 //   View 側は「物理ハードウェアボタン = 排他押下」を前提に設計されている。
@@ -28,9 +28,6 @@
 //        - 物理的に Release されたタイミングの Release 通知: すべて抑制
 //        - Click: 通知しない
 //     3. すべて物理 release された時点で conflict 解除、次の単独押下から正常 dispatch
-//   物理押下状態は常に追跡し、ミニキーボードで:
-//     - 単独押下 (= dispatch 中) → 黄色ハイライト
-//     - 同時押し中 → 赤ハイライト (dispatch 抑制 / 既に解放通知済みの警告)
 //
 // 隠しジャンプキー (POC debug 用、1/2/3/4/5):
 //   1 → normal/home、2 → normal/menu、3 → normal/sample1、4 → normal/sample2a、5 → normal/sample2b
@@ -42,6 +39,8 @@ import Constants
 import Mediator
 // 具体 Screen/View は Loader.source 経由 (qrc URL 文字列) でロードされるだけで、
 // QML 型としての参照は無いため import 不要。
+// DebugOverlay / MiniKeyboardOverlay は同じメインモジュール (URI QulLoaderNavigation) 所属
+// なので import なしで型参照できる。
 
 Window {
     id: window
@@ -51,7 +50,7 @@ Window {
     title: "QUL Loader Navigation POC"
     color: "black"
 
-    // ---- キー入力受け口 ----
+    // ---- キー入力受け口 + dispatch ロジック ----
     Item {
         id: keyHandler
         anchors.fill: parent
@@ -66,7 +65,6 @@ Window {
             if (event.isAutoRepeat) return
 
             // ---- 隠しジャンプキー (POC debug 用、最優先) ----
-            // 物理キー追跡や conflict 検出は完全バイパス。auto-repeat も除外済み。
             var jumpTarget = jumpKeyToViewId(event.key)
             if (jumpTarget !== 0) {
                 Logger.log("Main", "HIDDEN JUMP",
@@ -183,7 +181,7 @@ Window {
                 case Qt.Key_4: return ViewId.NormalSample2a
                 case Qt.Key_5: return ViewId.NormalSample2b
             }
-            return 0  // = ViewId.None (= ジャンプ対象外)
+            return 0
         }
 
         // ---- ScreenSlot ペア (§3-2) ----
@@ -200,239 +198,23 @@ Window {
             active: source !== ""
         }
 
-        // ---- 左下ミニキーボード ----
-        Item {
-            id: miniKeyboard
-            z: 9998
+        // ---- 左下ミニキーボード overlay (POC debug 用) ----
+        MiniKeyboardOverlay {
             anchors.bottom: parent.bottom
             anchors.left: parent.left
             anchors.bottomMargin: 16
             anchors.leftMargin: 16
-            width: 240
-            height: 140
-            opacity: 0.85
-
-            Column {
-                spacing: 4
-
-                // Q W E R 行 (Tab 行、全部未使用)
-                Row {
-                    spacing: 4
-                    x: 0
-                    Repeater {
-                        model: [
-                            { letter: "Q", virt: "", vk: -1, pk: -1 },
-                            { letter: "W", virt: "", vk: -1, pk: -1 },
-                            { letter: "E", virt: "", vk: -1, pk: -1 },
-                            { letter: "R", virt: "", vk: -1, pk: -1 }
-                        ]
-                        delegate: Rectangle {
-                            id: keyQR
-                            width: 52; height: 44; radius: 4
-                            property bool isUsed: modelData.vk >= 0
-                            property bool isPressed: isUsed
-                                && keyHandler.pressedKeys.indexOf(modelData.pk) >= 0
-                            color: isPressed
-                                ? (keyHandler.conflictMode ? "#f44336" : "#ffeb3b")
-                                : (isUsed ? "#404040" : "#1a1a1a")
-                            border.color: isUsed ? "#888888" : "#3a3a3a"
-                            border.width: 1
-                            Column {
-                                anchors.centerIn: parent
-                                spacing: 1
-                                Text {
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    text: modelData.letter
-                                    color: keyQR.isPressed
-                                        ? (keyHandler.conflictMode ? "white" : "#212121")
-                                        : (keyQR.isUsed ? "#cccccc" : "#555555")
-                                    font.pixelSize: keyQR.isUsed ? 10 : 14
-                                    font.bold: !keyQR.isUsed
-                                }
-                                Text {
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    visible: keyQR.isUsed
-                                    text: modelData.virt
-                                    color: (keyQR.isPressed && !keyHandler.conflictMode)
-                                        ? "#212121" : "white"
-                                    font.pixelSize: 11
-                                    font.bold: true
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // A S D F 行 (ホーム行、A/S/D 使用、F 未使用)
-                Row {
-                    spacing: 4
-                    x: 14
-                    Repeater {
-                        model: [
-                            { letter: "A", virt: "PREV",  vk: VirtualKey.Prev,  pk: Qt.Key_A },
-                            { letter: "S", virt: "ENTER", vk: VirtualKey.Enter, pk: Qt.Key_S },
-                            { letter: "D", virt: "NEXT",  vk: VirtualKey.Next,  pk: Qt.Key_D },
-                            { letter: "F", virt: "",      vk: -1,               pk: -1       }
-                        ]
-                        delegate: Rectangle {
-                            id: keyAF
-                            width: 52; height: 44; radius: 4
-                            property bool isUsed: modelData.vk >= 0
-                            property bool isPressed: isUsed
-                                && keyHandler.pressedKeys.indexOf(modelData.pk) >= 0
-                            color: isPressed
-                                ? (keyHandler.conflictMode ? "#f44336" : "#ffeb3b")
-                                : (isUsed ? "#404040" : "#1a1a1a")
-                            border.color: isUsed ? "#888888" : "#3a3a3a"
-                            border.width: 1
-                            Column {
-                                anchors.centerIn: parent
-                                spacing: 1
-                                Text {
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    text: modelData.letter
-                                    color: keyAF.isPressed
-                                        ? (keyHandler.conflictMode ? "white" : "#212121")
-                                        : (keyAF.isUsed ? "#cccccc" : "#555555")
-                                    font.pixelSize: keyAF.isUsed ? 10 : 14
-                                    font.bold: !keyAF.isUsed
-                                }
-                                Text {
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    visible: keyAF.isUsed
-                                    text: modelData.virt
-                                    color: (keyAF.isPressed && !keyHandler.conflictMode)
-                                        ? "#212121" : "white"
-                                    font.pixelSize: 11
-                                    font.bold: true
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Z X C V 行 (Shift 行、Z/X/C 使用、V 未使用)
-                Row {
-                    spacing: 4
-                    x: 42
-                    Repeater {
-                        model: [
-                            { letter: "Z", virt: "MENU", vk: VirtualKey.Menu, pk: Qt.Key_Z },
-                            { letter: "X", virt: "HOME", vk: VirtualKey.Home, pk: Qt.Key_X },
-                            { letter: "C", virt: "BACK", vk: VirtualKey.Back, pk: Qt.Key_C },
-                            { letter: "V", virt: "",     vk: -1,              pk: -1       }
-                        ]
-                        delegate: Rectangle {
-                            id: keyZV
-                            width: 52; height: 44; radius: 4
-                            property bool isUsed: modelData.vk >= 0
-                            property bool isPressed: isUsed
-                                && keyHandler.pressedKeys.indexOf(modelData.pk) >= 0
-                            color: isPressed
-                                ? (keyHandler.conflictMode ? "#f44336" : "#ffeb3b")
-                                : (isUsed ? "#404040" : "#1a1a1a")
-                            border.color: isUsed ? "#888888" : "#3a3a3a"
-                            border.width: 1
-                            Column {
-                                anchors.centerIn: parent
-                                spacing: 1
-                                Text {
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    text: modelData.letter
-                                    color: keyZV.isPressed
-                                        ? (keyHandler.conflictMode ? "white" : "#212121")
-                                        : (keyZV.isUsed ? "#cccccc" : "#555555")
-                                    font.pixelSize: keyZV.isUsed ? 10 : 14
-                                    font.bold: !keyZV.isUsed
-                                }
-                                Text {
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    visible: keyZV.isUsed
-                                    text: modelData.virt
-                                    color: (keyZV.isPressed && !keyHandler.conflictMode)
-                                        ? "#212121" : "white"
-                                    font.pixelSize: 11
-                                    font.bold: true
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            pressedKeys: keyHandler.pressedKeys
+            conflictMode: keyHandler.conflictMode
         }
 
-        // ---- 右上 DEBUG overlay (technical info、ライブ更新) ----
-        Rectangle {
-            id: debugOverlay
-            z: 9999
+        // ---- 右上 debug overlay (POC debug 用) ----
+        DebugOverlay {
             anchors.top: parent.top
             anchors.right: parent.right
             anchors.margins: 8
-            width: 290
-            height: debugColumn.implicitHeight + 16
-            color: "#cc000000"
-            border.color: "#666666"
-            border.width: 1
-            radius: 4
-
-            Column {
-                id: debugColumn
-                anchors.top: parent.top
-                anchors.left: parent.left
-                anchors.right: parent.right
-                anchors.margins: 8
-                spacing: 2
-
-                Text {
-                    text: "current : " + ViewId.nameOf(Mediator.currentViewId)
-                    color: "white"
-                    font.pixelSize: 11
-                }
-                Text {
-                    text: "previous: " + ViewId.nameOf(Mediator.previousViewId)
-                    color: "#bbbbbb"
-                    font.pixelSize: 11
-                }
-                Text {
-                    text: "pending : " + ViewId.nameOf(Mediator.pendingViewId)
-                    color: "#bbbbbb"
-                    font.pixelSize: 11
-                }
-                Text {
-                    text: "history : " + Mediator.history.length + " entries"
-                    color: "#bbbbbb"
-                    font.pixelSize: 11
-                }
-                Text {
-                    text: "TM.state: " + ViewLifecycle.nameOf(TransitionManager.state)
-                    color: "#aaaaaa"
-                    font.pixelSize: 11
-                }
-                Text {
-                    text: "slotA: " + ViewId.nameOf(TransitionManager.viewSlotAViewId)
-                          + " (" + ViewLifecycle.nameOf(TransitionManager.viewSlotALifecycle) + ")"
-                    color: "#aaaaaa"
-                    font.pixelSize: 11
-                }
-                Text {
-                    text: "slotB: " + ViewId.nameOf(TransitionManager.viewSlotBViewId)
-                          + " (" + ViewLifecycle.nameOf(TransitionManager.viewSlotBLifecycle) + ")"
-                    color: "#aaaaaa"
-                    font.pixelSize: 11
-                }
-                Text {
-                    text: "closingAborted: " + Mediator.closingAborted
-                    color: "#888888"
-                    font.pixelSize: 11
-                }
-                Text {
-                    text: "keys: " + keyHandler.pressedKeys.length + " pressed"
-                          + (keyHandler.conflictMode ? "  ⚠ CONFLICT (dispatch suppressed)" : "")
-                    color: keyHandler.conflictMode ? "#f44336" : "#888888"
-                    font.pixelSize: 11
-                    font.bold: keyHandler.conflictMode
-                }
-            }
+            pressedKeysCount: keyHandler.pressedKeys.length
+            conflictMode: keyHandler.conflictMode
         }
 
         // ---- TransitionManager.finishedGen の監視 (Connections 不使用) ----
@@ -446,6 +228,8 @@ Window {
         }
         Component.onCompleted: {
             // ★ DI: TransitionManager に ScreenRegistry を注入 (§3-3)
+            //   Mediator モジュールはメインモジュールの qrc 配置を知らない構造なので、
+            //   ここで URL マップを注入してから navigate を呼ぶ必要がある。
             TransitionManager.screenRegistry = ScreenRegistry
             Logger.log("Main", "DI", "ScreenRegistry",
                        "TransitionManager.screenRegistry = ScreenRegistry")

@@ -46,7 +46,7 @@ ViewBase {
         }
         if (cursorIndex < 0) cursorIndex = 0
         enterPressed = false
-        Logger.log("normal/menu", "onEntering cursor init",
+        Logger.log("Normal/Menu", "onEntering cursor init",
                    "previousViewId=" + ViewId.nameOf(prev),
                    "cursorIndex: " + oldCursor + " → " + cursorIndex)
     }
@@ -119,25 +119,25 @@ ViewBase {
             case VirtualKey.Prev:
                 if (menu.cursorIndex > 0) {
                     menu.cursorIndex = menu.cursorIndex - 1
-                    Logger.log("normal/menu", "cursor moved", "PREV/CLICK",
+                    Logger.log("Normal/Menu", "cursor moved", "PREV/CLICK",
                                "cursorIndex=" + menu.cursorIndex)
                 } else {
-                    Logger.log("normal/menu", "cursor unchanged", "PREV/CLICK",
+                    Logger.log("Normal/Menu", "cursor unchanged", "PREV/CLICK",
                                "already 0 (boundary)")
                 }
                 break
             case VirtualKey.Next:
                 if (menu.cursorIndex < menu.iconCount - 1) {
                     menu.cursorIndex = menu.cursorIndex + 1
-                    Logger.log("normal/menu", "cursor moved", "NEXT/CLICK",
+                    Logger.log("Normal/Menu", "cursor moved", "NEXT/CLICK",
                                "cursorIndex=" + menu.cursorIndex)
                 } else {
-                    Logger.log("normal/menu", "cursor unchanged", "NEXT/CLICK",
+                    Logger.log("Normal/Menu", "cursor unchanged", "NEXT/CLICK",
                                "already " + (menu.iconCount - 1) + " (boundary)")
                 }
                 break
             case VirtualKey.Back:
-                Logger.log("normal/menu", "action", "BACK/CLICK",
+                Logger.log("Normal/Menu", "action", "BACK/CLICK",
                            "switchView(normal/home, Back)")
                 Mediator.switchView(ViewId.NormalHome, NavDirection.Back)
                 break
@@ -152,12 +152,12 @@ ViewBase {
             case "sample2a": targetId = ViewId.NormalSample2a; break
             case "sample2b": targetId = ViewId.NormalSample2b; break
             default:
-                Logger.log("normal/menu", "action ignored",
+                Logger.log("Normal/Menu", "action ignored",
                            "ENTER/CLICK on cursorIndex=" + idx,
                            "unknown action: " + action)
                 return
         }
-        Logger.log("normal/menu", "action", "ENTER/CLICK",
+        Logger.log("Normal/Menu", "action", "ENTER/CLICK",
                    "switchView(" + ViewId.nameOf(targetId) + ", Next)")
         Mediator.switchView(targetId, NavDirection.Next)
     }

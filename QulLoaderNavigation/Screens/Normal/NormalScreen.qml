@@ -154,13 +154,13 @@ ScreenBase {
     function handleAbsorb(vk, ve) {
         if (ve === VirtualEvent.Click) {
             if (vk === VirtualKey.Menu) {
-                Logger.log("normalScreen", "absorb", "vk=MENU/CLICK",
+                Logger.log("NormalScreen", "absorb", "vk=MENU/CLICK",
                            "action=switchView(normal/menu, Next)")
                 Mediator.switchView(ViewId.NormalMenu, NavDirection.Next)
                 return true
             }
             if (vk === VirtualKey.Home) {
-                Logger.log("normalScreen", "absorb", "vk=HOME/CLICK",
+                Logger.log("NormalScreen", "absorb", "vk=HOME/CLICK",
                            "action=switchView(normal/home, Next)")
                 Mediator.switchView(ViewId.NormalHome, NavDirection.Next)
                 return true

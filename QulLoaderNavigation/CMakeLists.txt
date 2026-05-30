@@ -40,6 +40,9 @@ qt_add_qml_module(appQulLoaderNavigation
     VERSION 1.0
     QML_FILES
         Main.qml
+        # POC 専用 overlay (production 移植時は削除)
+        DebugOverlay.qml
+        MiniKeyboardOverlay.qml
         # メインモジュール所属 singleton
         Screens/ScreenRegistry.qml
         Screens/HelpRegistry.qml
@@ -78,6 +81,7 @@ set_target_properties(appQulLoaderNavigation PROPERTIES
     MACOSX_BUNDLE TRUE
     WIN32_EXECUTABLE TRUE
 )
+
 
 install(TARGETS appQulLoaderNavigation
     BUNDLE DESTINATION .
