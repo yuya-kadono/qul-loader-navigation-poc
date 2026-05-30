@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>QUL Loader Navigation POC — Signal Flow Animation</title>
+<!-- favicon: 小さな青丸 (404 抑止用、外部ファイル不要の data URI) -->
+<link rel="icon" type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='6' fill='%2364b5f6'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>QUL Loader Navigation POC — Signal Flow Animation
+  <span class="sub">アクター間のメッセージの動きで内部フローを可視化</span>
+</h1>
+
+<!-- Row 1: シナリオ選択 + 再生コントロール + 速度 -->
+<div class="controls">
+  <label>シナリオ
+    <select id="scenarioSel">
+      <option value="startup">① 起動 → Opening → Home (cross-screen 遷移)</option>
+      <option value="basicKey">② 基本キーフロー (A タップ → PREV Press / Release / Click)</option>
+      <option value="nav">③ 画面遷移 (Home で ENTER → switchView(menu, Next))</option>
+      <option value="closing">④ Closing 中断 (Closing 中に BACK → 中断 → home)</option>
+      <option value="sample2">⑤ Sample 2A → 2B (同 QML 別 ViewId)</option>
+    </select>
+  </label>
+  <button id="playBtn" class="primary">▶ 再生</button>
+  <button id="prevBtn" title="1 step 戻る">◀</button>
+  <button id="nextBtn" title="1 step 進む">▶|</button>
+  <button id="resetBtn">⟲ リセット</button>
+  <label>速度 <input type="range" id="speedSlider" min="0.5" max="2.0" step="0.25" value="1"></label>
+  <span id="speedVal" class="speed-val">1.0×</span>
+  <span class="flex-spacer"></span>
+  <span id="statusText" class="status-text">待機中</span>
+</div>
+
+<!-- Row 2: シークバー (任意 step へジャンプ) -->
+<div class="seek-row">
+  <span class="seek-label">Step</span>
+  <input type="range" id="seekBar" min="0" max="0" step="1" value="0">
+  <span id="seekText" class="seek-text">0 / 0</span>
+</div>
+
+<div class="scenario-desc" id="scenarioDesc"></div>
+
+<div class="main">
+  <div class="stage-wrap">
+    <svg id="stage" viewBox="0 0 1700 770" preserveAspectRatio="xMidYMid meet"></svg>
+  </div>
+  <div class="right-column">
+    <div id="debugPanel" class="debug-panel"></div>
+    <div class="log">
+      <h3>進行ログ</h3>
+      <div id="logBody"></div>
+    </div>
+  </div>
+</div>
+
+<!-- 依存順: actors → groups → SCENARIOS 初期化 → 各シナリオ → engine/playback/app -->
+<script src="actors.js"></script>
+<script src="groups.js"></script>
+<script src="scenarios.js"></script>
+<script src="sc
