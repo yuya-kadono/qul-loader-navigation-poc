@@ -36,9 +36,12 @@ Item {
     property color  accentColor: "#404040"      // 派生で identity 色を指定 (= 上部 6px ライン色)
 
     // ---- TransitionManager から view 状態を取得 ----
+    // 機能で使うのは myLifecycle だけ (reactToLifecycle を駆動)。
+    // direction / partner はログ表示専用なので live binding を持たず、
+    // ログ出力時に TransitionManager.directionOf / partnerOf を都度呼ぶ。
+    // → 各 view が TransitionManager に持つ reactive 結合を 3 本から 1 本に削減し、
+    //   遷移中の slot メタデータ書き換えによる再評価 fan-out を抑える。
     readonly property int    myLifecycle: TransitionManager.lifecycleOf(thisViewId)
-    readonly property int    myDirection: TransitionManager.directionOf(thisViewId)
-    readonly property int    myPartnerId: TransitionManager.partnerOf(thisViewId)
 
     opacity: 0  // 初期は不可視
 
@@ -132,11 +135,17 @@ Item {
     property bool reactedInitial: false
 
     function reactToLifecycle() {
+        // 昇格/解放で lifecycle が Idle に戻ったときの空振り発火を無視する。
+        // (finalizeTransition が Entering/Leaving → Idle に書き戻す瞬間に
+        //  onMyLifecycleChanged が 1 回鳴るが、ここでは何もすることがない)
+        if (myLifecycle === ViewLifecycle.Idle) return
         reactedInitial = true
+        var lcDir = TransitionManager.directionOf(thisViewId)
+        var lcPartner = TransitionManager.partnerOf(thisViewId)
         Logger.log(ViewId.nameOf(root.thisViewId), "reactToLifecycle", "",
                    "myLifecycle=" + ViewLifecycle.nameOf(myLifecycle)
-                   + ", direction=" + NavDirection.nameOf(myDirection)
-                   + ", partner=" + (myPartnerId !== 0 ? ViewId.nameOf(myPartnerId) : "(none)"))
+                   + ", direction=" + NavDirection.nameOf(lcDir)
+                   + ", partner=" + (lcPartner !== 0 ? ViewId.nameOf(lcPartner) : "(none)"))
         if (myLifecycle === ViewLifecycle.Entering) {
             onEntering()
             performEnter()

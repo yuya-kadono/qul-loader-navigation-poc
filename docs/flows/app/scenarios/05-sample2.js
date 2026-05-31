@@ -6,7 +6,7 @@
 SCENARIOS.sample2 = {
     title: '⑤ Sample 2A → Sample 2B (同 QML、別 ViewId)',
     precondition: {
-        mediator: { current: 'NormalSample2a', prev: 'NormalMenu', pending: 'NormalSample2a', history: '[…, NormalMenu]' },
+        mediator: { current: 'NormalSample2a', prev: 'NormalMenu', pending: 'NormalSample2a', debugHistory: '[…, NormalMenu]' },
         screenSlotB: { source: 'NormalScreen.qml', active: 'true' },
         transMgr: { phase: 'Idle', screenSrcB: 'NormalScreen.qml' },
     },
@@ -20,8 +20,8 @@ SCENARIOS.sample2 = {
         { from: 'keyDisp', to: 'sample2aView', label: 'viewEventGen++',               kind: 'msg' },
         { from: 'sample2aView', to: 'sample2aView', label: 'onViewKey(NEXT, Click)\n→ Sample2A は次は 2B', kind: 'self' },
         { from: 'sample2aView', to: 'mediator', label: 'switchView(NormalSample2b, Next)', kind: 'action' },
-        { from: 'mediator', to: 'mediator', label: 'history.push(NormalSample2a)\npending = NormalSample2b', kind: 'self',
-          setState: { mediator: { current: 'NormalSample2b', prev: 'NormalSample2a', history: '[…, NormalSample2a]' } } },
+        { from: 'mediator', to: 'mediator', label: 'debugHistory.push(NormalSample2a)\npending = NormalSample2b', kind: 'self',
+          setState: { mediator: { current: 'NormalSample2b', prev: 'NormalSample2a', debugHistory: '[…, NormalSample2a]' } } },
         { from: 'mediator', to: 'transMgr', label: 'startTransition(NormalSample2b, Next)', kind: 'action' },
         { from: 'transMgr', to: 'loaderA',  label: '現 view を保持 (current 側 = Sample2A)', kind: 'msg' },
         { from: 'transMgr', to: 'loaderB',  label: 'source = Sample2View.qml\n(★ 同 QML を entering 側にも load)', kind: 'action' },

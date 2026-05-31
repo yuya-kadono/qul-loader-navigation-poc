@@ -62,7 +62,7 @@ ScreenBase {
             anchors.rightMargin: 12
             anchors.verticalCenter: parent.verticalCenter
             text: "Footer    |    ← " + ViewId.nameOf(Mediator.previousViewId)
-                  + "    |    history: " + Mediator.history.length
+                  + "    |    history: " + Mediator.debugHistory.length
             color: "#9e9e9e"
             font.pixelSize: 11
         }

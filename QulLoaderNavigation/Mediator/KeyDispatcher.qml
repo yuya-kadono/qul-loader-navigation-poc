@@ -37,10 +37,15 @@ QtObject {
 
     // ---- 配送 API ----
     function dispatchToScreen(vk, ve) {
+        // enabled ガードを先頭へ: 抑制中 (遷移アニメ中) は nameOf 2 回 + 文字列連結を
+        // 走らせず固定文字列ログだけで即 return する (デバッグ追跡性は維持)。
+        if (!enabled) {
+            Logger.log("KeyDispatcher", "dispatchToScreen suppressed (disabled)", "", "")
+            return
+        }
         Logger.log("KeyDispatcher", "dispatchToScreen",
                    "vk=" + VirtualKey.nameOf(vk) + ", ev=" + VirtualEvent.nameOf(ve),
                    "enabled=" + enabled)
-        if (!enabled) return
         screenEventVk = vk
         screenEventVe = ve
         screenEventGen = screenEventGen + 1  // 受け手の binding を更新
@@ -49,10 +54,14 @@ QtObject {
                    "gen=" + screenEventGen)
     }
     function dispatchToView(vk, ve) {
+        // enabled ガードを先頭へ (dispatchToScreen と同方針)。
+        if (!enabled) {
+            Logger.log("KeyDispatcher", "dispatchToView suppressed (disabled)", "", "")
+            return
+        }
         Logger.log("KeyDispatcher", "dispatchToView",
                    "vk=" + VirtualKey.nameOf(vk) + ", ev=" + VirtualEvent.nameOf(ve),
                    "enabled=" + enabled)
-        if (!enabled) return
         viewEventVk = vk
         viewEventVe = ve
         viewEventGen = viewEventGen + 1

@@ -1,5 +1,6 @@
 // Sample1View.qml
-// サンプル①: ナビゲーション履歴 (Mediator.history) を表示する画面。
+// サンプル①: ナビゲーション履歴 (Mediator.debugHistory) を表示する画面。
+// 注: debugHistory はデバッグ/デモ表示専用。正式なナビゲーション処理では使わない。
 // 履歴が長くなって画面に収まらなくなった時のために Flickable + 自前 scrollbar を用意。
 //
 // 操作:
@@ -46,7 +47,7 @@ ViewBase {
             }
             Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: Mediator.history.length + " view(s) visited before this one"
+                text: Mediator.debugHistory.length + " view(s) visited before this one"
                 color: "#9e9e9e"
                 font.pixelSize: 12
             }
@@ -95,7 +96,7 @@ ViewBase {
 
                 // 履歴リスト
                 Repeater {
-                    model: Mediator.history
+                    model: Mediator.debugHistory
                     delegate: Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: (index + 1) + ".  " + ViewId.nameOf(modelData)

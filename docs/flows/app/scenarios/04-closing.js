@@ -6,7 +6,7 @@
 SCENARIOS.closing = {
     title: '④ Closing 中断 (BACK で home へ)',
     precondition: {
-        mediator: { current: 'ClosingClosing', prev: 'NormalHome', pending: 'ClosingClosing', history: '[]' },
+        mediator: { current: 'ClosingClosing', prev: 'NormalHome', pending: 'ClosingClosing', debugHistory: '[]' },
         screenSlotB: { source: 'ClosingScreen.qml', active: 'true' },
         transMgr: { phase: 'Idle', screenSrcB: 'ClosingScreen.qml' },
     },
@@ -25,7 +25,7 @@ SCENARIOS.closing = {
         { from: 'closingView', to: 'closingView', label: 'closingTimer.stop()\n① Qt.quit を未然に防ぐ', kind: 'self' },
         // ② 通常の switchView で HomeView へ
         { from: 'closingView', to: 'mediator', label: 'switchView(NormalHome, Back)\n② 通常のナビ (中断専用 API なし)', kind: 'action',
-          setState: { mediator: { current: 'NormalHome', prev: 'ClosingClosing', history: '[ClosingClosing]' } } },
+          setState: { mediator: { current: 'NormalHome', prev: 'ClosingClosing', debugHistory: '[ClosingClosing]' } } },
         { from: 'mediator', to: 'transMgr', label: 'startTransition(NormalHome, Back)\nscreenChanged=true', kind: 'msg',
           setState: { transMgr: { phase: 'Loading', screenSrcA: 'NormalScreen.qml' } } },
         // NormalScreen を ★空いている ScreenSlot A 側★ に新規 load

@@ -124,7 +124,7 @@ sequenceDiagram
 ```mermaid
 flowchart TB
     Trig[操作 / 自己発火] -->|switchView viewId, direction| Med[Mediator]
-    Med -->|currentViewId 更新<br>history push<br>pendingViewId 公開| Med
+    Med -->|currentViewId 更新<br>debugHistory push<br>pendingViewId 公開| Med
     Med -->|startTransition| TM[TransitionManager]
     TM -->|KeyDispatcher.enabled=false<br>state=InProgress| Block((入力一時停止))
     TM -->|screen 変化なら screen QML ロード| SL[ScreenSlot A/B]
@@ -157,7 +157,7 @@ sequenceDiagram
     participant Loader as NormalScreen 内 ViewSlot B
 
     NS->>Med: switchView(ViewId.NormalMenu, Next)
-    Med->>Med: pendingViewId = ViewId.NormalMenu<br>history.push, currentViewId 更新
+    Med->>Med: pendingViewId = ViewId.NormalMenu<br>debugHistory.push, currentViewId 更新
     Med->>TM: startTransition(ViewId.NormalMenu, Next)
     TM->>TM: enabled=false / state=InProgress
     Note over TM: screen 同じ → ScreenSlot 触らず
@@ -195,7 +195,7 @@ sequenceDiagram
     participant CV as ClosingView (new)
 
     Home->>Med: switchView(ViewId.ClosingClosing, Next)
-    Med->>Med: history クリア<br>pendingViewId 公開
+    Med->>Med: debugHistory クリア<br>pendingViewId 公開
     Med->>TM: startTransition(ViewId.ClosingClosing, Next)
     TM->>TM: enabled=false / state=InProgress
 
@@ -283,7 +283,7 @@ flowchart TB
 
     subgraph Med-処理[Mediator]
         Med1[pendingViewId = ViewId.NormalSample2b]
-        Med2[currentViewId, previousViewId, history 更新]
+        Med2[currentViewId, previousViewId, debugHistory 更新]
         Med1 --> Med2
     end
 

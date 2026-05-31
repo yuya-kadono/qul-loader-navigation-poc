@@ -6,7 +6,7 @@
 SCENARIOS.basicKey = {
     title: '② 基本キーフロー',
     precondition: {
-        mediator: { current: 'NormalHome', pending: 'NormalHome', history: '[]' },
+        mediator: { current: 'NormalHome', pending: 'NormalHome', debugHistory: '[]' },
         screenSlotB: { source: 'NormalScreen.qml', active: 'true' },
         transMgr: { phase: 'Idle', screenSrcB: 'NormalScreen.qml' },
     },

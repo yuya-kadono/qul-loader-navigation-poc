@@ -14,7 +14,12 @@ QtObject {
     // ---- 状態 ----
     property int currentViewId:  0
     property int previousViewId: 0
-    property var history: []          // int の配列、末尾が最新
+    // ★ デバッグ/デモ表示専用。正式なナビゲーション処理では使わない。
+    //   戻り先・進み先は各 view が switchView で明示指定する設計 (§2 / §6) なので、
+    //   この履歴配列を読んで遷移を決めるコードは存在しない。表示するのは Sample1View
+    //   と NormalScreen フッターのみ。本番移植時は削除可。
+    //   (1 個前の view だけで足りるカーソル復元は previousViewId を使う — そちらは本番でも必要)
+    property var debugHistory: []     // int の配列、末尾が最新 (デバッグ表示専用)
 
     // ---- 次にロードされる view の ID (§9-10: ViewBase が自己取得用に参照) ----
     // switchView の冒頭で立てる。同一 QML を別 ID で再利用する view
@@ -33,22 +38,22 @@ QtObject {
                    + ", direction=" + NavDirection.nameOf(direction),
                    "currentViewId=" + ViewId.nameOf(currentViewId)
                    + ", previousViewId=" + ViewId.nameOf(previousViewId)
-                   + ", history.length=" + history.length)
+                   + ", debugHistory.length=" + debugHistory.length)
 
         // ViewBase が次にロードされる view の ID をスナップショットするための先行公開
         pendingViewId = viewId
 
         if (viewId === ViewId.ClosingClosing) {
             // closing に入る時点で履歴クリア (もう戻り先はない)
-            history = []
+            debugHistory = []
             Logger.log("Mediator", "closing entry reset",
-                       "", "history cleared")
+                       "", "debugHistory cleared")
         } else {
-            // 通常: 旧 currentViewId を history に push
+            // 通常: 旧 currentViewId を debugHistory に push
             if (currentViewId !== 0) {
-                var newHistory = history.slice()
+                var newHistory = debugHistory.slice()
                 newHistory.push(currentViewId)
-                history = newHistory
+                debugHistory = newHistory
             }
         }
         previousViewId = currentViewId
@@ -56,7 +61,7 @@ QtObject {
         Logger.log("Mediator", "state updated", "",
                    "currentViewId=" + ViewId.nameOf(currentViewId)
                    + ", previousViewId=" + ViewId.nameOf(previousViewId)
-                   + ", history.length=" + history.length)
+                   + ", debugHistory.length=" + debugHistory.length)
         TransitionManager.startTransition(viewId, direction)
     }
 }

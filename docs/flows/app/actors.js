@@ -11,7 +11,7 @@ const ACTORS = {
 
     // ---- Mediator module 内 ----
     mediator:   { x:  50, y: 240, w: 140, h: 50, label: 'Mediator',           sub: 'singleton',        cls: 'singleton',
-                preInstantiated: true, initialState: { current: '(none)', prev: '(none)', pending: '(none)', history: '[]' } },
+                preInstantiated: true, initialState: { current: '(none)', prev: '(none)', pending: '(none)', debugHistory: '[]' } },
     transMgr:   { x:  40, y: 360, w: 160, h: 50, label: 'TransitionManager',  sub: 'singleton',        cls: 'singleton',
                 preInstantiated: true, initialState: { phase: 'Idle', screenSrcA: '(empty)', screenSrcB: '(empty)' } },
 

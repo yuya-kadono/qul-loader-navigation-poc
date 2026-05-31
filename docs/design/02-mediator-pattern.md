@@ -72,3 +72,32 @@ Loader { sourceComponent: pageComp }
 
 **例外**: 本 POC をデスクトップ Qt 6 で検証するための **物理キー受信層 (`Main.qml` の `Keys.onPressed` / `onReleased`)** のみ、Qt 6 推奨の `function(event) { ... }` 形式を使う。実機 MCU 移植時には物理ボタンから直接 `KeyDispatcher.dispatchToScreen()` を呼ぶため、この層は丸ごと置き換わる。
 
+### 2-4. ログ専用の値は live binding にしない
+
+property-token パターン (§2-3) で singleton 状態を購読するとき、その値を
+**「機能」で使うのか「ログ表示」でしか読まないのか** を区別する。ログ専用の値に
+`readonly property` の live binding を張ると、singleton が関連プロパティを書き換える
+たびにマウント中の全インスタンスでバインディング再評価が走る (無駄な fan-out)。
+ログのためだけにこの再評価コストを払うのは割に合わず、MCU 移植先では純粋な浪費になる。
+
+方針:
+
+- **機能で参照する値だけ** を live binding (`readonly property` + `on<Property>Changed`)
+  で購読する。
+- **ログでしか使わない付随値** は binding を持たず、ログ出力の直前に getter 関数
+  (`directionOf` / `partnerOf` 等) をその場で呼んでローカル `var` に取る。
+
+実例 (`ViewBase.qml`): 遷移状態の購読を 3 本 → 1 本に削減した。`myLifecycle` は
+enter/leave を駆動する「機能」なので live binding のまま残し、`myDirection` /
+`myPartnerId` は `reactToLifecycle` のログ生成時にしか読まれないため live binding を
+撤去し、ログ時に `TransitionManager.directionOf/partnerOf(thisViewId)` を都度呼ぶ形に
+した。これで `startTransition` が slot メタデータ (ID/direction/partner) を書き換える
+たびに全 view で起きていた再評価 fan-out が、機能に必要な 1 本分だけになる。
+
+関連する小技 (ログ自体を減らす):
+
+- `enabled` 等のガードは `Logger.log` より **前** に置き、抑制パスでは `nameOf` +
+  文字列連結を走らせない (`KeyDispatcher.dispatchToScreen/View`)。
+- lifecycle が Idle に戻るときの空振り `on<Property>Changed` は早期 return で握りつぶす
+  (`ViewBase.reactToLifecycle` 冒頭の `if (myLifecycle === ViewLifecycle.Idle) return`)。
+
